@@ -39,6 +39,16 @@ app.get("/delete", (req, res) => {
 	res.sendFile(__dirname + "/public/delete.html");
 });
 
+app.get("/search", (req, res) => {
+	database.find({ title: req.query.query }, (err, data) => {
+		console.log(data);
+		res.status(200);
+		res.render(__dirname + "/public/views/search.ejs", {
+			data: JSON.stringify(data)
+		});
+	});
+});
+
 app.delete("/Media/:id", (req, res) => {
 	try {
 		database.remove({ name: req.params.id });
@@ -67,7 +77,7 @@ app.get("/Player/:id", (req, res) => {
 	});
 });
 
-app.post("/uploadstatus", async (req, res) => {
+app.post("/upload", async (req, res) => {
 	if (req.files) {
 		let file = req.files.file;
 		let ext = path.extname(file.name);
@@ -78,7 +88,7 @@ app.post("/uploadstatus", async (req, res) => {
 				res.send(err);
 			} else {
 				let type = await fileTypeFromFile("./public/Media/" + filename);
-				let added_date = `${date.getDate()}.${date.getMonth()}.${date.getFullYear()}`
+				let added_date = `${date.getDate()}.${date.getMonth()}.${date.getFullYear()}`;
 				database.insert({
 					name: filename,
 					desc: req.body.desc,
