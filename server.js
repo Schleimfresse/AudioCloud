@@ -2,15 +2,20 @@ const express = require("express");
 const Datastore = require("nedb");
 const upload = require("express-fileupload");
 const app = express();
+const path = require("path");
 const fs = require("fs");
+
 const port = process.env.PORT || 3000;
 const server = require("http").createServer(app);
 app.use(require("body-parser").json({ limit: "1mb" }));
 app.use(upload());
 app.use(express.static(__dirname + "/public"));
-server.listen(port, () => {
-	console.log(`app listening at Port: ${port}`);
-});
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "public/views/"));
+app.use(express.urlencoded({ extended: true })),
+	server.listen(port, () => {
+		console.log(`app listening at Port: ${port}`);
+	});
 const database = new Datastore("database.db");
 database.loadDatabase();
 
@@ -39,23 +44,31 @@ app.delete("/Media/:id", (req, res) => {
 		res.status(500);
 	}
 });
-
-app.get("/Media/:id", (req, res) => {
-	res.status(200);
-	res.sendFile(__dirname + "/Media/" + req.params.id);
+app.get("/Player/:id", (req, res) => {
+	database.find({ name: req.params.id }, (err, data) => {
+		if (err || data === null) {
+			res.status(500);
+			res.send("Information could not be accessed.");
+			res.end();
+			return;
+		}
+		data = data.shift();
+		console.log(data);
+		res.status(200);
+		res.render(__dirname + "/public/views/player.ejs", { data: { medium: req.params.id, info: JSON.stringify(data) } });
+	});
 });
 
 app.post("/uploadstatus", (req, res) => {
 	if (req.files) {
 		let file = req.files.file;
 		let filename = file.name;
-
 		file.mv("./public/Media/" + filename, function (err) {
 			if (err) {
 				res.status(500);
 				res.send(err);
 			} else {
-				database.insert({ name: filename });
+				database.insert({ name: filename, desc: req.body.desc, artist: req.body.artist, title: req.body.title });
 				res.status(200);
 				res.sendFile(__dirname + "/public/success.html");
 			}

@@ -14,7 +14,7 @@ body {
 	min-height: 100vh;
 	min-width: 100vw;
     background-color: rgb(34, 34, 34);
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
 a {
@@ -37,6 +37,7 @@ a {
 	padding: 0.5em 1em 0.5em 1em;
 	cursor: pointer;
 	color: white;
+    outline: none;
 }
 
 .center {

@@ -1,17 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="./css/upload.css">
-    <link rel="stylesheet" href="./css/global.css">
-</head>
-<body>
-    <form id="upload_form" method="post" action="/uploadstatus" enctype="multipart/form-data">
-        <input type="file" accept="audio/*, video/*" class="std_btn_file_btn" name="file">
-        <input type="submit" class="std_btn slide" value="Upload">
-    </form>
-</body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<link rel="stylesheet" href="./css/upload.css" />
+		<link rel="stylesheet" href="./css/global.css" />
+	</head>
+	<body>
+		<form id="upload_form" method="post" action="/uploadstatus" enctype="multipart/form-data">
+			<input
+				type="file"
+				required
+				accept="audio/*, video/*"
+				id="fileinput"
+				class="std_btn_file_btn"
+				name="file"
+			/>
+			<input type="text" required class="std_btn" placeholder="Title" name="title" />
+			<input type="text" class="std_btn" placeholder="Description" name="desc" />
+			<input type="text" class="std_btn" placeholder="Artist" name="artist" />
+			<input type="submit" class="std_btn slide" value="Upload" />
+			<div style="display: none;" id="dur" name="duration"></div>
+		</form>
+	</body>
+
 </html>

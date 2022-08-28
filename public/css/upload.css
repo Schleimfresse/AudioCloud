@@ -5,7 +5,8 @@ body {
 }
 #upload_form {
 	display: flex;
-	align-items: center;
+	align-items: flex-start;
 	justify-content: center;
 	position: absolute;
+    flex-direction: column;
 }

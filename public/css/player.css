@@ -1,0 +1,64 @@
+html,
+body{
+    max-width: 100vw;
+    max-height: 100vh;
+}
+
+video {
+	width: 100%;
+	height: 100%;
+	left: 55px;
+	top: 0px;
+}
+
+#video-wrapper {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	overflow: hidden;
+	z-index: 0;
+	outline: 0;
+	position: relative;
+	width: 100%;
+	height: 56.25vw;
+	max-height: calc(100vh - 169px);
+	min-height: 480px;
+	background-color: black;
+}
+
+#information {
+	padding-top: 20px;
+	padding-bottom: 8px;
+    display: flex;
+    flex-direction: column;
+}
+AudioCloud-TrackTitle {
+	line-height: 2.6rem;
+	font-weight: 400;
+	word-break: break-word;
+	font-size: 24px;
+	position: relative;
+}
+
+AudioCloud-Artist{
+    padding-top: 4px;
+    padding-bottom: 4px;
+    font-size: 1.2rem;
+}
+
+#container{
+    width: 100vw;
+    position: relative;
+    height: fit-content;
+    display: flex;
+
+}
+
+#spacing {
+	position: relative;
+	top: 0;
+	left: 0;
+	height: 100vh;
+	visibility: visible;
+	width: 20px;
+}
