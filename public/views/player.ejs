@@ -11,10 +11,14 @@
 			const information = <%- data.info %>;
 		</script>
 		<script defer src="../js/player.js"></script>
+		<script defer type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 		<link rel="stylesheet" href="../css/player.css" />
 		<link rel="stylesheet" href="../css/global.css" />
 	</head>
 	<body>
+		<header>
+		 <div id="menu"><a id="menu-link" href="/"><ion-icon name="musical-notes-outline"></ion-icon><span><span class="bold">A</span>udioCloud</span></a></div>
+		</header>
 		<main>
 			<div id="video-wrapper"></div>
 			<div id="container">
@@ -23,7 +27,7 @@
 					<AudioCloud-TrackTitle></AudioCloud-TrackTitle>
                     <AudioCloud-Description></AudioCloud-Description>
                     <AudioCloud-Artist></AudioCloud-Artist>
-                    <AudioCloud-Length></AudioCloud-Length>
+                    <AudioCloud-AddedOn></AudioCloud-AddedOn>
 				</div>
 			</div>
 		</main>

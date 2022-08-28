@@ -1,10 +1,16 @@
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
 const express = require("express");
 const Datastore = require("nedb");
 const upload = require("express-fileupload");
 const app = express();
+const date = new Date();
 const path = require("path");
+const __filename = fileURLToPath(import.meta.url);
+import { fileURLToPath } from "url";
+const __dirname = path.dirname(__filename);
 const fs = require("fs");
-
+import { fileTypeFromFile } from "file-type";
 const port = process.env.PORT || 3000;
 const server = require("http").createServer(app);
 app.use(require("body-parser").json({ limit: "1mb" }));
@@ -55,20 +61,32 @@ app.get("/Player/:id", (req, res) => {
 		data = data.shift();
 		console.log(data);
 		res.status(200);
-		res.render(__dirname + "/public/views/player.ejs", { data: { medium: req.params.id, info: JSON.stringify(data) } });
+		res.render(__dirname + "/public/views/player.ejs", {
+			data: { medium: req.params.id, info: JSON.stringify(data) },
+		});
 	});
 });
 
-app.post("/uploadstatus", (req, res) => {
+app.post("/uploadstatus", async (req, res) => {
 	if (req.files) {
 		let file = req.files.file;
-		let filename = file.name;
-		file.mv("./public/Media/" + filename, function (err) {
+		let ext = path.extname(file.name);
+		let filename = req.body.title + ext;
+		file.mv(`./public/Media/${filename}`, async function (err) {
 			if (err) {
 				res.status(500);
 				res.send(err);
 			} else {
-				database.insert({ name: filename, desc: req.body.desc, artist: req.body.artist, title: req.body.title });
+				let type = await fileTypeFromFile("./public/Media/" + filename);
+				let added_date = `${date.getDate()}.${date.getMonth()}.${date.getFullYear()}`
+				database.insert({
+					name: filename,
+					desc: req.body.desc,
+					artist: req.body.artist,
+					title: req.body.title,
+					mime: type,
+					added: added_date,
+				});
 				res.status(200);
 				res.sendFile(__dirname + "/public/success.html");
 			}
