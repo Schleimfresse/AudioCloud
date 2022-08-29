@@ -4,6 +4,7 @@
 	color: white;
 	--hover: rgb(87, 87, 87);
 	--border: #404040;
+	--bg: rgb(34, 34, 34);
 	transition: 250ms;
 }
 
@@ -13,7 +14,7 @@ body {
 	margin: 0;
 	min-height: 100vh;
 	min-width: 100vw;
-	background-color: rgb(34, 34, 34);
+	background-color: var(--bg);
 	overflow-x: hidden;
 }
 
@@ -135,11 +136,14 @@ ion-icon {
 }
 
 header {
+	z-index: 100;
 	border-bottom: rgb(211, 226, 5) 1px solid;
+	background-color: var(--bg);
 	min-height: fit-content;
 	min-width: 100vw;
 	height: 3rem;
 	display: flex;
+	position: fixed;
 }
 
 .square_button{
@@ -152,4 +156,21 @@ header {
 .row{
 	display: flex;
 	flex-direction: row;
+}
+
+.no_margin_left{
+	margin-left: 0;
+}
+
+.no_margin_right{
+	margin-right: 0;
+}
+
+.no_padding-top-bot{
+	padding-bottom: 0;
+	padding-top: 0;
+}
+main {
+	top: 49px;
+	position: absolute;
 }

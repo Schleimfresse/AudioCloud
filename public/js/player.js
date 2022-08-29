@@ -1,6 +1,7 @@
 const video = document.createElement('video');
 video.src = `/Media/${filename}`;
 video.controls = true;
+video.setAttribute('controlsList', 'nodownload')
 video.innerText = "Sorry, your browser doesn't support embedded videos/audios"
 document.getElementById('video-wrapper').append(video);
 // ###################################################################################

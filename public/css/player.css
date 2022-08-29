@@ -1,7 +1,7 @@
 html,
-body{
-    max-width: 100vw;
-    max-height: 100vh;
+body {
+	max-width: 100vw;
+	max-height: 100vh;
 }
 
 video {
@@ -18,8 +18,8 @@ video {
 	overflow: hidden;
 	z-index: 0;
 	outline: 0;
-	position: relative;
 	width: 100%;
+	top: 49px;
 	height: 56.25vw;
 	max-height: calc(100vh - 169px);
 	min-height: 480px;
@@ -29,8 +29,11 @@ video {
 #information {
 	padding-top: 20px;
 	padding-bottom: 8px;
-    display: flex;
-    flex-direction: column;
+	border-bottom: 1px solid var(--border);
+}
+AudioCloud-Description {
+	padding-top: 4px;
+	padding-bottom: 4px;
 }
 AudioCloud-TrackTitle {
 	line-height: 2.6rem;
@@ -40,18 +43,21 @@ AudioCloud-TrackTitle {
 	position: relative;
 }
 
-AudioCloud-Artist{
-    padding-top: 4px;
-    padding-bottom: 4px;
-    font-size: 1.2rem;
+AudioCloud-Artist {
+	padding-top: 6px;
+	padding-bottom: 6px;
+	font-size: 1.3rem;
 }
 
-#container{
-    width: 100vw;
-    position: relative;
-    height: fit-content;
-    display: flex;
+AudioCloud-AddedOn {
+	color: #979797;
+}
 
+#container {
+	width: 100vw;
+	position: relative;
+	height: fit-content;
+	display: flex;
 }
 
 #spacing {
@@ -61,4 +67,9 @@ AudioCloud-Artist{
 	height: 100vh;
 	visibility: visible;
 	width: 20px;
+}
+
+#player_inner_wrapper {
+	display: flex;
+	flex-direction: column;
 }

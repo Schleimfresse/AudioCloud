@@ -7,9 +7,62 @@
 		<title>Document</title>
 		<link rel="stylesheet" href="./css/upload.css" />
 		<link rel="stylesheet" href="./css/global.css" />
+		<!--<script type="module">
+			function getVideoCover(file, seekTo = 0.0) {
+				console.log(document.getElementById("fileinput").files[0])
+				return new Promise((resolve, reject) => {
+					console.log("getting video cover for file: ", file);
+					// load the file to a video player
+					const videoPlayer = document.createElement("video");
+					videoPlayer.setAttribute("src", URL.createObjectURL(file));
+					videoPlayer.load();
+					videoPlayer.addEventListener("error", (ex) => {
+						reject("error when loading video file", ex);
+					});
+					// load metadata of the video to get video duration and dimensions
+					videoPlayer.addEventListener("loadedmetadata", () => {
+						// seek to user defined timestamp (in seconds) if possible
+						if (videoPlayer.duration < seekTo) {
+							reject("video is too short.");
+							return;document.getElementById('fileinput').files[0]
+						}
+						// delay seeking or else 'seeked' event won't fire on Safari
+						setTimeout(() => {
+							videoPlayer.currentTime = seekTo;
+						}, 200);
+						// extract video thumbnail once seeking is complete
+						videoPlayer.addEventListener("seeked", () => {
+							console.log("video is now paused at %ss.", seekTo);
+							// define a canvas to have the same dimension as the video
+							const canvas = document.createElement("canvas");
+							canvas.width = videoPlayer.videoWidth;
+							canvas.height = videoPlayer.videoHeight;
+							// draw the video frame to canvas
+							const ctx = canvas.getContext("2d");
+							ctx.drawImage(videoPlayer, 0, 0, canvas.width, canvas.height);
+							// return the canvas image as a blob
+							ctx.canvas.toBlob(
+								(blob) => {
+									resolve(blob);
+								},
+								"image/jpeg",
+								0.75 /* quality */
+							);
+						});
+					});
+				});
+			}
+		</script>-->
 	</head>
 	<body>
-		<form id="upload_form" method="post" action="/upload" enctype="multipart/form-data">
+		<canvas id="canvas-element"></canvas>
+		<video id="video-element"><source /></video>
+		<form
+			id="upload_form"
+			method="post"
+			action="/upload"
+			enctype="multipart/form-data"
+			>
 			<input
 				type="file"
 				required
@@ -22,7 +75,9 @@
 			<input type="text" class="std_btn" placeholder="Description" name="desc" />
 			<input type="text" class="std_btn" placeholder="Artist" name="artist" />
 			<input type="submit" class="std_btn slide" value="Upload" />
-			<div style="display: none;" id="dur" name="duration"></div>
+			<div style="display: none" id="dur" name="duration"></div>
 		</form>
 	</body>
-</html>
+	</html>
+	
+	<!--onsubmit='console.log(document.getElementById("fileinput").files[0])'-->

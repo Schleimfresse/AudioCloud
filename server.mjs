@@ -6,8 +6,8 @@ const upload = require("express-fileupload");
 const app = express();
 const date = new Date();
 const path = require("path");
-const __filename = fileURLToPath(import.meta.url);
 import { fileURLToPath } from "url";
+const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const fs = require("fs");
 import { fileTypeFromFile } from "file-type";
@@ -40,11 +40,33 @@ app.get("/delete", (req, res) => {
 });
 
 app.get("/search", (req, res) => {
-	database.find({ title: req.query.query }, (err, data) => {
-		console.log(data);
+	let searchquery = req.query.query.toLowerCase();
+	let searchquery_letters = searchquery.split("");
+	database.find({}, (err, data) => {
+		let filtered = [];
+		if (req.query.mode == "standard") {
+			let i;
+			data.forEach((e) => {
+				for (let letter of searchquery_letters) {
+					if (e.searchquery.includes(letter)) {
+						i++;
+					}
+				}
+				if (i === searchquery_letters.length) {
+					filtered.push(e);
+				}
+				i = 0;
+			});
+		} else if (req.query.mode == "strict") {
+			data.forEach((e) => {
+				if (e.searchquery.includes(searchquery)) {
+					filtered.push(e);
+				}
+			});
+		}
 		res.status(200);
 		res.render(__dirname + "/public/views/search.ejs", {
-			data: JSON.stringify(data)
+			data: JSON.stringify(filtered),
 		});
 	});
 });
@@ -91,6 +113,7 @@ app.post("/upload", async (req, res) => {
 				let added_date = `${date.getDate()}.${date.getMonth()}.${date.getFullYear()}`;
 				database.insert({
 					name: filename,
+					searchquery: req.body.title.toLowerCase(),
 					desc: req.body.desc,
 					artist: req.body.artist,
 					title: req.body.title,

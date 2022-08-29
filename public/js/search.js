@@ -1,5 +1,5 @@
 const main = document.querySelector("main");
-async function load() {
+function load() {
     console.log(media)
 	media.forEach((e) => {
 		const div = document.createElement("div");

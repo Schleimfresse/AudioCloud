@@ -7,11 +7,12 @@
 		<title>AudioCloud</title>
 		<link rel="stylesheet" href="./css/global.css" />
 		<script defer type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-        <script>
-            // EJS Variables
-            const media = <%- data %>;
-        </script>
-        <script defer src="../js/search.js"></script>
+		<script defer src="./js/searchformValidation.js"></script>
+		<script>
+			// EJS Variables
+			const media = <%- data %>;
+		</script>
+		<script defer src="../js/search.js"></script>
 	</head>
 	<body>
 		<header>
@@ -25,13 +26,18 @@
 			<button class="std_btn"><a href="/delete">Delete</a></button>
 			<form class="row" action="/search">
 				<input
-					class="std_btn"
+					class="std_btn no_margin_right"
 					spellcheck="true"
 					placeholder="Search for music ..."
 					type="search"
 					name="query"
+					id="searchquery_input"
 				/>
-				<button class="std_btn square_button" type="submit">
+				<select name="mode" class="std_btn no_padding-top-bot">
+					<option value="standard">Standard</option>
+					<option value="strict">Strict</option>
+				</select>
+				<button class="std_btn square_button no_margin_left" onclick="return validation()" type="submit">
 					<ion-icon name="search-outline"></ion-icon>
 				</button>
 			</form>
