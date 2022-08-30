@@ -1,6 +1,7 @@
 import { createRequire } from "module";
 const require = createRequire(import.meta.url);
 const express = require("express");
+const uniqid = require("uniqid");
 const Datastore = require("nedb");
 const upload = require("express-fileupload");
 const app = express();
@@ -45,9 +46,10 @@ app.get("/search", (req, res) => {
 	database.find({}, (err, data) => {
 		let filtered = [];
 		if (req.query.mode == "standard") {
-			let i;
+			let i = 0;
 			data.forEach((e) => {
 				for (let letter of searchquery_letters) {
+					console.log(e.searchquery.includes(letter));
 					if (e.searchquery.includes(letter)) {
 						i++;
 					}
@@ -99,11 +101,17 @@ app.get("/Player/:id", (req, res) => {
 	});
 });
 
+app.get("/edit", (req, res) => {
+	res.status(200);
+	res.sendFile(__dirname + "/public/edit.html");
+});
+
 app.post("/upload", async (req, res) => {
 	if (req.files) {
 		let file = req.files.file;
 		let ext = path.extname(file.name);
-		let filename = req.body.title + ext;
+		let filename = uniqid() + ext;
+		let thumbnail = "thumbnail.png";
 		file.mv(`./public/Media/${filename}`, async function (err) {
 			if (err) {
 				res.status(500);
@@ -119,6 +127,7 @@ app.post("/upload", async (req, res) => {
 					title: req.body.title,
 					mime: type,
 					added: added_date,
+					thumbnail: thumbnail,
 				});
 				res.status(200);
 				res.sendFile(__dirname + "/public/success.html");

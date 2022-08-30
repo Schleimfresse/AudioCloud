@@ -23,6 +23,7 @@
 		"express-fileupload": "^1.4.0",
 		"file-type": "^18.0.0",
 		"nedb": "^1.8.0",
-		"nodemon": "^2.0.19"
+		"nodemon": "^2.0.19",
+		"uniqid": "^5.4.0"
 	}
 }

@@ -78,10 +78,6 @@ ion-icon {
 	margin-top: 40px;
 }
 
-.box {
-	cursor: pointer;
-}
-
 /* SCROLL BAR STYLING */
 
 ::-webkit-scrollbar-track {
@@ -146,31 +142,64 @@ header {
 	position: fixed;
 }
 
-.square_button{
+.square_button {
 	padding: 0.5em !important;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 }
 
-.row{
+.row {
 	display: flex;
 	flex-direction: row;
 }
 
-.no_margin_left{
+.no_margin_left {
 	margin-left: 0;
 }
 
-.no_margin_right{
+.no_margin_right {
 	margin-right: 0;
 }
 
-.no_padding-top-bot{
+.no_padding-top-bot {
 	padding-bottom: 0;
 	padding-top: 0;
 }
 main {
 	top: 49px;
 	position: absolute;
+}
+
+option {
+	background-color: var(--bg);
+	border: var(--border) 1px solid;
+}
+
+.box {
+	position: relative;
+	cursor: pointer;
+	width: 320px;
+	margin-left: 8px;
+	margin-right: 8px;
+	margin-bottom: 40px;
+}
+
+
+.Media_Showcase_Title{
+	line-height: 20px;
+	font-size: 14px;
+	font-weight: 500;
+}
+
+img{
+	height: 180px;
+	width: 320px;
+}
+
+#Media_Showcase_wrapper{
+	margin-left: 2em;
+	margin-top: 2em;
+	display: flex;
+	flex-direction: row;
 }

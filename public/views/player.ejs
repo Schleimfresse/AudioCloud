@@ -4,24 +4,26 @@
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Start | AudioCloud</title>
-		<link rel="stylesheet" href="./css/global.css" />
-		<link rel="stylesheet" href="./css/index.css" />
-		<script defer src="./js/index.js"></script>
-		<script defer src="./js/searchformValidation.js"></script>
+		<title>AudioCloud</title>
+		<script defer>
+			// EJS Variables
+			const filename = <%- JSON.stringify(data.medium) %>;
+			const information = <%- data.info %>;
+		</script>
+		<script defer src="../js/player.js"></script>
+		<script defer src="../js/searchformValidation.js"></script>
 		<script defer type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+		<link rel="stylesheet" href="../css/global.css" />
+		<link rel="stylesheet" href="../css/player.css" />
 	</head>
 	<body>
 		<header>
-			<div class="icon-spacing-right" id="menu">
+			<div id="menu" class="icon-spacing-right">
 				<a id="menu-link" href="/"
 					><ion-icon class="icon-spacing-right" name="musical-notes-outline"></ion-icon
 					><span><span class="bold">A</span>udioCloud</span></a
 				>
 			</div>
-			<a href="/upload" class="std_btn">Upload</a>
-			<a href="/edit" class="std_btn">Edit</a>
-			<a href="/delete" class="std_btn">Delete</a>
 			<form class="row" action="/search">
 				<input
 					class="std_btn no_margin_right"
@@ -41,9 +43,18 @@
 			</form>
 		</header>
 		<main>
-			<div id="Media_Showcase_wrapper">
+			<div id="video-wrapper"></div>
+			<div id="container">
+				<div class="spacing"></div>
+				<div id="information">
+					<div id="player_inner_wrapper">
+						<AudioCloud-TrackTitle></AudioCloud-TrackTitle>
+						<AudioCloud-AddedOn></AudioCloud-AddedOn>
+						<AudioCloud-Description></AudioCloud-Description>
+						<AudioCloud-Artist></AudioCloud-Artist>
+					</div>
+				</div>
 			</div>
 		</main>
 	</body>
 </html>
-	

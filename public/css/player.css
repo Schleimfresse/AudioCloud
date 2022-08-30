@@ -60,15 +60,6 @@ AudioCloud-AddedOn {
 	display: flex;
 }
 
-#spacing {
-	position: relative;
-	top: 0;
-	left: 0;
-	height: 100vh;
-	visibility: visible;
-	width: 20px;
-}
-
 #player_inner_wrapper {
 	display: flex;
 	flex-direction: column;

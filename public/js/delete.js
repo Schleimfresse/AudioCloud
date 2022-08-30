@@ -6,10 +6,8 @@ async function load() {
 	data.forEach((e) => {
 		const div = document.createElement("div");
         div.setAttribute('class', 'box');
-        div.setAttribute('onclick', 'secure(this.children[0].innerText);');
-        div.textContent = 'Media: '
-		div.append(document.createElement("span"));
-        div.children[0].textContent = e.name;
+        div.setAttribute('onclick', 'secure(this.innerText);');
+        div.textContent = e.name;
         main.append(div);
 	});
 }
