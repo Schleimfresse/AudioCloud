@@ -1,0 +1,7 @@
+#Media_Showcase_wrapper{
+	margin-left: 2em;
+	margin-top: 2em;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}

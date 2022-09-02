@@ -2,10 +2,11 @@ const main = document.getElementById("Media_Showcase_wrapper");
 async function load() {
 	const res = await fetch("/api");
 	const data = await res.json();
+	console.log('data:', data)
 	data.forEach((e) => {
 		const div = document.createElement("div");
 		const img = document.createElement('img')
-		img.src = `./Media/${e.name}#t=5`;
+		img.src = `/thumbnails/${e.thumbnail}`;
         div.setAttribute('class', 'box');
         div.setAttribute('onclick', `window.location.href = "./Player/${e.name}"`);
         div.appendChild(img)

@@ -4,6 +4,7 @@ const express = require("express");
 const uniqid = require("uniqid");
 const Datastore = require("nedb");
 const upload = require("express-fileupload");
+const bodyParser = require("body-parser");
 const app = express();
 const date = new Date();
 const path = require("path");
@@ -14,15 +15,19 @@ const fs = require("fs");
 import { fileTypeFromFile } from "file-type";
 const port = process.env.PORT || 3000;
 const server = require("http").createServer(app);
-app.use(require("body-parser").json({ limit: "1mb" }));
+app.use(bodyParser.json({ limit: "1mb" }));
+app.use(
+	bodyParser.urlencoded({
+		extended: true,
+	})
+);
 app.use(upload());
 app.use(express.static(__dirname + "/public"));
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "public/views/"));
-app.use(express.urlencoded({ extended: true })),
-	server.listen(port, () => {
-		console.log(`app listening at Port: ${port}`);
-	});
+server.listen(port, () => {
+	console.log(`app listening at Port: ${port}`);
+});
 const database = new Datastore("database.db");
 database.loadDatabase();
 
@@ -41,6 +46,11 @@ app.get("/delete", (req, res) => {
 });
 
 app.get("/search", (req, res) => {
+	if (req.query.type != "search" && req.query.type != "edit") {
+		res.status(400);
+		res.send(`<h1>Bad request 400</h1> Searchtype ${req.query.type} does not exist`);
+		res.end();
+	}
 	let searchquery = req.query.query.toLowerCase();
 	let searchquery_letters = searchquery.split("");
 	database.find({}, (err, data) => {
@@ -49,7 +59,6 @@ app.get("/search", (req, res) => {
 			let i = 0;
 			data.forEach((e) => {
 				for (let letter of searchquery_letters) {
-					console.log(e.searchquery.includes(letter));
 					if (e.searchquery.includes(letter)) {
 						i++;
 					}
@@ -61,13 +70,14 @@ app.get("/search", (req, res) => {
 			});
 		} else if (req.query.mode == "strict") {
 			data.forEach((e) => {
-				if (e.searchquery.includes(searchquery)) {
+				if (e.searchquery.includes(searchquery) && e.mime.mime.includes(req.query.mediatype)) {
 					filtered.push(e);
 				}
 			});
 		}
+		console.log(filtered);
 		res.status(200);
-		res.render(__dirname + "/public/views/search.ejs", {
+		res.render(__dirname + `/public/views/${req.query.type}.ejs`, {
 			data: JSON.stringify(filtered),
 		});
 	});
@@ -84,6 +94,18 @@ app.delete("/Media/:id", (req, res) => {
 		res.status(500);
 	}
 });
+
+app.post("/edit/success", (req, res) => {
+	database.update(
+		{ name: req.params.id },
+		{
+			$set: req.body,
+		}
+	);
+	res.status(200);
+	res.sendFile(__dirname + "/public/success.html");
+});
+
 app.get("/Player/:id", (req, res) => {
 	database.find({ name: req.params.id }, (err, data) => {
 		if (err || data === null) {
@@ -93,7 +115,6 @@ app.get("/Player/:id", (req, res) => {
 			return;
 		}
 		data = data.shift();
-		console.log(data);
 		res.status(200);
 		res.render(__dirname + "/public/views/player.ejs", {
 			data: { medium: req.params.id, info: JSON.stringify(data) },
@@ -106,16 +127,55 @@ app.get("/edit", (req, res) => {
 	res.sendFile(__dirname + "/public/edit.html");
 });
 
+app.get("/edit/:id", (req, res) => {
+	database.find({ name: req.params.id }, (err, data) => {
+		if (err || data == null) {
+			res.status(500);
+			res.send("Information could not be accessed.");
+			res.end();
+			return;
+		}
+		data = data.shift();
+		res.status(200);
+		res.render(__dirname + "/public/views/edit_item.ejs", {
+			data: JSON.stringify(data),
+		});
+	});
+});
 app.post("/upload", async (req, res) => {
-	if (req.files) {
+	if (req.files || req.body.title != "" || req.body.artist != "") {
 		let file = req.files.file;
+		let thumbnail = req.files.thumbnail;
+		if (thumbnail === undefined) {
+		}
+		let img_ext = path.extname(thumbnail.name);
 		let ext = path.extname(file.name);
-		let filename = uniqid() + ext;
-		let thumbnail = "thumbnail.png";
-		file.mv(`./public/Media/${filename}`, async function (err) {
+		let uniqid_inst = uniqid();
+		let filename = uniqid_inst + ext;
+		let thumbnail_name = uniqid_inst + img_ext;
+		if (!req.files.thumbnail.mimetype.includes("image/")) {
+			res.status(400);
+			res.send(`<h1>400 Bad request</h1><p>Invalid filetype: ${req.files.thumbnail.mimetype}</p>`);
+			return;
+		}
+		if (!req.files.file.mimetype.includes("audio/")) {
+			if (!req.files.file.mimetype.includes("video/")) {
+				res.status(400);
+				res.send(`<h1>400 Bad request</h1><p>Invalid filetype: ${req.files.file.mimetype}</p>`);
+				return;
+			}
+		}
+		thumbnail.mv(__dirname + `/public/thumbnails/${thumbnail_name}`, function (err) {
 			if (err) {
 				res.status(500);
-				res.send(err);
+				res.send("FATAL ERROR: " + err);
+				return;
+			}
+		});
+		file.mv(__dirname + `/public/Media/${filename}`, async function (err) {
+			if (err) {
+				res.status(500);
+				res.send("FATAL ERROR: " + err);
 			} else {
 				let type = await fileTypeFromFile("./public/Media/" + filename);
 				let added_date = `${date.getDate()}.${date.getMonth()}.${date.getFullYear()}`;
@@ -127,12 +187,16 @@ app.post("/upload", async (req, res) => {
 					title: req.body.title,
 					mime: type,
 					added: added_date,
-					thumbnail: thumbnail,
+					thumbnail: thumbnail_name,
 				});
 				res.status(200);
 				res.sendFile(__dirname + "/public/success.html");
 			}
 		});
+	} else {
+		res.status(400);
+		res.send("<h1>400 Bad request</h1>");
+		return;
 	}
 });
 

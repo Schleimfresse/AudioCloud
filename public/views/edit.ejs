@@ -4,26 +4,28 @@
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>AudioCloud</title>
-		<script defer>
-			// EJS Variables
-			const filename = <%- JSON.stringify(data.medium) %>;
-			const information = <%- data.info %>;
+		<title>Start | AudioCloud</title>
+		<link rel="stylesheet" href="../css/global.css" />
+		<link rel="stylesheet" href="../css/edit.css">
+		<script>
+			// EJS variables
+			const media = <%- data %>;
 		</script>
-		<script defer src="../js/player.js"></script>
+		<script defer type="module" src="../js/edit/edit_results.js"></script>
 		<script defer src="../js/searchformValidation.js"></script>
 		<script defer type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-		<link rel="stylesheet" href="../css/global.css" />
-		<link rel="stylesheet" href="../css/player.css" />
 	</head>
 	<body>
 		<header>
-			<div id="menu" class="icon-spacing-right">
+			<div class="icon-spacing-right" id="menu">
 				<a id="menu-link" href="/"
 					><ion-icon class="icon-spacing-right" name="musical-notes-outline"></ion-icon
 					><span><span class="bold">A</span>udioCloud</span></a
 				>
 			</div>
+			<a href="/upload" class="std_btn">Upload</a>
+			<a href="/edit" class="std_btn">Edit</a>
+			<a href="/delete" class="std_btn">Delete</a>
 			<form class="row" action="/search">
 				<input
 					class="std_btn no_margin_right"
@@ -33,8 +35,8 @@
 					name="query"
 					id="searchquery_input"
 				/>
+				<input type="hidden" name="type" value="edit" />
 				<input type="hidden" name="mediatype" value="" />
-				<input type="hidden" name="type" value="search">
 				<select name="mode" class="std_btn no_padding-top-bot">
 					<option value="standard">Standard</option>
 					<option value="strict">Strict</option>
@@ -44,18 +46,12 @@
 				</button>
 			</form>
 		</header>
-		<main>
-			<div id="video-wrapper"></div>
-			<div id="container">
-				<div id="information">
-					<div id="player_inner_wrapper">
-						<AudioCloud-TrackTitle-outer><AudioCloud-TrackTitle-inner></AudioCloud-TrackTitle-inner></AudioCloud-TrackTitle-outer>
-						<AudioCloud-AddedOn></AudioCloud-AddedOn>
-						<AudioCloud-Description></AudioCloud-Description>
-						<AudioCloud-Artist></AudioCloud-Artist>
-					</div>
-				</div>
+		<main></main>
+		<template id="noresults">
+			<div class="center">
+				<h2>No results found</h2>
+				<div>Try different keywords</div>
 			</div>
-		</main>
+		</template>
 	</body>
 </html>

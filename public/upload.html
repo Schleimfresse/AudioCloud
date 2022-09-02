@@ -10,19 +10,24 @@
 	</head>
 	<body>
 		<form id="upload_form" method="post" action="/upload" enctype="multipart/form-data">
-			<input
-				type="file"
-				required
-				accept="audio/*, video/*"
-				id="fileinput"
-				class="std_btn_file_btn"
-				name="file"
+			<label for="fileinput"
+				>File</label>
+				<input
+					type="file"
+					required
+					accept="audio/*, video/*"
+					id="fileinput"
+					class="std_btn_file_btn"
+					name="file"
+			/>
+			<label for="thumbnail"
+				>Thumbnail</label>
+				<input type="file" id="thumbnail" class="std_btn_file_btn" accept="image/*" placeholder="Thumbnail" name="thumbnail"
 			/>
 			<input type="text" required class="std_btn" placeholder="Title" name="title" />
 			<input type="text" class="std_btn" placeholder="Description" name="desc" />
-			<input type="text" class="std_btn" placeholder="Artist" name="artist" />
+			<input type="text" required class="std_btn" placeholder="Artist" name="artist" />
 			<input type="submit" class="std_btn slide" value="Upload" />
-			<div style="display: none" id="dur" name="duration"></div>
 		</form>
 	</body>
 </html>

@@ -33,15 +33,27 @@
 					name="query"
 					id="searchquery_input"
 				/>
+				<input type="hidden" name="mediatype" value="" />
+				<input type="hidden" name="type" value="search" />
 				<select name="mode" class="std_btn no_padding-top-bot">
 					<option value="standard">Standard</option>
 					<option value="strict">Strict</option>
 				</select>
-				<button class="std_btn square_button no_margin_left" onclick="return validation()" type="submit">
+				<button
+					class="std_btn square_button no_margin_left"
+					onclick="return validation(this.parentElement.children[0])"
+					type="submit"
+				>
 					<ion-icon name="search-outline"></ion-icon>
 				</button>
 			</form>
 		</header>
 		<main></main>
+		<template id="noresults">
+			<div class="center">
+				<h2>No results found</h2>
+				<div>Try different keywords</div>
+			</div>
+		</template>
 	</body>
 </html>

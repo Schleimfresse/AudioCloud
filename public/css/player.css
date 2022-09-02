@@ -34,13 +34,19 @@ video {
 AudioCloud-Description {
 	padding-top: 4px;
 	padding-bottom: 4px;
+	word-break: break-word;
 }
-AudioCloud-TrackTitle {
+AudioCloud-TrackTitle-outer {
 	line-height: 2.6rem;
 	font-weight: 400;
 	word-break: break-word;
 	font-size: 24px;
 	position: relative;
+	word-break: break-word;
+}
+
+AudioCloud-TrackTitle-inner {
+	line-height: 2em;
 }
 
 AudioCloud-Artist {
@@ -54,13 +60,18 @@ AudioCloud-AddedOn {
 }
 
 #container {
+	margin-left: 20px;
 	width: 100vw;
 	position: relative;
-	height: fit-content;
-	display: flex;
+	height: 150px;
+	display: block;
 }
 
 #player_inner_wrapper {
 	display: flex;
 	flex-direction: column;
+}
+
+main{
+	margin: 0 !important;
 }
