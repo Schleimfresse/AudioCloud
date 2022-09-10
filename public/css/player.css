@@ -61,10 +61,10 @@ AudioCloud-AddedOn {
 
 #container {
 	margin-left: 20px;
-	width: 100vw;
 	position: relative;
 	height: 150px;
 	display: block;
+	margin-right: 20px;
 }
 
 #player_inner_wrapper {
@@ -72,6 +72,11 @@ AudioCloud-AddedOn {
 	flex-direction: column;
 }
 
-main{
+main {
 	margin: 0 !important;
+}
+
+#player_title-wrapper {
+	border-bottom: 1px solid var(--border);
+	margin-bottom: 0.5em;
 }

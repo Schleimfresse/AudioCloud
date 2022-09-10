@@ -1,10 +1,9 @@
 const main = document.querySelector("main");
 function load() {
 	if (!(media == "")) {
-		console.log(media);
 		media.forEach((e) => {
 			const div = document.createElement("div");
-			div.setAttribute("class", "box");
+			div.setAttribute("class", "box-search");
 			div.setAttribute("onclick", `window.location.href = "./Player/${e.name}"`);
 			div.innerText = e.title;
 			main.append(div);

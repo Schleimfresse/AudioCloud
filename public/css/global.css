@@ -179,6 +179,15 @@ option {
 	border: var(--border) 1px solid;
 }
 
+.img-wrapper {
+	height: 180px;
+	width: 320px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #000;
+}
+
 .box {
 	position: relative;
 	cursor: pointer;
@@ -188,14 +197,12 @@ option {
 	margin-bottom: 40px;
 }
 
-
-.Media_Showcase_Title{
+.Media_Showcase_Title {
 	line-height: 20px;
 	font-size: 14px;
 	font-weight: 500;
 }
 
-img{
+img {
 	height: 180px;
-	width: 320px;
 }

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Start | AudioCloud</title>
+		<link rel="stylesheet" href="../css/global.css" />
+		<link rel="stylesheet" href="../css/index.css" />
+		<script defer src="../js/index.js"></script>
+		<script defer src="../js/searchformValidation.js"></script>
+		<script defer type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+	</head>
+	<body>
+		<header>
+			<div class="icon-spacing-right" id="menu">
+				<a id="menu-link" href="/"
+					><ion-icon class="icon-spacing-right" name="musical-notes-outline"></ion-icon
+					><span><span class="bold">A</span>udioCloud</span></a
+				>
+			</div>
+			<a href="/upload" class="std_btn">Upload</a>
+			<a href="/edit" class="std_btn">Edit</a>
+			<a href="/delete" class="std_btn">Delete</a>
+			<form class="row" action="/search">
+				<input
+					class="std_btn no_margin_right"
+					spellcheck="true"
+					placeholder="Search for music ..."
+					type="search"
+					name="query"
+					id="searchquery_input"
+				/>
+				<input type="hidden" name="mediatype" value="" />
+				<input type="hidden" name="type" value="search">
+				<select name="mode" class="std_btn no_padding-top-bot">
+					<option value="standard">Standard</option>
+					<option value="strict">Strict</option>
+				</select>
+				<button class="std_btn square_button no_margin_left" onclick="return validation(this.parentElement.children[0])" type="submit">
+					<ion-icon name="search-outline"></ion-icon>
+				</button>
+			</form>
+		</header>
+		<main>
+			<div id="Media_Showcase_wrapper">
+			</div>
+		</main>
+	</body>
+</html>
+	

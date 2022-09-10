@@ -50,12 +50,12 @@
 			<div>
 				<h2>Currently being edited: <span id="title"></span></h2>
 			</div>
+			<form id="edit_form" method="post" action="/edit/success">
+				<input type="text" required class="std_btn" placeholder="Title" name="title" />
+				<input type="text" class="std_btn" placeholder="Description" name="desc" />
+				<input type="text" class="std_btn" placeholder="Artist" name="artist" />
+				<input type="submit" class="std_btn slide" value="Update" />
+			</form>
 		</main>
-		<form id="edit_form" method="post" action="/edit/success">
-			<input type="text" required class="std_btn" placeholder="Title" name="title" />
-			<input type="text" class="std_btn" placeholder="Description" name="desc" />
-			<input type="text" class="std_btn" placeholder="Artist" name="artist" />
-			<input type="submit" class="std_btn slide" value="Update" />
-		</form>
 	</body>
 </html>

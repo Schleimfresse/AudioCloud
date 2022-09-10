@@ -1,0 +1,55 @@
+.edit_icon {
+	color: var(--bg);
+	transition: 80ms;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.edit_icon:hover {
+	color: var(--edit-hover);
+}
+
+#Media_Showcase_wrapper-edit {
+	margin-left: 2em;
+	margin-top: 2em;
+	display: flex;
+	flex-direction: column;
+}
+
+.box-search {
+	display: flex;
+	flex-direction: row;
+	border: 1px solid var(--border);
+	align-items: center;
+	padding: 0.5em 1em;
+	margin-bottom: 0.5em;
+}
+
+#filter-wrapper {
+	display: flex;
+	flex-direction: column;
+}
+
+#filter-Modal {
+	position: relative;
+	background-color: var(--bg);
+	border: #fff solid 1px;
+	margin: 0.5em;
+}
+
+label {
+	display: flex;
+	justify-content: space-between;
+}
+
+#edit_form {
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
+	position: absolute;
+	flex-direction: column;
+}

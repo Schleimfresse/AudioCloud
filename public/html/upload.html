@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Upload | AudioCloud</title>
+		<link rel="stylesheet" href="../css/upload.css" />
+		<link rel="stylesheet" href="../css/global.css" />
+	</head>
+	<body>
+		<form id="upload_form" method="post" action="/upload" enctype="multipart/form-data">
+			<label for="fileinput"
+				>File</label>
+				<input
+					type="file"
+					required
+					accept="audio/*, video/*"
+					id="fileinput"
+					class="std_btn_file_btn"
+					name="file"
+			/>
+			<label for="thumbnail"
+				>Thumbnail</label>
+				<input type="file" id="thumbnail" class="std_btn_file_btn" accept="image/*" placeholder="Thumbnail" name="thumbnail"
+			/>
+			<input type="text" required class="std_btn" placeholder="Title" name="title" />
+			<input type="text" class="std_btn" placeholder="Description" name="desc" />
+			<input type="text" required class="std_btn" placeholder="Artist" name="artist" />
+			<input type="submit" class="std_btn slide" value="Upload" />
+		</form>
+	</body>
+</html>

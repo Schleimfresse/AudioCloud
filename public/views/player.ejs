@@ -34,12 +34,16 @@
 					id="searchquery_input"
 				/>
 				<input type="hidden" name="mediatype" value="" />
-				<input type="hidden" name="type" value="search">
+				<input type="hidden" name="type" value="search" />
 				<select name="mode" class="std_btn no_padding-top-bot">
 					<option value="standard">Standard</option>
 					<option value="strict">Strict</option>
 				</select>
-				<button class="std_btn square_button no_margin_left" onclick="return validation(this.parentElement.children[0])" type="submit">
+				<button
+					class="std_btn square_button no_margin_left"
+					onclick="return validation(this.parentElement.children[0])"
+					type="submit"
+				>
 					<ion-icon name="search-outline"></ion-icon>
 				</button>
 			</form>
@@ -49,8 +53,12 @@
 			<div id="container">
 				<div id="information">
 					<div id="player_inner_wrapper">
-						<AudioCloud-TrackTitle-outer><AudioCloud-TrackTitle-inner></AudioCloud-TrackTitle-inner></AudioCloud-TrackTitle-outer>
-						<AudioCloud-AddedOn></AudioCloud-AddedOn>
+						<div id="player_title-wrapper">
+							<AudioCloud-TrackTitle-outer
+								><AudioCloud-TrackTitle-inner></AudioCloud-TrackTitle-inner
+							></AudioCloud-TrackTitle-outer>
+							<AudioCloud-AddedOn></AudioCloud-AddedOn>
+						</div>
 						<AudioCloud-Description></AudioCloud-Description>
 						<AudioCloud-Artist></AudioCloud-Artist>
 					</div>
