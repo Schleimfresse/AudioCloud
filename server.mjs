@@ -55,7 +55,7 @@ app.get("/delete/:id", (req, res) => {
 	database.findOne({ name: req.params.id }, (err, data) => {
 		if (err || data == null) {
 			res.status(500);
-			res.send("Information could not be accessed.");
+			res.send("Data could not be accessed.");
 			res.end();
 			return;
 		}
@@ -66,14 +66,31 @@ app.get("/delete/:id", (req, res) => {
 	});
 });
 
-// \/ req.params auschecken
-
-app.post("/delete/success", (req, res) => {
+app.post("/delete/:id/success", (req, res) => {
 	try {
 		database.remove({ name: req.params.id });
+		fs.rmSync(__dirname + `/public/Media/${req.params.id}`, {}, (err) => {
+			if (err) {
+				res.status(500);
+				res.send("<h1>500 Internal Server Error</h1><p>file could not be found.</p>");
+			}
+		});
+		fs.readdir(__dirname + `/public/thumbnails/`, (err, files) => {
+			files.forEach((file) => {
+				if (file.split(".")[0] == path.parse(req.params.id).name) {
+					fs.rmSync(__dirname + `/public/thumbnails/${file}`, {}, (err) => {
+						if (err) {
+							res.status(500);
+							res.send("<h1>500 Internal Server Error</h1><p>file could not be found.</p>");
+						}
+					});
+				}
+			});
+		});
 		res.status(200);
 		res.sendFile(__dirname + "/public/html/success.html");
 	} catch (err) {
+		console.log(err);
 		res.status(500);
 		res.send("<h1>500 Internal Server Error</h1>");
 	}
@@ -88,7 +105,7 @@ app.get("/edit/:id", (req, res) => {
 	database.findOne({ name: req.params.id }, (err, data) => {
 		if (err || data == null) {
 			res.status(500);
-			res.send("Information could not be accessed.");
+			res.send("Data could not be accessed.");
 			res.end();
 			return;
 		}
@@ -99,7 +116,7 @@ app.get("/edit/:id", (req, res) => {
 	});
 });
 
-app.post("/edit/success", (req, res) => {
+app.post("/edit/:id/success", (req, res) => {
 	try {
 		database.update(
 			{ name: req.params.id },
@@ -152,23 +169,11 @@ app.get("/search", (req, res) => {
 	});
 });
 
-app.delete("/Media/:id", (req, res) => {
-	try {
-		database.remove({ name: req.params.id });
-		fs.unlink(`./public/Media/${req.params.id}`, () => {
-			res.status(204);
-			res.sendFile(__dirname + "/public/html/success.html");
-		});
-	} catch (err) {
-		res.status(500);
-	}
-});
-
 app.get("/Player/:id", (req, res) => {
 	database.find({ name: req.params.id }, (err, data) => {
 		if (err || data === null) {
 			res.status(500);
-			res.send("Information could not be accessed.");
+			res.send("Data could not be accessed.");
 			res.end();
 			return;
 		}
@@ -269,15 +274,15 @@ app.post("/upload", async (req, res) => {
 	}
 });
 
-app.get("/api", (request, response) => {
+app.get("/api", (request, res) => {
 	database.find({}, (err, data) => {
 		if (err) {
 			res.status(500);
 			res.send("<h1>500 Internal Server Error</h1>");
-			response.end();
+			res.end();
 			return;
 		}
-		response.json(data);
+		res.json(data);
 	});
 });
 
