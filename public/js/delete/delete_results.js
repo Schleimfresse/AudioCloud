@@ -4,10 +4,18 @@ if (media == "") {
 	main.appendChild(temp.content.cloneNode(true));
 } else {
 	media.forEach((e) => {
+		console.log(e);
 		const div = document.createElement("div");
 		div.setAttribute("class", "box-search");
 		div.setAttribute("onclick", `window.location.href = "./delete/${e.name}"`);
-		div.innerText = e.title;
+		if (e.mime.mime.includes("video")) {
+			type = "Video";
+		} else if (e.mime.mime.includes("audio")) {
+			type = "Audio";
+		} else {
+			type = "Media";
+		}
+		div.innerText = `${type}: ${e.title}`;
 		main.append(div);
 	});
 }

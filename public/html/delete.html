@@ -6,7 +6,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Edit | AudioCloud</title>
 		<link rel="stylesheet" href="../css/global.css" />
-		<link rel="stylesheet" href="../css/search.css">
+		<link rel="stylesheet" href="../css/search.css" />
 		<script defer src="../js/modal.js"></script>
 		<script defer src="../js/searchformValidation.js"></script>
 		<script defer type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
@@ -20,7 +20,7 @@
 				>
 			</div>
 			<a href="/upload" class="std_btn">Upload</a>
-			<a href="/delete" class="std_btn">Delete</a>
+			<a href="/edit" class="std_btn">Edit</a>
 			<form class="row" action="/search">
 				<input
 					class="std_btn no_margin_right"
@@ -36,7 +36,11 @@
 					<option value="standard">Standard</option>
 					<option value="strict">Strict</option>
 				</select>
-				<button class="std_btn square_button no_margin_left" onclick="return validation(this.parentElement.children[0])" type="submit">
+				<button
+					class="std_btn square_button no_margin_left"
+					onclick="return validation(this.parentElement.children[0])"
+					type="submit"
+				>
 					<ion-icon name="search-outline"></ion-icon>
 				</button>
 			</form>
@@ -48,13 +52,22 @@
 					<input type="hidden" name="mode" value="strict" />
 					<input type="hidden" name="type" value="delete" />
 					<input type="button" value="Filter" class="std_btn" id="showModal" />
-					<input type="submit" onclick="return validation(this.parentElement.children[0])" class="std_btn" value="Search" />
+					<input
+						type="submit"
+						onclick="return validation(this.parentElement.children[0])"
+						class="std_btn"
+						value="Search"
+					/>
 					<dialog id="filter-Modal">
 						<div>
 							<div id="filter-wrapper">
-								<label for="filter-all">All<input checked type="radio" value="" name="mediatype" id="filter-all" /></label
-								><label for="filter-audio">Audio<input type="radio" value="audio" name="mediatype" id="filter-audio" /></label
-								><label for="filter-video">Video<input type="radio" value="video" name="mediatype" id="filter-video" /></label>
+								<label for="filter-all"
+									>All<input checked type="radio" value="" name="mediatype" id="filter-all" /></label
+								><label for="filter-audio"
+									>Audio<input type="radio" value="audio" name="mediatype" id="filter-audio" /></label
+								><label for="filter-video"
+									>Video<input type="radio" value="video" name="mediatype" id="filter-video"
+								/></label>
 							</div>
 							<br /><input class="std_btn" id="closeModal" type="button" value="Close" />
 						</div>

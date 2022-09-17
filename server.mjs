@@ -13,7 +13,6 @@ ffmpeg.setFfprobePath(ffmpegprobe.path);
 const path = require("path");
 const fs = require("fs");
 const app = express();
-const date = new Date();
 import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -190,7 +189,6 @@ app.post("/upload", async (req, res) => {
 		let file = req.files.file;
 		let thumbnail = req.files.thumbnail;
 		let thumbnail_autocreate = true;
-		let timestamp = "10";
 		let img_ext = ".png";
 		let ext = path.extname(file.name);
 		let uniqid_inst = uniqid();
@@ -226,8 +224,9 @@ app.post("/upload", async (req, res) => {
 				res.send("<h1>500 Internal Server Error</h1>");
 				return;
 			} else {
+				const date = new Date();
 				let type = await fileTypeFromFile("./public/Media/" + filename);
-				let added_date = `${date.getDate()}.${date.getMonth()}.${date.getFullYear()}`;
+				let added_date = `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`;
 				database.insert({
 					name: filename,
 					searchquery: req.body.title.toLowerCase(),
@@ -239,29 +238,40 @@ app.post("/upload", async (req, res) => {
 					thumbnail: thumbnail_name + img_ext,
 				});
 				if (thumbnail_autocreate === true) {
-					ffmpeg.ffprobe(__dirname + `/public/Media/${filename}`, (err, metadata) => {
-						if (err) {
-							res.status(500);
-							res.send("<h1>500 Internal Server Error</h1>");
-						}
-						const duration = metadata.format.duration;
-						if (duration > 10) {
-							timestamp = (duration - 1).toString();
-						}
+					const getDuration = new Promise((resolve, reject) => {
+						ffmpeg.ffprobe(__dirname + `/public/Media/${filename}`, (err, metadata) => {
+							if (err) {
+								reject(false);
+							}
+							let duration = metadata.format.duration
+							if (duration < 10) {
+								resolve(Math.round(duration - 1));
+							}
+							if (duration >= 10) {
+								resolve(10);
+							}
+						});
 					});
-					let proc = new ffmpeg(__dirname + `/public/Media/${filename}`).takeScreenshots(
-						{
-							count: 1,
-							timemarks: [timestamp],
-							filename: thumbnail_name,
-						},
-						__dirname + `/public/thumbnails/`,
-						function (err) {
+					getDuration.then((message) => {
+						if (message === false) {
 							res.status(500);
 							res.send("<h1>500 Internal Server Error</h1>");
-							return;
 						}
-					);
+						ffmpeg(__dirname + `/public/Media/${filename}`).takeScreenshots(
+							{
+								count: 1,
+								timemarks: [message],
+								filename: thumbnail_name,
+								//size: '1980x1080'
+							},
+							__dirname + `/public/thumbnails/`,
+							function (err) {
+								res.status(500);
+								res.send("<h1>500 Internal Server Error</h1>");
+								return;
+							}
+						);
+					});
 				}
 				res.status(200);
 				res.sendFile(__dirname + "/public/html/success.html");

@@ -63,7 +63,50 @@
 						<AudioCloud-Artist></AudioCloud-Artist>
 					</div>
 				</div>
+				<section id="next_media">
+					<div id="next_media_list"></div>
+				</section>
 			</div>
+			<AudioCloud-Controls>
+				<input
+					type="range"
+					min="0"
+					max="100"
+					step="any"
+					value="0"
+					onchange="change_duration()"
+					id="player-track-duration-slider"
+				/>
+				<AudioCloud-Controles-inner>
+					<div id="player-autoplay">
+						Autoplay
+						<label class="switch">
+							<input type="checkbox" onclick="autoplay_switch()" id="player-autoplay-checkbox"/>
+							<span class="slider"></span>
+						</label>
+					</div>
+					<div id="player-controles">
+						<button type="button" class="std-btn-round" id="previous_track" onclick="previous_song()">
+							<ion-icon name="play-skip-back"></ion-icon>
+						</button>
+						<button type="button" class="std-btn-round " id="player-play" onclick="justplay()">
+							<ion-icon class="icon-size-large" name="play"></ion-icon>
+						</button>
+						<button type="button" class="std-btn-round" id="next_track" onclick="next_song()">
+							<ion-icon name="play-skip-forward"></ion-icon>
+						</button>
+					</div>
+				</AudioCloud-Controles-inner>
+			</AudioCloud-Controls>
 		</main>
+		<template id="card-template">
+			<div class="next_media_item">
+				<span class="next_media_item-img-wrapper"><img thumbnail height="32px" width="32px" /></span>
+				<div>
+					<div class="Media_Showcase_Title"><strong title></strong></div>
+					<div class="Media_Showcase_Artist" artist></div>
+				</div>
+			</div>
+		</template>
 	</body>
 </html>

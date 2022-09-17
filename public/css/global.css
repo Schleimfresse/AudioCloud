@@ -94,7 +94,7 @@ ion-icon {
 }
 
 ::-webkit-scrollbar-thumb {
-	background-color: rgb(211, 226, 5);
+	background-color: #323232;
 }
 
 /* SCROLL BAR STYLING */
@@ -180,21 +180,54 @@ option {
 }
 
 .img-wrapper {
-	height: 180px;
-	width: 320px;
+	height: 160px;
+	width: 160px;
+	border-radius: 5px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	background-color: #000;
+	width: max-content;
+	overflow: hidden;
+	min-width: 160px;
+}
+
+.img-hover:hover {
+	opacity: 1;
+}
+
+.loading_spinner{
+	display: none;
+	animation: animate linear 2.5s infinite;
+}
+
+@keyframes animate {
+	0% {rotate: 0deg;}
+	100%{rotate: 360deg;}
+}
+
+.img-hover {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	opacity: 0;
+	width: 100%;
+	height: inherit;
+	position:absolute;
+	background-color: rgba(0, 0, 0, 0.4);
+}
+.img-outer {
+	margin-bottom: 5px;
+	width: max-content;
 }
 
 .box {
 	position: relative;
 	cursor: pointer;
-	width: 320px;
 	margin-left: 8px;
 	margin-right: 8px;
 	margin-bottom: 40px;
+	width: max-content;
 }
 
 .Media_Showcase_Title {
@@ -204,5 +237,5 @@ option {
 }
 
 img {
-	height: 180px;
+	height: 160px;
 }

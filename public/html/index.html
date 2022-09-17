@@ -32,20 +32,34 @@
 					id="searchquery_input"
 				/>
 				<input type="hidden" name="mediatype" value="" />
-				<input type="hidden" name="type" value="search">
+				<input type="hidden" name="type" value="search" />
 				<select name="mode" class="std_btn no_padding-top-bot">
 					<option value="standard">Standard</option>
 					<option value="strict">Strict</option>
 				</select>
-				<button class="std_btn square_button no_margin_left" onclick="return validation(this.parentElement.children[0])" type="submit">
+				<button
+					class="std_btn square_button no_margin_left"
+					onclick="return validation(this.parentElement.children[0])"
+					type="submit"
+				>
 					<ion-icon name="search-outline"></ion-icon>
 				</button>
 			</form>
 		</header>
 		<main>
-			<div id="Media_Showcase_wrapper">
-			</div>
+			<div id="Media_Showcase_wrapper"></div>
 		</main>
+		<template id="skeleton-card-template">
+			<div class="box">
+				<span class="img-wrapper skeleton"><img thumbnail /></span>
+				<div class="Media_Showcase_Title skeleton skeleton-text"></div>
+			</div>
+		</template>
+		<template id="card-template">
+			<div class="box">
+				<div class="img-outer"><span class="img-wrapper" onmousemove="this.children[0].children[1].style.display = 'none';" onclick="this.children[0].children[0].style.display = 'none'; this.children[0].children[1].style.display = 'block'"><div class="img-hover"><ion-icon name="play-sharp"></ion-icon><ion-icon class="loading_spinner" name="sync-outline"></ion-icon></div><img thumbnail /></span></div>
+				<div class="Media_Showcase_Title" title></div>
+			</div>
+		</template>
 	</body>
 </html>
-	
