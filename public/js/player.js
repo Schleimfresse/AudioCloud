@@ -1,6 +1,9 @@
 let timer;
 let autoplay;
 let Playing_song = false;
+let Playlist;
+let song_index = 0;
+let if_statment_interupt = false;
 const slider = document.getElementById("player-track-duration-slider");
 const video = document.createElement("video");
 const play = document.getElementById("player-play");
@@ -18,9 +21,13 @@ if (localStorage.getItem("autoplay") != null) {
 video.src = `/Media/${filename}`;
 video.poster = `/thumbnails/${information.thumbnail}`;
 video.setAttribute("controlsList", "nodownload");
+video.onclick = function () {
+	justplay();
+};
 video.innerText = "Sorry, your browser doesn't support embedded videos/audios";
 video.load();
 document.getElementById("video-wrapper").append(video);
+document.title = `AudioCloud | ${information.title}`;
 document.querySelector("AudioCloud-TrackTitle-inner").innerText = information.title;
 document.querySelector("AudioCloud-Description").innerText = information.desc;
 document.querySelector("AudioCloud-AddedOn").innerText = information.added;
@@ -28,8 +35,9 @@ document.querySelector("AudioCloud-Artist").innerText = information.artist;
 
 async function load() {
 	const res = await fetch("/api");
-	const data = await res.json();
-	data.forEach((e) => {
+	Playlist = await res.json();
+	console.log(Playlist);
+	Playlist.forEach((e) => {
 		console.log(e);
 		const div = document.getElementById("card-template").content.cloneNode(true);
 		div.children[0].setAttribute("onclick", `window.location.href = "./${e.name}"`);
@@ -41,7 +49,37 @@ async function load() {
 }
 load();
 
+// Player functions
+
 timer = setInterval(range_slider, 1000);
+
+function next_song() {
+	if (song_index < Playlist.length - 1) {
+		song_index += 1;
+		history.pushState(null, null, `/Player/${Playlist[song_index].name}`);
+		load_track(song_index);
+		playsong();
+	} else {
+		song_index = 0;
+		history.pushState(null, null, `/Player/${Playlist[song_index].name}`);
+		load_track(song_index);
+		playsong();
+	}
+}
+
+function previous_song() {
+	if (song_index > 0) {
+		song_index -= 1;
+		history.pushState(null, null, `/Player/${Playlist[song_index].name}`);
+		load_track(song_index);
+		playsong();
+	} else {
+		song_index = Playlist.length;
+		history.pushState(null, null, `/Player/${Playlist[song_index].name}`);
+		load_track(song_index);
+		playsong();
+	}
+}
 
 function change_duration() {
 	slider_position = video.duration * (slider.value / 100);
@@ -50,17 +88,28 @@ function change_duration() {
 
 function range_slider() {
 	let position = 0;
-
+	if (video.paused && if_statment_interupt) {
+		if_statment_interupt = false;
+		play.innerHTML = '<ion-icon class="icon-size-large" name="play"></ion-icon>';
+	}
+	if(!video.paused) {
+		if_statment_interupt = true;
+	}
 	if (!isNaN(video.duration)) {
 		position = video.currentTime * (100 / video.duration);
 		slider.value = position;
 	}
-
 	slider.style.backgroundSize = ((slider.value - slider.min) * 100) / (slider.max - slider.min) + "% 100%";
 
 	video.onended = () => {
-		play.innerHTML = '<ion-icon class="icon-size-large" name="play"></ion-icon>';
 		if (autoplay == true) {
+			if (song_index < Playlist.length - 1) {
+				song_index += 1;
+				load_track(song_index);
+				playsong();
+			} else {
+				play.innerHTML = '<ion-icon class="icon-size-large" name="play"></ion-icon>';
+			}
 		}
 	};
 }
@@ -79,11 +128,12 @@ function justplay() {
 	}
 }
 
-function load_track(index_no) {
+function load_track(index) {
 	clearInterval(timer);
 	reset_slider();
 
-	//video.src = ;
+	video.src = `/Media/${Playlist[index].name}`;
+	document.title = `AudioCloud | ${Playlist[index].title}`;
 	//title.innerHTML = ;
 	//track_image.src = ;
 	//artist.innerHTML = ;
@@ -112,7 +162,6 @@ function playsong() {
 	play.innerHTML = '<ion-icon class="icon-size-large" name="pause"></ion-icon>';
 }
 
-//pause song
 function pausesong() {
 	video.pause();
 	Playing_song = false;
