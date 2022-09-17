@@ -88,13 +88,6 @@ function change_duration() {
 
 function range_slider() {
 	let position = 0;
-	if (video.paused && if_statment_interupt) {
-		if_statment_interupt = false;
-		play.innerHTML = '<ion-icon class="icon-size-large" name="play"></ion-icon>';
-	}
-	if(!video.paused) {
-		if_statment_interupt = true;
-	}
 	if (!isNaN(video.duration)) {
 		position = video.currentTime * (100 / video.duration);
 		slider.value = position;
@@ -114,8 +107,17 @@ function range_slider() {
 	};
 }
 
+video.addEventListener('play', () => {
+	play.innerHTML = '<ion-icon class="icon-size-large" name="pause"></ion-icon>';
+})
+
+video.addEventListener('pause', () => {
+	play.innerHTML = '<ion-icon class="icon-size-large" name="play"></ion-icon>';
+})
+
 window.addEventListener("keydown", (e) => {
 	if (e.code === "Space") {
+		e.preventDefault();
 		justplay();
 	}
 });
@@ -159,11 +161,9 @@ function reset_slider() {
 function playsong() {
 	video.play();
 	Playing_song = true;
-	play.innerHTML = '<ion-icon class="icon-size-large" name="pause"></ion-icon>';
 }
 
 function pausesong() {
 	video.pause();
 	Playing_song = false;
-	play.innerHTML = '<ion-icon class="icon-size-large" name="play"></ion-icon>';
 }
