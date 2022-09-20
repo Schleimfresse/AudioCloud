@@ -24,6 +24,7 @@ video {
 	min-height: 480px;
 	background-color: black;
 	flex-direction: column-reverse;
+	position: relative;
 }
 header {
 	position: relative;
@@ -125,17 +126,41 @@ main {
 	height: 32px;
 }
 
-#player-track-duration-slider {
+.player-track-sliders {
 	position: absolute;
 	transition: none;
 	height: 2px;
 	width: 100vw;
 	-webkit-appearance: none;
-	margin-right: 15px;
+	appearance: none;
 	border-radius: 5px;
-	background-image: linear-gradient(rgba(192, 0, 0, 0.6), rgba(192, 0, 0, 0.6));
-	background-size: 0% 100%;
 	background-repeat: no-repeat;
+	cursor: pointer;
+	border: none;
+	margin: 0;
+}
+
+#player-track-buffered-progress[value] {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+}
+#player-track-buffered-progress::-moz-progress-bar {
+	background-color: #4c4c4c;
+}
+#player-track-buffered-progress::-webkit-progress-value {
+	background-color: #4c4c4c;
+}
+
+#player-track-duration-slider {
+	background-image: linear-gradient(#3ea6ff, #3ea6ff);
+	background-size: 0% 100%;
+	background-color: transparent;
+	z-index: 5;
+}
+
+#player-track-buffered-progress {
+	background-color: #383838;
 }
 
 #player-track-duration-slider::-webkit-slider-runnable-track {
@@ -161,22 +186,25 @@ main {
 
 #player-track-duration-slider::-webkit-slider-thumb {
 	border-radius: 50px;
-	background-color: rgb(207, 0, 0);
+	background-color: #1994ff;
 	appearance: none;
 	-webkit-appearance: none;
 	height: 20px;
 	width: 20px;
 	cursor: pointer;
 	outline: none;
+	border: none;
 }
 
 #player-track-duration-slider::-moz-range-thumb {
 	border-radius: 50px;
-	background-color: rgb(207, 0, 0);
+	background-color: #1994ff;
 	height: 20px;
 	width: 20px;
 	cursor: pointer;
 	outline: none;
+	appearance: none;
+	border: none;
 }
 
 AudioCloud-Controls {
@@ -221,6 +249,7 @@ AudioCloud-Controles-inner {
 #player-play {
 	height: 50px;
 	width: 50px;
+	transition: none;
 }
 
 #player-autoplay {
@@ -286,4 +315,65 @@ input:checked + .slider:before {
 	-webkit-transform: translateX(20px);
 	-ms-transform: translateX(20px);
 	transform: translateX(20px);
+}
+
+AudioCloud-Song-Media-Controls {
+	position: absolute;
+	box-sizing: border-box;
+	bottom: 0px;
+	left: 0;
+	right: 0;
+	top: 0;
+}
+
+#player-video-controles {
+	width: 100%;
+	bottom: 0;
+	position: absolute;
+	z-index: 4;
+	opacity: 0;
+	height: 48px;
+	display: flex;
+	justify-content: flex-end;
+}
+
+.player-video-controles-item {
+	cursor: pointer;
+	height: 100%;
+	width: 48px;
+	padding: 0 2px 0 2px;
+}
+
+.player-video-controles-icon:hover {
+	animation: video-controles-item 0.3s linear forwards alternate;
+}
+
+@keyframes video-controles-item {
+	0% {
+		scale: 1;
+	}
+	50% {
+		scale: 1.2;
+	}
+	100% {
+		scale: 1;
+	}
+}
+
+#fullscreen-btn {
+	margin-right: 10px;
+}
+
+#player-video-element::-webkit-media-controls {
+	display: none;
+}
+
+#volume-wrapper{
+	right: 0;
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    left: 50%;
+    position: absolute;
 }

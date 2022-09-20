@@ -1,6 +1,10 @@
-## IONICons für player adden
+## IONICons für player adden [+]
 
-## pushState fertigstellen
+## pushState fertigstellen [+]
 -> Player 
 - Zufallsmix
-- Soundregler
+- Soundregler [%]
+
+- Sound icon !IMPORTANT
+
+- Volume mit local Storage verknüpfen

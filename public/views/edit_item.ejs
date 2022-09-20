@@ -13,14 +13,12 @@
 		</script>
 		<script defer type="module" src="../js/edit/edit_item.js"></script>
 		<script defer src="/js/searchformValidation.js"></script>
-		<script defer type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 	</head>
 	<body>
 		<header>
 			<div class="icon-spacing-right" id="menu">
 				<a id="menu-link" href="/"
-					><ion-icon class="icon-spacing-right" name="musical-notes-outline"></ion-icon
-					><span><span class="bold">A</span>udioCloud</span></a
+					><img class="icons icon-spacing-right" src="../svg/musical-notes-outline.svg" alt="music-note" /><span><span class="bold">A</span>udioCloud</span></a
 				>
 			</div>
 			<a href="/upload" class="std_btn">Upload</a>
@@ -46,7 +44,7 @@
 					onclick="return validation(this.parentElement.children[0])"
 					type="submit"
 				>
-					<ion-icon name="search-outline"></ion-icon>
+				<img class="icons" src="../svg/search-outline.svg" alt="search" />
 				</button>
 			</form>
 		</header>

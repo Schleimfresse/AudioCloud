@@ -5,9 +5,22 @@ let Playlist;
 let song_index = 0;
 let if_statment_interupt = false;
 const slider = document.getElementById("player-track-duration-slider");
+const buffered_progress = document.getElementById("player-track-buffered-progress");
 const video = document.createElement("video");
+video.id = "player-video-element";
+video.innerText = "Sorry, your browser doesn't support embedded videos/audios";
 const play = document.getElementById("player-play");
 const autoplay_checkbox = document.getElementById("player-autoplay-checkbox");
+const fullscreen = document.getElementById("fullscreen-btn");
+const video_wrapper = document.getElementById("video-wrapper");
+const video_controls = document.getElementById("player-video-controles");
+let Title = document.querySelector("AudioCloud-TrackTitle-inner");
+let Description = document.querySelector("AudioCloud-Description");
+let AddedOn = document.querySelector("AudioCloud-AddedOn");
+let Artist = document.querySelector("AudioCloud-Artist");
+video.onclick = function () {
+	justplay();
+};
 if (localStorage.getItem("autoplay") != null) {
 	autoplay = JSON.parse(localStorage.getItem("autoplay"));
 	if (autoplay === true) {
@@ -18,40 +31,41 @@ if (localStorage.getItem("autoplay") != null) {
 	localStorage.setItem("autoplay", JSON.stringify(autoplay));
 	autoplay_checkbox.setAttribute("checked", true);
 }
-video.src = `/Media/${filename}`;
-video.poster = `/thumbnails/${information.thumbnail}`;
-video.setAttribute("controlsList", "nodownload");
-video.onclick = function () {
-	justplay();
-};
-video.innerText = "Sorry, your browser doesn't support embedded videos/audios";
-video.load();
+
 document.getElementById("video-wrapper").append(video);
 document.title = `AudioCloud | ${information.title}`;
-document.querySelector("AudioCloud-TrackTitle-inner").innerText = information.title;
-document.querySelector("AudioCloud-Description").innerText = information.desc;
-document.querySelector("AudioCloud-AddedOn").innerText = information.added;
-document.querySelector("AudioCloud-Artist").innerText = information.artist;
 
-async function load() {
+async function RetrieveData() {
 	const res = await fetch("/api");
 	Playlist = await res.json();
-	console.log(Playlist);
+	const currentMediumIndex = Playlist.findIndex((e) => {
+		return e.name == filename;
+	});
+	const currentMedium = Playlist.find((e) => {
+		return e.name == filename;
+	});
+	Playlist.splice(currentMediumIndex, 1);
+	let index = 0;
 	Playlist.forEach((e) => {
+		index++;
 		console.log(e);
 		const div = document.getElementById("card-template").content.cloneNode(true);
-		div.children[0].setAttribute("onclick", `window.location.href = "./${e.name}"`);
+		div.children[0].setAttribute(
+			"onclick",
+			`history.pushState(null, null, '/Player/${e.name}'); load_track(${index});`
+		);
 		div.querySelector("[thumbnail]").src = `/thumbnails/${e.thumbnail}`;
 		div.querySelector("[artist]").textContent = e.artist;
 		div.querySelector("[title]").textContent = e.title;
 		document.getElementById("next_media_list").append(div);
 	});
+	Playlist.unshift(currentMedium);
+	load_track(song_index);
 }
-load();
+
+RetrieveData();
 
 // Player functions
-
-timer = setInterval(range_slider, 1000);
 
 function next_song() {
 	if (song_index < Playlist.length - 1) {
@@ -73,17 +87,13 @@ function previous_song() {
 		history.pushState(null, null, `/Player/${Playlist[song_index].name}`);
 		load_track(song_index);
 		playsong();
-	} else {
-		song_index = Playlist.length;
-		history.pushState(null, null, `/Player/${Playlist[song_index].name}`);
-		load_track(song_index);
-		playsong();
 	}
 }
 
 function change_duration() {
 	slider_position = video.duration * (slider.value / 100);
 	video.currentTime = slider_position;
+	slider.style.backgroundSize = ((slider.value - slider.min) * 100) / (slider.max - slider.min) + "% 100%";
 }
 
 function range_slider() {
@@ -91,6 +101,10 @@ function range_slider() {
 	if (!isNaN(video.duration)) {
 		position = video.currentTime * (100 / video.duration);
 		slider.value = position;
+	}
+	if (!isNaN(video.buffered.end(video.buffered.length - 1))) {
+		position = (video.buffered.end(video.buffered.length - 1) / video.duration) * 100;
+		buffered_progress.value = position;
 	}
 	slider.style.backgroundSize = ((slider.value - slider.min) * 100) / (slider.max - slider.min) + "% 100%";
 
@@ -101,25 +115,46 @@ function range_slider() {
 				load_track(song_index);
 				playsong();
 			} else {
-				play.innerHTML = '<ion-icon class="icon-size-large" name="play"></ion-icon>';
+				play.innerHTML = '<img class="icons icon-size-large" src="../svg/play.svg" alt="play" />';
 			}
 		}
 	};
 }
 
-video.addEventListener('play', () => {
-	play.innerHTML = '<ion-icon class="icon-size-large" name="pause"></ion-icon>';
-})
+video.addEventListener("play", () => {
+	Playing_song = true;
+	play.innerHTML = '<img class="icons icon-size-large" src="../svg/pause.svg" alt="pause" />';
+});
 
-video.addEventListener('pause', () => {
-	play.innerHTML = '<ion-icon class="icon-size-large" name="play"></ion-icon>';
-})
+video.addEventListener("pause", () => {
+	Playing_song = false;
+	play.innerHTML = '<img class="icons icon-size-large" src="../svg/play.svg" alt="play" />';
+});
+
+video_wrapper.addEventListener("mouseover", () => {
+	video_controls.style.opacity = 1;
+});
+
+video.addEventListener("click", () => {
+	justplay();
+});
+
+video_wrapper.addEventListener("mouseout", () => {
+	video_controls.style.opacity = 0;
+});
 
 window.addEventListener("keydown", (e) => {
 	if (e.code === "Space") {
 		e.preventDefault();
 		justplay();
 	}
+	if (e.code === "KeyF") {
+		video.requestFullscreen();
+	}
+});
+
+fullscreen.addEventListener("click", (e) => {
+	video.requestFullscreen();
 });
 
 function justplay() {
@@ -133,13 +168,15 @@ function justplay() {
 function load_track(index) {
 	clearInterval(timer);
 	reset_slider();
-
 	video.src = `/Media/${Playlist[index].name}`;
 	document.title = `AudioCloud | ${Playlist[index].title}`;
-	//title.innerHTML = ;
+	Title.innerText = Playlist[index].title;
 	//track_image.src = ;
-	//artist.innerHTML = ;
+	video.poster = `/thumbnails/${Playlist[index].thumbnail}`;
+	Artist.innerText = Playlist[index].artist;
+	Description.innerText = Playlist[index].desc;
 	video.load();
+	justplay();
 
 	timer = setInterval(range_slider, 1000);
 }
@@ -160,10 +197,22 @@ function reset_slider() {
 
 function playsong() {
 	video.play();
-	Playing_song = true;
 }
 
 function pausesong() {
 	video.pause();
-	Playing_song = false;
+}
+
+let recent_volume = document.querySelector("#volume");
+let volume_show = document.querySelector("#volume_show");
+
+function volume_change() {
+	volume_show.innerHTML = recent_volume.value;
+	video.volume = recent_volume.value / 100;
+}
+
+function mute_sound() {
+	video.volume = 0;
+	volume.value = 0;
+	volume_show.innerHTML = 0;
 }

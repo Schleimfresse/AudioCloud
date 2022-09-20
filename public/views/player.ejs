@@ -12,7 +12,6 @@
 		</script>
 		<script defer src="../js/player.js"></script>
 		<script defer src="../js/searchformValidation.js"></script>
-		<script defer type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 		<link rel="stylesheet" href="../css/global.css" />
 		<link rel="stylesheet" href="../css/player.css" />
 	</head>
@@ -20,8 +19,9 @@
 		<header>
 			<div id="menu" class="icon-spacing-right">
 				<a id="menu-link" href="/"
-					><ion-icon class="icon-spacing-right" name="musical-notes-outline"></ion-icon
-					><span><span class="bold">A</span>udioCloud</span></a
+					><img class="icons icon-spacing-right" src="../svg/musical-notes-outline.svg" alt="music-note" /><span
+						><span class="bold">A</span>udioCloud</span
+					></a
 				>
 			</div>
 			<form class="row" action="/search">
@@ -44,12 +44,19 @@
 					onclick="return validation(this.parentElement.children[0])"
 					type="submit"
 				>
-					<ion-icon name="search-outline"></ion-icon>
+				<img class="icons" src="../svg/search-outline.svg" alt="search" />
 				</button>
 			</form>
 		</header>
 		<main>
-			<div id="video-wrapper"></div>
+			<div id="video-wrapper">
+				<AudioCloud-Song-Media-Controls>
+					<div id="player-video-controles">
+						<span id="fullscreen-btn" class="player-video-controles-item center"
+							><img src="../svg/fullscreen-sharp.svg" class="icons player-video-controles-icon icon-size-large" alt="fullscreen"></span>
+					</div>
+				</AudioCloud-Song-Media-Controls>
+			</div>
 			<div id="container">
 				<div id="information">
 					<div id="player_inner_wrapper">
@@ -76,26 +83,38 @@
 					value="0"
 					onchange="change_duration()"
 					id="player-track-duration-slider"
+					class="player-track-sliders"
 				/>
+				<progress
+					max="100"
+					value="0"
+					class="player-track-sliders"
+					id="player-track-buffered-progress"
+				></progress>
 				<AudioCloud-Controles-inner>
 					<div id="player-autoplay">
 						Autoplay
 						<label class="switch">
-							<input type="checkbox" onclick="autoplay_switch()" id="player-autoplay-checkbox"/>
+							<input type="checkbox" onclick="autoplay_switch()" id="player-autoplay-checkbox" />
 							<span class="slider"></span>
 						</label>
 					</div>
 					<div id="player-controles">
 						<button type="button" class="std-btn-round" id="previous_track" onclick="previous_song()">
-							<ion-icon name="play-skip-back"></ion-icon>
+							<img class="icons" src="../svg/play-skip-back.svg" alt="skip-back" />
 						</button>
-						<button type="button" class="std-btn-round " id="player-play" onclick="justplay()">
-							<ion-icon class="icon-size-large" name="play"></ion-icon>
+						<button type="button" class="std-btn-round" id="player-play" onclick="justplay()">
+							<img class="icons icon-size-large" src="../svg/play.svg" alt="play" />
 						</button>
 						<button type="button" class="std-btn-round" id="next_track" onclick="next_song()">
-							<ion-icon name="play-skip-forward"></ion-icon>
+							<img class="icons" src="../svg/play-skip-forward.svg" alt="skip-forward" />
 						</button>
 					</div>
+					<div id="volume-wrapper">
+						<p id="volume_show">90</p>
+						<i class="fa fa-volume-up" aria-hidden="true" onclick="mute_sound()" id="volume_icon">HELLO</i>
+						<input type="range" min="0" max="100" value="90" onchange="volume_change()" id="volume">  
+					 </div>
 				</AudioCloud-Controles-inner>
 			</AudioCloud-Controls>
 		</main>
