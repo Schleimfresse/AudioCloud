@@ -13,27 +13,39 @@ const play = document.getElementById("player-play");
 const autoplay_checkbox = document.getElementById("player-autoplay-checkbox");
 const fullscreen = document.getElementById("fullscreen-btn");
 const video_wrapper = document.getElementById("video-wrapper");
+const video_controles_wrapper = document.querySelector("AudioCloud-Song-Media-Controls");
 const video_controls = document.getElementById("player-video-controles");
-let Title = document.querySelector("AudioCloud-TrackTitle-inner");
-let Description = document.querySelector("AudioCloud-Description");
-let AddedOn = document.querySelector("AudioCloud-AddedOn");
-let Artist = document.querySelector("AudioCloud-Artist");
+const recent_volume = document.querySelector("#volume");
+const volume_icon = document.getElementById("volume_icon");
+const Title = document.querySelector("AudioCloud-TrackTitle-inner");
+const Description = document.querySelector("AudioCloud-Description");
+const AddedOn = document.querySelector("AudioCloud-AddedOn");
+const Artist = document.querySelector("AudioCloud-Artist");
+const previous = document.getElementById("previous_track");
+const next = document.getElementById("next_track");
 video.onclick = function () {
 	justplay();
 };
-if (localStorage.getItem("autoplay") != null) {
-	autoplay = JSON.parse(localStorage.getItem("autoplay"));
-	if (autoplay === true) {
+if (localStorage.getItem("AudioCloud") != null) {
+	const AudioCloud = JSON.parse(localStorage.getItem("AudioCloud"));
+	autoplay = AudioCloud.autoplay;
+	video.volume = AudioCloud.volume;
+	recent_volume.value = AudioCloud.volume * 100;
+	recent_volume.style.backgroundSize = JSON.parse(localStorage.getItem("AudioCloud")).volume * 100 + "% 100%";
+	if (AudioCloud.autoplay === true) {
 		autoplay_checkbox.setAttribute("checked", true);
 	}
 } else {
 	autoplay = true;
-	localStorage.setItem("autoplay", JSON.stringify(autoplay));
+	video.volume = 0.5;
+	localStorage.setItem("AudioCloud", JSON.stringify({ autoplay: true, volume: 0.7 }));
 	autoplay_checkbox.setAttribute("checked", true);
+	recent_volume.style.backgroundSize = JSON.parse(localStorage.getItem("AudioCloud")).volume * 100 + "% 100%";
 }
-
 document.getElementById("video-wrapper").append(video);
 document.title = `AudioCloud | ${information.title}`;
+
+// Initialisation end
 
 async function RetrieveData() {
 	const res = await fetch("/api");
@@ -135,7 +147,7 @@ video_wrapper.addEventListener("mouseover", () => {
 	video_controls.style.opacity = 1;
 });
 
-video.addEventListener("click", () => {
+video_controles_wrapper.addEventListener("click", () => {
 	justplay();
 });
 
@@ -155,6 +167,34 @@ window.addEventListener("keydown", (e) => {
 
 fullscreen.addEventListener("click", (e) => {
 	video.requestFullscreen();
+});
+
+recent_volume.addEventListener("input", (e) => {
+	volume_change(e.path[0].value);
+});
+
+volume_icon.addEventListener("click", () => {
+	mute_sound();
+});
+
+autoplay_checkbox.addEventListener("click", () => {
+	autoplay_switch();
+});
+
+slider.addEventListener("input", () => {
+	change_duration();
+});
+
+play.addEventListener("click", () => {
+	justplay();
+});
+
+previous.addEventListener("click", () => {
+	previous_song();
+});
+
+next.addEventListener("click", () => {
+	next_song();
 });
 
 function justplay() {
@@ -184,10 +224,14 @@ function load_track(index) {
 function autoplay_switch() {
 	if (autoplay == true) {
 		autoplay = false;
-		localStorage.setItem("autoplay", JSON.stringify(autoplay));
+		let ls = JSON.parse(localStorage.getItem("AudioCloud"));
+		ls.autoplay = autoplay;
+		localStorage.setItem("AudioCloud", JSON.stringify(ls));
 	} else {
 		autoplay = true;
-		localStorage.setItem("autoplay", JSON.stringify(autoplay));
+		let ls = JSON.parse(localStorage.getItem("AudioCloud"));
+		ls.autoplay = autoplay;
+		localStorage.setItem("AudioCloud", JSON.stringify(ls));
 	}
 }
 
@@ -203,16 +247,31 @@ function pausesong() {
 	video.pause();
 }
 
-let recent_volume = document.querySelector("#volume");
-let volume_show = document.querySelector("#volume_show");
-
-function volume_change() {
-	volume_show.innerHTML = recent_volume.value;
-	video.volume = recent_volume.value / 100;
+function volume_change(value) {
+	video.muted = false;
+	let ls = JSON.parse(localStorage.getItem("AudioCloud"));
+	ls.volume = value / 100;
+	localStorage.setItem("AudioCloud", JSON.stringify(ls));
+	video.volume = JSON.parse(localStorage.getItem("AudioCloud")).volume;
+	recent_volume.style.backgroundSize = JSON.parse(localStorage.getItem("AudioCloud")).volume * 100 + "% 100%";
+	if (video.volume === 0) {
+		volume_icon.src = "../svg/volume-off-outline.svg";
+	} else {
+		volume_icon.src = "../svg/volume-high-outline.svg";
+	}
 }
 
 function mute_sound() {
-	video.volume = 0;
-	volume.value = 0;
-	volume_show.innerHTML = 0;
+	if (video.muted === false) {
+		video.muted = true;
+		recent_volume.value = 0;
+		volume_icon.src = "../svg/volume-mute-outline.svg";
+	} else {
+		volume_icon.src = "../svg/volume-high-outline.svg";
+		video.muted = false;
+		video.volume = JSON.parse(localStorage.getItem("AudioCloud")).volume;
+		recent_volume.value = JSON.parse(localStorage.getItem("AudioCloud")).volume * 100;
+		recent_volume.style.backgroundSize =
+			JSON.parse(localStorage.getItem("AudioCloud")).volume * 100 + "% 100%";
+	}
 }

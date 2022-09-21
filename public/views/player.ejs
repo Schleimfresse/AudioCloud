@@ -19,9 +19,11 @@
 		<header>
 			<div id="menu" class="icon-spacing-right">
 				<a id="menu-link" href="/"
-					><img class="icons icon-spacing-right" src="../svg/musical-notes-outline.svg" alt="music-note" /><span
-						><span class="bold">A</span>udioCloud</span
-					></a
+					><img
+						class="icons icon-spacing-right"
+						src="../svg/musical-notes-outline.svg"
+						alt="music-note"
+					/><span><span class="bold">A</span>udioCloud</span></a
 				>
 			</div>
 			<form class="row" action="/search">
@@ -44,7 +46,7 @@
 					onclick="return validation(this.parentElement.children[0])"
 					type="submit"
 				>
-				<img class="icons" src="../svg/search-outline.svg" alt="search" />
+					<img class="icons" src="../svg/search-outline.svg" alt="search" />
 				</button>
 			</form>
 		</header>
@@ -53,7 +55,11 @@
 				<AudioCloud-Song-Media-Controls>
 					<div id="player-video-controles">
 						<span id="fullscreen-btn" class="player-video-controles-item center"
-							><img src="../svg/fullscreen-sharp.svg" class="icons player-video-controles-icon icon-size-large" alt="fullscreen"></span>
+							><img
+								src="../svg/fullscreen-sharp.svg"
+								class="icons player-video-controles-icon icon-size-large"
+								alt="fullscreen"
+						/></span>
 					</div>
 				</AudioCloud-Song-Media-Controls>
 			</div>
@@ -81,7 +87,6 @@
 					max="100"
 					step="any"
 					value="0"
-					onchange="change_duration()"
 					id="player-track-duration-slider"
 					class="player-track-sliders"
 				/>
@@ -95,26 +100,25 @@
 					<div id="player-autoplay">
 						Autoplay
 						<label class="switch">
-							<input type="checkbox" onclick="autoplay_switch()" id="player-autoplay-checkbox" />
+							<input type="checkbox" id="player-autoplay-checkbox" />
 							<span class="slider"></span>
 						</label>
 					</div>
 					<div id="player-controles">
-						<button type="button" class="std-btn-round" id="previous_track" onclick="previous_song()">
+						<button type="button" class="std-btn-round" id="previous_track">
 							<img class="icons" src="../svg/play-skip-back.svg" alt="skip-back" />
 						</button>
-						<button type="button" class="std-btn-round" id="player-play" onclick="justplay()">
+						<button type="button" class="std-btn-round" id="player-play">
 							<img class="icons icon-size-large" src="../svg/play.svg" alt="play" />
 						</button>
-						<button type="button" class="std-btn-round" id="next_track" onclick="next_song()">
+						<button type="button" class="std-btn-round" id="next_track">
 							<img class="icons" src="../svg/play-skip-forward.svg" alt="skip-forward" />
 						</button>
 					</div>
 					<div id="volume-wrapper">
-						<p id="volume_show">90</p>
-						<i class="fa fa-volume-up" aria-hidden="true" onclick="mute_sound()" id="volume_icon">HELLO</i>
-						<input type="range" min="0" max="100" value="90" onchange="volume_change()" id="volume">  
-					 </div>
+						<input type="range" min="0" step="any" max="100" id="volume" />
+						<img class="icons" id="volume_icon" src="../svg/volume-high-outline.svg" alt="volume-high" />
+					</div>
 				</AudioCloud-Controles-inner>
 			</AudioCloud-Controls>
 		</main>

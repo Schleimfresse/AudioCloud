@@ -368,12 +368,84 @@ AudioCloud-Song-Media-Controls {
 	display: none;
 }
 
+#volume-wrapper > * {
+	position: relative;
+	display: block;
+}
+
+#volume_icon{
+	padding: 8px;
+	cursor: pointer;
+}
+
 #volume-wrapper{
-	right: 0;
 	display: flex;
     justify-content: center;
     align-items: center;
     height: 100%;
-    left: 50%;
-    position: absolute;
+    margin-right: 5px;
+	margin-left: auto;
+	width: 200px;
+}
+
+#volume {
+	background-color: #909090;
+	z-index: 5;
+	transition: none;
+	height: 2px;
+	width: 100px;
+	-webkit-appearance: none;
+	appearance: none;
+	border-radius: 5px;
+	background-repeat: no-repeat;
+	cursor: pointer;
+	border: none;
+	margin: 0;
+	background-image: linear-gradient(#ffffff, #ffffff);
+	background-size: 0% 100%;
+}
+
+
+#volume::-webkit-slider-runnable-track {
+	-webkit-appearance: none;
+	box-shadow: none;
+	border: none;
+	background: transparent;
+}
+
+#volume::-moz-range-track {
+	-webkit-appearance: none;
+	box-shadow: none;
+	border: none;
+	background: transparent;
+}
+
+#volume::-ms-track {
+	-webkit-appearance: none;
+	box-shadow: none;
+	border: none;
+	background: transparent;
+}
+
+#volume::-webkit-slider-thumb {
+	border-radius: 50px;
+	background-color: #ffffff;
+	appearance: none;
+	-webkit-appearance: none;
+	height: 15px;
+	width: 15px;
+	cursor: pointer;
+	outline: none;
+	border: none;
+}
+
+#volume::-moz-range-thumb {
+	border-radius: 50px;
+	background-color: #ffffff;
+	height: 15px;
+	width: 15px;
+	cursor: pointer;
+	outline: none;
+	appearance: none;
+	border: none;
 }
