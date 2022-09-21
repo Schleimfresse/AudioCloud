@@ -9,6 +9,7 @@ video {
 	height: 100%;
 	left: 55px;
 	top: 0px;
+	z-index: 5;
 }
 
 #video-wrapper {
@@ -133,7 +134,6 @@ main {
 	width: 100vw;
 	-webkit-appearance: none;
 	appearance: none;
-	border-radius: 5px;
 	background-repeat: no-repeat;
 	cursor: pointer;
 	border: none;
@@ -230,6 +230,21 @@ AudioCloud-Controles-inner {
 	left: 50%;
 	position: absolute;
 	transform: translate(-50%);
+	flex-direction: column;
+}
+
+#player-controles-basic-btn {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+#player-controles-timestamp {
+	width: 100%;
+	margin-bottom: 5px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .std-btn-round {
@@ -243,13 +258,19 @@ AudioCloud-Controles-inner {
 	justify-content: center;
 	cursor: pointer;
 	outline: none;
-	margin-left: 8px;
+}
+
+#player-controles-timestamp,
+#player-controles-timestamp > * {
+	color: #aaa;
 }
 
 #player-play {
 	height: 50px;
 	width: 50px;
 	transition: none;
+	margin-left: 8px;
+	margin-right: 8px;
 }
 
 #player-autoplay {
@@ -317,26 +338,17 @@ input:checked + .slider:before {
 	transform: translateX(20px);
 }
 
-AudioCloud-Song-Media-Controls {
-	position: absolute;
-	box-sizing: border-box;
-	bottom: 0px;
-	left: 0;
-	right: 0;
-	top: 0;
-}
-
 #player-video-controles {
 	width: 100%;
 	bottom: 0;
 	position: absolute;
-	z-index: 4;
+	z-index: 6;
 	opacity: 0;
 	height: 48px;
 	display: flex;
 	justify-content: flex-end;
+	transition: 200ms all;
 }
-
 .player-video-controles-item {
 	cursor: pointer;
 	height: 100%;
@@ -373,17 +385,17 @@ AudioCloud-Song-Media-Controls {
 	display: block;
 }
 
-#volume_icon{
+#volume_icon {
 	padding: 8px;
 	cursor: pointer;
 }
 
-#volume-wrapper{
+#volume-wrapper {
 	display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    margin-right: 5px;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+	margin-right: 5px;
 	margin-left: auto;
 	width: 200px;
 }
@@ -404,7 +416,6 @@ AudioCloud-Song-Media-Controls {
 	background-image: linear-gradient(#ffffff, #ffffff);
 	background-size: 0% 100%;
 }
-
 
 #volume::-webkit-slider-runnable-track {
 	-webkit-appearance: none;

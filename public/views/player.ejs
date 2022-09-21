@@ -52,16 +52,17 @@
 		</header>
 		<main>
 			<div id="video-wrapper">
-				<AudioCloud-Song-Media-Controls>
-					<div id="player-video-controles">
-						<span id="fullscreen-btn" class="player-video-controles-item center"
-							><img
-								src="../svg/fullscreen-sharp.svg"
-								class="icons player-video-controles-icon icon-size-large"
-								alt="fullscreen"
-						/></span>
-					</div>
-				</AudioCloud-Song-Media-Controls>
+				<div id="player-video-controles">
+					<span id="pip-btn" class="player-video-controles-item center">
+						<img src="../svg/miniplayer-sharp.svg" alt="miniplayer" />
+					</span>
+					<span id="fullscreen-btn" class="player-video-controles-item center"
+						><img
+							src="../svg/fullscreen-sharp.svg"
+							class="icons player-video-controles-icon icon-size-large"
+							alt="fullscreen"
+					/></span>
+				</div>
 			</div>
 			<div id="container">
 				<div id="information">
@@ -105,15 +106,18 @@
 						</label>
 					</div>
 					<div id="player-controles">
-						<button type="button" class="std-btn-round" id="previous_track">
-							<img class="icons" src="../svg/play-skip-back.svg" alt="skip-back" />
-						</button>
-						<button type="button" class="std-btn-round" id="player-play">
-							<img class="icons icon-size-large" src="../svg/play.svg" alt="play" />
-						</button>
-						<button type="button" class="std-btn-round" id="next_track">
-							<img class="icons" src="../svg/play-skip-forward.svg" alt="skip-forward" />
-						</button>
+						<div id="player-controles-timestamp"><span>NaN</span>&nbsp;/&nbsp;<span>NaN</span></div>
+						<div id="player-controles-basic-btn">
+							<button type="button" class="std-btn-round" id="previous_track">
+								<img class="icons" src="../svg/play-skip-back.svg" alt="skip-back" />
+							</button>
+							<button type="button" class="std-btn-round" id="player-play">
+								<img class="icons icon-size-large" src="../svg/play.svg" alt="play" />
+							</button>
+							<button type="button" class="std-btn-round" id="next_track">
+								<img class="icons" src="../svg/play-skip-forward.svg" alt="skip-forward" />
+							</button>
+						</div>
 					</div>
 					<div id="volume-wrapper">
 						<input type="range" min="0" step="any" max="100" id="volume" />

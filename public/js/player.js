@@ -10,10 +10,10 @@ const video = document.createElement("video");
 video.id = "player-video-element";
 video.innerText = "Sorry, your browser doesn't support embedded videos/audios";
 const play = document.getElementById("player-play");
+const timestamp = document.getElementById("player-controles-timestamp");
 const autoplay_checkbox = document.getElementById("player-autoplay-checkbox");
 const fullscreen = document.getElementById("fullscreen-btn");
 const video_wrapper = document.getElementById("video-wrapper");
-const video_controles_wrapper = document.querySelector("AudioCloud-Song-Media-Controls");
 const video_controls = document.getElementById("player-video-controles");
 const recent_volume = document.querySelector("#volume");
 const volume_icon = document.getElementById("volume_icon");
@@ -23,14 +23,19 @@ const AddedOn = document.querySelector("AudioCloud-AddedOn");
 const Artist = document.querySelector("AudioCloud-Artist");
 const previous = document.getElementById("previous_track");
 const next = document.getElementById("next_track");
-video.onclick = function () {
-	justplay();
+const pip = document.getElementById("pip-btn");
+const isPiPAvailable = () => {
+	return document.pictureInPictureEnabled || !video.disablePictureInPicture;
 };
+if (!isPiPAvailable()) pip.remove();
 if (localStorage.getItem("AudioCloud") != null) {
 	const AudioCloud = JSON.parse(localStorage.getItem("AudioCloud"));
 	autoplay = AudioCloud.autoplay;
 	video.volume = AudioCloud.volume;
 	recent_volume.value = AudioCloud.volume * 100;
+	if (AudioCloud.volume === 0) {
+		volume_icon.src = "../svg/volume-off-outline.svg";
+	}
 	recent_volume.style.backgroundSize = JSON.parse(localStorage.getItem("AudioCloud")).volume * 100 + "% 100%";
 	if (AudioCloud.autoplay === true) {
 		autoplay_checkbox.setAttribute("checked", true);
@@ -113,6 +118,9 @@ function range_slider() {
 	if (!isNaN(video.duration)) {
 		position = video.currentTime * (100 / video.duration);
 		slider.value = position;
+		const minutes = Math.floor(video.currentTime / 60);
+		const seconds = Math.round(video.currentTime % 60);
+		timestamp.children[0].textContent = `${padTo2Digits(minutes)}:${padTo2Digits(seconds)}`;
 	}
 	if (!isNaN(video.buffered.end(video.buffered.length - 1))) {
 		position = (video.buffered.end(video.buffered.length - 1) / video.duration) * 100;
@@ -147,7 +155,7 @@ video_wrapper.addEventListener("mouseover", () => {
 	video_controls.style.opacity = 1;
 });
 
-video_controles_wrapper.addEventListener("click", () => {
+video.addEventListener("click", () => {
 	justplay();
 });
 
@@ -197,12 +205,20 @@ next.addEventListener("click", () => {
 	next_song();
 });
 
+pip.addEventListener("click", () => {
+	pip_player();
+});
+
 function justplay() {
 	if (Playing_song == false) {
 		playsong();
 	} else {
 		pausesong();
 	}
+}
+
+function padTo2Digits(num) {
+	return num.toString().padStart(2, "0");
 }
 
 function load_track(index) {
@@ -216,6 +232,12 @@ function load_track(index) {
 	Artist.innerText = Playlist[index].artist;
 	Description.innerText = Playlist[index].desc;
 	video.load();
+	video.onloadedmetadata = function () {
+		const minutes = Math.floor(video.duration / 60);
+		const seconds = Math.round(video.duration % 60);
+		timestamp.children[1].textContent = `${padTo2Digits(minutes)}:${padTo2Digits(seconds)}`;
+		timestamp.children[0].textContent = "00:00";
+	};
 	justplay();
 
 	timer = setInterval(range_slider, 1000);
@@ -267,11 +289,27 @@ function mute_sound() {
 		recent_volume.value = 0;
 		volume_icon.src = "../svg/volume-mute-outline.svg";
 	} else {
-		volume_icon.src = "../svg/volume-high-outline.svg";
+		if (video.volume === 0) {
+			volume_icon.src = "../svg/volume-off-outline.svg";
+		} else {
+			volume_icon.src = "../svg/volume-high-outline.svg";
+		}
 		video.muted = false;
 		video.volume = JSON.parse(localStorage.getItem("AudioCloud")).volume;
 		recent_volume.value = JSON.parse(localStorage.getItem("AudioCloud")).volume * 100;
 		recent_volume.style.backgroundSize =
 			JSON.parse(localStorage.getItem("AudioCloud")).volume * 100 + "% 100%";
+	}
+}
+
+function pip_player() {
+	try {
+		if (!document.pictureInPictureElement) {
+			video.requestPictureInPicture();
+		} else {
+			document.exitPictureInPicture();
+		}
+	} catch (err) {
+		console.error(err);
 	}
 }
