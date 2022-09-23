@@ -10,6 +10,7 @@
 			const filename = <%- JSON.stringify(data.medium) %>;
 			const information = <%- data.info %>;
 		</script>
+		<script defer src="../js/RetrieveThumbnail.js"></script>
 		<script defer src="../js/player.js"></script>
 		<script defer src="../js/searchformValidation.js"></script>
 		<link rel="stylesheet" href="../css/global.css" />
@@ -63,6 +64,57 @@
 							alt="fullscreen"
 					/></span>
 				</div>
+				<AudioCloud-Controls fullscreen="false">
+					<input
+						type="range"
+						min="0"
+						max="100"
+						step="any"
+						value="0"
+						id="player-track-duration-slider"
+						class="player-track-sliders"
+					/>
+					<progress
+						max="100"
+						value="0"
+						class="player-track-sliders"
+						id="player-track-buffered-progress"
+					></progress>
+					<AudioCloud-Controles-inner>
+						<div id="player-autoplay">
+							Autoplay
+							<label class="switch">
+								<input type="checkbox" id="player-autoplay-checkbox" />
+								<span class="slider"></span>
+							</label>
+						</div>
+						<div id="player-controles">
+							<div id="player-controles-timestamp">
+								<span id="player-controles-timestamp-currentTime">NaN</span>&nbsp;/&nbsp;<span
+									id="player-controles-timestamp-duration"
+									>NaN</span
+								>
+							</div>
+							<div id="player-controles-basic-btn">
+								<button type="button" class="std-btn-round" id="previous_track">
+									<img class="icons" src="../svg/play-skip-back.svg" alt="skip-back" />
+								</button>
+								<button type="button" class="std-btn-round" id="player-play">
+									<svg viewBox="0 0 24 24">
+										<path fill="currentColor" d="M8,5.14V19.14L19,12.14L8,5.14Z" />
+									  </svg>
+								</button>
+								<button type="button" class="std-btn-round" id="next_track">
+									<img class="icons" src="../svg/play-skip-forward.svg" alt="skip-forward" />
+								</button>
+							</div>
+						</div>
+						<div id="volume-wrapper">
+							<input type="range" min="0" step="any" max="100" id="volume" />
+							<img class="icons" id="volume_icon" src="../svg/volume-high-outline.svg" alt="volume-high" />
+						</div>
+					</AudioCloud-Controles-inner>
+				</AudioCloud-Controls>
 			</div>
 			<div id="container">
 				<div id="information">
@@ -81,50 +133,7 @@
 					<div id="next_media_list"></div>
 				</section>
 			</div>
-			<AudioCloud-Controls>
-				<input
-					type="range"
-					min="0"
-					max="100"
-					step="any"
-					value="0"
-					id="player-track-duration-slider"
-					class="player-track-sliders"
-				/>
-				<progress
-					max="100"
-					value="0"
-					class="player-track-sliders"
-					id="player-track-buffered-progress"
-				></progress>
-				<AudioCloud-Controles-inner>
-					<div id="player-autoplay">
-						Autoplay
-						<label class="switch">
-							<input type="checkbox" id="player-autoplay-checkbox" />
-							<span class="slider"></span>
-						</label>
-					</div>
-					<div id="player-controles">
-						<div id="player-controles-timestamp"><span>NaN</span>&nbsp;/&nbsp;<span>NaN</span></div>
-						<div id="player-controles-basic-btn">
-							<button type="button" class="std-btn-round" id="previous_track">
-								<img class="icons" src="../svg/play-skip-back.svg" alt="skip-back" />
-							</button>
-							<button type="button" class="std-btn-round" id="player-play">
-								<img class="icons icon-size-large" src="../svg/play.svg" alt="play" />
-							</button>
-							<button type="button" class="std-btn-round" id="next_track">
-								<img class="icons" src="../svg/play-skip-forward.svg" alt="skip-forward" />
-							</button>
-						</div>
-					</div>
-					<div id="volume-wrapper">
-						<input type="range" min="0" step="any" max="100" id="volume" />
-						<img class="icons" id="volume_icon" src="../svg/volume-high-outline.svg" alt="volume-high" />
-					</div>
-				</AudioCloud-Controles-inner>
-			</AudioCloud-Controls>
+			
 		</main>
 		<template id="card-template">
 			<div class="next_media_item">

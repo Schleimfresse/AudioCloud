@@ -5,15 +5,19 @@ let Playlist;
 let song_index = 0;
 let if_statment_interupt = false;
 const slider = document.getElementById("player-track-duration-slider");
+const slider_thumb = document.querySelectorAll('#thumb');
+console.log(slider_thumb)
 const buffered_progress = document.getElementById("player-track-buffered-progress");
 const video = document.createElement("video");
 video.id = "player-video-element";
 video.innerText = "Sorry, your browser doesn't support embedded videos/audios";
+video.setAttribute("fullscreen", "false");
 const play = document.getElementById("player-play");
 const timestamp = document.getElementById("player-controles-timestamp");
 const autoplay_checkbox = document.getElementById("player-autoplay-checkbox");
 const fullscreen = document.getElementById("fullscreen-btn");
 const video_wrapper = document.getElementById("video-wrapper");
+const AudioCloud_Controls = document.querySelector("AudioCloud-Controls");
 const video_controls = document.getElementById("player-video-controles");
 const recent_volume = document.querySelector("#volume");
 const volume_icon = document.getElementById("volume_icon");
@@ -71,7 +75,11 @@ async function RetrieveData() {
 			"onclick",
 			`history.pushState(null, null, '/Player/${e.name}'); load_track(${index});`
 		);
-		div.querySelector("[thumbnail]").src = `/thumbnails/${e.thumbnail}`;
+		if (RetrieveThumbnailforList(e)) {
+			div.querySelector("[thumbnail]").src = `/thumbnails/${e.thumbnail}`;
+		} else {
+			div.querySelector("[thumbnail]").src = "/svg/musical-notes-outline-gray.svg";
+		}
 		div.querySelector("[artist]").textContent = e.artist;
 		div.querySelector("[title]").textContent = e.title;
 		document.getElementById("next_media_list").append(div);
@@ -117,7 +125,7 @@ function range_slider() {
 	let position = 0;
 	if (!isNaN(video.duration)) {
 		position = video.currentTime * (100 / video.duration);
-		slider.value = position;
+		//slider.value = position;
 		const minutes = Math.floor(video.currentTime / 60);
 		const seconds = Math.round(video.currentTime % 60);
 		timestamp.children[0].textContent = `${padTo2Digits(minutes)}:${padTo2Digits(seconds)}`;
@@ -143,12 +151,12 @@ function range_slider() {
 
 video.addEventListener("play", () => {
 	Playing_song = true;
-	play.innerHTML = '<img class="icons icon-size-large" src="../svg/pause.svg" alt="pause" />';
+	play.innerHTML = '<svg viewBox="0 0 24 24"><path fill="currentColor" d="M14,19H18V5H14M6,19H10V5H6V19Z" /></svg>';
 });
 
 video.addEventListener("pause", () => {
 	Playing_song = false;
-	play.innerHTML = '<img class="icons icon-size-large" src="../svg/play.svg" alt="play" />';
+	play.innerHTML = '<svg viewBox="0 0 24 24"><path fill="currentColor" d="M8,5.14V19.14L19,12.14L8,5.14Z" /></svg>';
 });
 
 video_wrapper.addEventListener("mouseover", () => {
@@ -157,6 +165,16 @@ video_wrapper.addEventListener("mouseover", () => {
 
 video.addEventListener("click", () => {
 	justplay();
+});
+
+video.addEventListener("fullscreenchange", () => {
+	if (document.fullscreenElement) {
+		AudioCloud_Controls.setAttribute("fullscreen", "true");
+		video.setAttribute("fullscreen", "true");
+	} else if (!document.fullscreenElement) {
+		AudioCloud_Controls.setAttribute("fullscreen", "false");
+		video.setAttribute("fullscreen", "false");
+	}
 });
 
 video_wrapper.addEventListener("mouseout", () => {
@@ -169,12 +187,26 @@ window.addEventListener("keydown", (e) => {
 		justplay();
 	}
 	if (e.code === "KeyF") {
-		video.requestFullscreen();
+		video_wrapper.requestFullscreen();
 	}
 });
 
-fullscreen.addEventListener("click", (e) => {
-	video.requestFullscreen();
+fullscreen.addEventListener("click", () => {
+	if (!document.fullscreenElement) {
+		video_wrapper.requestFullscreen();
+	} else if (document.fullscreenElement) {
+		document.exitFullscreen();
+	}
+});
+
+document.addEventListener("fullscreenchange", () => {
+	if (!document.fullscreenElement) {
+		fullscreen.children[0].src = "../svg/fullscreen-sharp.svg";
+		AudioCloud_Controls.setAttribute("fullscreen", "false");
+	} else if (document.fullscreenElement) {
+		fullscreen.children[0].src = "../svg/fullscreen-exit-sharp.svg";
+		AudioCloud_Controls.setAttribute("fullscreen", "true");
+	}
 });
 
 recent_volume.addEventListener("input", (e) => {
@@ -189,8 +221,12 @@ autoplay_checkbox.addEventListener("click", () => {
 	autoplay_switch();
 });
 
-slider.addEventListener("input", () => {
+slider.addEventListener("change", () => {
 	change_duration();
+});
+
+slider.addEventListener("input", () => {
+	slider.style.backgroundSize = ((slider.value - slider.min) * 100) / (slider.max - slider.min) + "% 100%";
 });
 
 play.addEventListener("click", () => {
@@ -221,17 +257,34 @@ function padTo2Digits(num) {
 	return num.toString().padStart(2, "0");
 }
 
+function RetrieveThumbnail(index) {
+	let request = new XMLHttpRequest();
+	let url = `/thumbnails/${Playlist[index].thumbnail}`;
+	request.open("HEAD", url, false);
+	request.send();
+	return request.status != 404;
+}
+
 function load_track(index) {
 	clearInterval(timer);
 	reset_slider();
 	video.src = `/Media/${Playlist[index].name}`;
 	document.title = `AudioCloud | ${Playlist[index].title}`;
 	Title.innerText = Playlist[index].title;
-	//track_image.src = ;
-	video.poster = `/thumbnails/${Playlist[index].thumbnail}`;
 	Artist.innerText = Playlist[index].artist;
 	Description.innerText = Playlist[index].desc;
 	video.load();
+	console.log(RetrieveThumbnail(index));
+	if (RetrieveThumbnail(index)) {
+		video.poster = `/thumbnails/${Playlist[index].thumbnail}`;
+	} else {
+		video.poster = "/svg/musical-notes-outline-gray.svg";
+	}
+	if (Playlist[index].mime.mime.includes("audio")) {
+		hideMiniplayer();
+	} else {
+		showMiniplayer();
+	}
 	video.onloadedmetadata = function () {
 		const minutes = Math.floor(video.duration / 60);
 		const seconds = Math.round(video.duration % 60);
@@ -311,5 +364,17 @@ function pip_player() {
 		}
 	} catch (err) {
 		console.error(err);
+	}
+}
+
+function hideMiniplayer() {
+	if (isPiPAvailable) {
+		pip.style.display = "none";
+	}
+}
+
+function showMiniplayer() {
+	if (isPiPAvailable) {
+		pip.style.display = "flex";
 	}
 }

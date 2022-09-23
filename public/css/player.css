@@ -12,21 +12,22 @@ video {
 	z-index: 5;
 }
 
+video[fullscreen="true"] {
+	height: auto;
+}
+
 #video-wrapper {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	overflow: hidden;
-	z-index: 0;
-	outline: 0;
+	position: relative;
 	width: 100%;
-	height: 56.25vw;
+	display: flex;
+	justify-content: center;
+	margin-inline: auto;
+	background-color: black;
+	height: 75vh;
 	max-height: calc(100vh - 169px);
 	min-height: 480px;
-	background-color: black;
-	flex-direction: column-reverse;
-	position: relative;
 }
+
 header {
 	position: relative;
 }
@@ -207,12 +208,39 @@ main {
 	border: none;
 }
 
-AudioCloud-Controls {
+AudioCloud-Controls{
 	height: 100px;
 	width: 100vw;
 	position: fixed;
 	bottom: 0px;
+	z-index: 50;
+	transition: all 500ms ease-out;
+}
+
+AudioCloud-Controls[fullscreen = 'false'] {
 	background-color: var(--header);
+	opacity: 1;
+}
+
+AudioCloud-Controls[fullscreen = 'true'] {
+	background-color: transparent;
+	opacity: 0;
+}
+
+AudioCloud-Controls[fullscreen = 'true']:hover {
+	opacity: 1;
+
+}
+
+AudioCloud-Controls[fullscreen = 'true']::before{
+	content: "";
+	position: absolute;
+	bottom: 0;
+	background: linear-gradient(to top, rgba(0,0,0, .75), transparent);
+	width: 100%;
+	aspect-ratio: 6 / 1;
+	z-index: -1;
+	pointer-events: none;
 }
 
 AudioCloud-Controles-inner {
@@ -263,6 +291,15 @@ AudioCloud-Controles-inner {
 #player-controles-timestamp,
 #player-controles-timestamp > * {
 	color: #aaa;
+	width: 100%;
+}
+
+#player-controles-timestamp-currentTime {
+	text-align: end;
+}
+
+#player-controles-timestamp-duration {
+	text-align: start;
 }
 
 #player-play {
