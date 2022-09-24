@@ -28,6 +28,12 @@ video[fullscreen="true"] {
 	min-height: 480px;
 }
 
+.normal-player {
+	width: 40%;
+	max-width: 1000px;
+	margin-inline: 0 !important;
+}
+
 header {
 	position: relative;
 }
@@ -106,6 +112,13 @@ main {
 	overflow-y: auto;
 	height: 90%;
 }
+
+[thumbnail] {
+	object-fit: contain;
+	width: 100%;
+	height: 32px;
+}
+
 .next_media_item {
 	border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 	display: flex;
@@ -121,11 +134,6 @@ main {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-}
-[thumbnail] {
-	object-fit: contain;
-	width: 100%;
-	height: 32px;
 }
 
 .player-track-sliders {
@@ -208,7 +216,7 @@ main {
 	border: none;
 }
 
-AudioCloud-Controls{
+AudioCloud-Controls {
 	height: 100px;
 	width: 100vw;
 	position: fixed;
@@ -217,26 +225,25 @@ AudioCloud-Controls{
 	transition: all 500ms ease-out;
 }
 
-AudioCloud-Controls[fullscreen = 'false'] {
+AudioCloud-Controls[fullscreen="false"] {
 	background-color: var(--header);
 	opacity: 1;
 }
 
-AudioCloud-Controls[fullscreen = 'true'] {
+AudioCloud-Controls[fullscreen="true"] {
 	background-color: transparent;
 	opacity: 0;
 }
 
-AudioCloud-Controls[fullscreen = 'true']:hover {
+AudioCloud-Controls[fullscreen="true"]:hover {
 	opacity: 1;
-
 }
 
-AudioCloud-Controls[fullscreen = 'true']::before{
+AudioCloud-Controls[fullscreen="true"]::before {
 	content: "";
 	position: absolute;
 	bottom: 0;
-	background: linear-gradient(to top, rgba(0,0,0, .75), transparent);
+	background: linear-gradient(to top, rgba(0, 0, 0, 0.75), transparent);
 	width: 100%;
 	aspect-ratio: 6 / 1;
 	z-index: -1;
@@ -422,9 +429,17 @@ input:checked + .slider:before {
 	display: block;
 }
 
-#volume_icon {
+.padding {
 	padding: 8px;
 	cursor: pointer;
+}
+
+#exit_fullscreen_btn{
+	display: none;
+}
+
+.iron-icon{
+	filter: invert(64%) sepia(0%) saturate(169%) hue-rotate(243deg) brightness(92%) contrast(71%);
 }
 
 #volume-wrapper {
@@ -496,4 +511,10 @@ input:checked + .slider:before {
 	outline: none;
 	appearance: none;
 	border: none;
+}
+
+@media (max-width: 800px) {
+	#next_media_list {
+		width: 100%;
+	}
 }

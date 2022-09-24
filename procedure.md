@@ -8,3 +8,5 @@
 - Sound icon !IMPORTANT
 
 - Volume mit local Storage verknüpfen
+
+- SHUFFLE & REPEAT

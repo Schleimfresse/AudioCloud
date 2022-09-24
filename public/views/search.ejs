@@ -7,9 +7,11 @@
 		<title>AudioCloud</title>
 		<link rel="stylesheet" href="./css/global.css" />
 		<link rel="stylesheet" href="./css/search.css">
+		<script defer src="../js/RetrieveThumbnail.js"></script>
 		<script defer src="./js/searchformValidation.js"></script>
 		<script>
 			// EJS Variables
+			const query = <%- server_query %>;
 			const media = <%- data %>;
 		</script>
 		<script defer src="../js/search.js"></script>
@@ -47,11 +49,38 @@
 				</button>
 			</form>
 		</header>
-		<main></main>
+		<main>
+			<div id="wrapper">
+
+			</div>
+		</main>
 		<template id="noresults">
 			<div class="center">
 				<h2>No results found</h2>
 				<div>Try different keywords</div>
+			</div>
+		</template>
+		<template id="wrapper-template">
+			<div id="audio-content">
+				<h2>Title</h2>
+				<div>
+
+				</div>
+			</div>
+			<div id="video-content">
+				<h2>Videos</h2>
+				<div>
+
+				</div>
+			</div>
+		</template>
+		<template id="card-template">
+			<div class="next_media_item">
+				<span class="next_media_item-img-wrapper"><img thumbnail /></span>
+				<div>
+					<div class="Media_Showcase_Title"><strong title></strong></div>
+					<div class="Media_Showcase_Artist" artist></div>
+				</div>
 			</div>
 		</template>
 	</body>

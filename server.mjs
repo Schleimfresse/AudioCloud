@@ -137,40 +137,49 @@ app.get("/search", (req, res) => {
 		res.send(`<h1>400 Bad request</h1> Searchtype ${req.query.type} does not exist`);
 		res.end();
 	}
-	let searchquery = req.query.query.toLowerCase();
-	let searchquery_letters = searchquery.split("");
-	database.find({}, (err, data) => {
-		let filtered = [];
-		if (req.query.mode == "standard") {
-			let i = 0;
-			data.forEach((e) => {
-				for (let letter of searchquery_letters) {
-					if (e.searchquery.includes(letter)) {
-						i++;
+	if (req.query.query) {
+		let searchquery = req.query.query.toLowerCase();
+		let searchquery_letters = searchquery.split("");
+		database.find({}, (err, data) => {
+			let filtered = [];
+			if (req.query.mode == "standard") {
+				let i = 0;
+				data.forEach((e) => {
+					for (let letter of searchquery_letters) {
+						if (e.searchquery.includes(letter)) {
+							i++;
+						}
 					}
-				}
-				if (i === searchquery_letters.length) {
-					filtered.push(e);
-				}
-				i = 0;
+					if (i === searchquery_letters.length) {
+						filtered.push(e);
+					}
+					i = 0;
+				});
+			} else if (req.query.mode == "strict") {
+				data.forEach((e) => {
+					if (e.searchquery.includes(searchquery) && e.mime.mime.includes(req.query.mediatype)) {
+						filtered.push(e);
+					}
+				});
+			}
+			res.status(200);
+			res.render(__dirname + `/public/views/${req.query.type}.ejs`, {
+				data: JSON.stringify(filtered),
+				server_query: JSON.stringify(req.query.query),
 			});
-		} else if (req.query.mode == "strict") {
-			data.forEach((e) => {
-				if (e.searchquery.includes(searchquery) && e.mime.mime.includes(req.query.mediatype)) {
-					filtered.push(e);
-				}
-			});
-		}
-		res.status(200);
-		res.render(__dirname + `/public/views/${req.query.type}.ejs`, {
-			data: JSON.stringify(filtered),
 		});
-	});
+	}
+	else {
+		res.render(__dirname + `/public/views/${req.query.type}.ejs`, {
+			data: JSON.stringify(''),
+			server_query: JSON.stringify(''),
+		});
+	}
 });
 
 app.get("/Player/:id", (req, res) => {
-	database.find({ name: req.params.id }, (err, data) => {
-		if (err || data === null) {
+	database.find({ id: req.params.id }, (err, data) => {
+		if (err || data === null || data == "") {
 			res.status(500);
 			res.send("Data could not be accessed.");
 			res.end();
@@ -179,7 +188,7 @@ app.get("/Player/:id", (req, res) => {
 		data = data.shift();
 		res.status(200);
 		res.render(__dirname + "/public/views/player.ejs", {
-			data: { medium: req.params.id, info: JSON.stringify(data) },
+			data: { medium: data.name, info: JSON.stringify(data) },
 		});
 	});
 });
@@ -236,6 +245,7 @@ app.post("/upload", async (req, res) => {
 					mime: type,
 					added: added_date,
 					thumbnail: thumbnail_name + img_ext,
+					id: uniqid_inst,
 				});
 				if (thumbnail_autocreate === true) {
 					const getDuration = new Promise((resolve, reject) => {
@@ -243,7 +253,7 @@ app.post("/upload", async (req, res) => {
 							if (err) {
 								reject(false);
 							}
-							let duration = metadata.format.duration
+							let duration = metadata.format.duration;
 							if (duration < 10) {
 								resolve(Math.round(duration - 1));
 							}

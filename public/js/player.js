@@ -5,8 +5,6 @@ let Playlist;
 let song_index = 0;
 let if_statment_interupt = false;
 const slider = document.getElementById("player-track-duration-slider");
-const slider_thumb = document.querySelectorAll('#thumb');
-console.log(slider_thumb)
 const buffered_progress = document.getElementById("player-track-buffered-progress");
 const video = document.createElement("video");
 video.id = "player-video-element";
@@ -28,6 +26,10 @@ const Artist = document.querySelector("AudioCloud-Artist");
 const previous = document.getElementById("previous_track");
 const next = document.getElementById("next_track");
 const pip = document.getElementById("pip-btn");
+const shuffle = document.getElementById("shuffle-btn");
+const repeat_btn = document.getElementById("repeat-btn");
+const next_medium_list = document.getElementById("next_media_list");
+const exit_fullscreen = document.getElementById("exit_fullscreen_btn");
 const isPiPAvailable = () => {
 	return document.pictureInPictureEnabled || !video.disablePictureInPicture;
 };
@@ -37,19 +39,22 @@ if (localStorage.getItem("AudioCloud") != null) {
 	autoplay = AudioCloud.autoplay;
 	video.volume = AudioCloud.volume;
 	recent_volume.value = AudioCloud.volume * 100;
-	if (AudioCloud.volume === 0) {
-		volume_icon.src = "../svg/volume-off-outline.svg";
-	}
+	repeat = AudioCloud.repeat;
+	if (repeat === "no_repeat") repeat_btn.classList.add("iron-icon");
+	else if (repeat === "repeat_one") repeat_btn.src = "../svg/repeat-one.svg";
+	if (AudioCloud.volume === 0) volume_icon.src = "../svg/volume-off-outline.svg";
 	recent_volume.style.backgroundSize = JSON.parse(localStorage.getItem("AudioCloud")).volume * 100 + "% 100%";
 	if (AudioCloud.autoplay === true) {
 		autoplay_checkbox.setAttribute("checked", true);
 	}
 } else {
 	autoplay = true;
-	video.volume = 0.5;
-	localStorage.setItem("AudioCloud", JSON.stringify({ autoplay: true, volume: 0.7 }));
+	repeat = "no_repeat";
+	video.volume = 0.7;
+	localStorage.setItem("AudioCloud", JSON.stringify({ autoplay: true, volume: 0.7, repeat: "no_repeat" }));
 	autoplay_checkbox.setAttribute("checked", true);
 	recent_volume.style.backgroundSize = JSON.parse(localStorage.getItem("AudioCloud")).volume * 100 + "% 100%";
+	repeat_btn.classList.add("iron-icon");
 }
 document.getElementById("video-wrapper").append(video);
 document.title = `AudioCloud | ${information.title}`;
@@ -69,20 +74,7 @@ async function RetrieveData() {
 	let index = 0;
 	Playlist.forEach((e) => {
 		index++;
-		console.log(e);
-		const div = document.getElementById("card-template").content.cloneNode(true);
-		div.children[0].setAttribute(
-			"onclick",
-			`history.pushState(null, null, '/Player/${e.name}'); load_track(${index});`
-		);
-		if (RetrieveThumbnailforList(e)) {
-			div.querySelector("[thumbnail]").src = `/thumbnails/${e.thumbnail}`;
-		} else {
-			div.querySelector("[thumbnail]").src = "/svg/musical-notes-outline-gray.svg";
-		}
-		div.querySelector("[artist]").textContent = e.artist;
-		div.querySelector("[title]").textContent = e.title;
-		document.getElementById("next_media_list").append(div);
+		createCard(e, index);
 	});
 	Playlist.unshift(currentMedium);
 	load_track(song_index);
@@ -90,17 +82,36 @@ async function RetrieveData() {
 
 RetrieveData();
 
+function createCard(e, index) {
+	console.log(e, index);
+	e.song_index = index;
+	const div = document.getElementById("card-template").content.cloneNode(true);
+	div.children[0].setAttribute(
+		"onclick",
+		`history.pushState(null, null, '/Player/${e.id}'); load_track(${index});`
+	);
+	if (RetrieveThumbnailforList(e)) {
+		div.querySelector("[thumbnail]").src = `/thumbnails/${e.thumbnail}`;
+	} else {
+		div.querySelector("[thumbnail]").src = "/svg/musical-notes-outline-gray.svg";
+	}
+	div.querySelector("[artist]").textContent = e.artist;
+	div.querySelector("[title]").textContent = e.title;
+	next_medium_list.append(div);
+}
+
 // Player functions
 
 function next_song() {
 	if (song_index < Playlist.length - 1) {
 		song_index += 1;
-		history.pushState(null, null, `/Player/${Playlist[song_index].name}`);
+		console.log(song_index);
+		history.pushState(null, null, `/Player/${Playlist[song_index].id}`);
 		load_track(song_index);
 		playsong();
 	} else {
 		song_index = 0;
-		history.pushState(null, null, `/Player/${Playlist[song_index].name}`);
+		history.pushState(null, null, `/Player/${Playlist[song_index].id}`);
 		load_track(song_index);
 		playsong();
 	}
@@ -109,7 +120,7 @@ function next_song() {
 function previous_song() {
 	if (song_index > 0) {
 		song_index -= 1;
-		history.pushState(null, null, `/Player/${Playlist[song_index].name}`);
+		history.pushState(null, null, `/Player/${Playlist[song_index].id}`);
 		load_track(song_index);
 		playsong();
 	}
@@ -125,7 +136,7 @@ function range_slider() {
 	let position = 0;
 	if (!isNaN(video.duration)) {
 		position = video.currentTime * (100 / video.duration);
-		//slider.value = position;
+		slider.value = position;
 		const minutes = Math.floor(video.currentTime / 60);
 		const seconds = Math.round(video.currentTime % 60);
 		timestamp.children[0].textContent = `${padTo2Digits(minutes)}:${padTo2Digits(seconds)}`;
@@ -138,12 +149,20 @@ function range_slider() {
 
 	video.onended = () => {
 		if (autoplay == true) {
-			if (song_index < Playlist.length - 1) {
+			if (repeat === "repeat_one") {
+				video.currentTime = 0;
+				playsong();
+			} else if (song_index < Playlist.length - 1) {
 				song_index += 1;
 				load_track(song_index);
 				playsong();
 			} else {
-				play.innerHTML = '<img class="icons icon-size-large" src="../svg/play.svg" alt="play" />';
+				if (repeat) {
+					song_index = 0;
+					load_track(song_index);
+				} else {
+					play.innerHTML = '<img class="icons icon-size-large" src="../svg/play.svg" alt="play" />';
+				}
 			}
 		}
 	};
@@ -151,12 +170,14 @@ function range_slider() {
 
 video.addEventListener("play", () => {
 	Playing_song = true;
-	play.innerHTML = '<svg viewBox="0 0 24 24"><path fill="currentColor" d="M14,19H18V5H14M6,19H10V5H6V19Z" /></svg>';
+	play.innerHTML =
+		'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M14,19H18V5H14M6,19H10V5H6V19Z" /></svg>';
 });
 
 video.addEventListener("pause", () => {
 	Playing_song = false;
-	play.innerHTML = '<svg viewBox="0 0 24 24"><path fill="currentColor" d="M8,5.14V19.14L19,12.14L8,5.14Z" /></svg>';
+	play.innerHTML =
+		'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M8,5.14V19.14L19,12.14L8,5.14Z" /></svg>';
 });
 
 video_wrapper.addEventListener("mouseover", () => {
@@ -182,68 +203,101 @@ video_wrapper.addEventListener("mouseout", () => {
 });
 
 window.addEventListener("keydown", (e) => {
-	if (e.code === "Space") {
-		e.preventDefault();
-		justplay();
-	}
-	if (e.code === "KeyF") {
-		video_wrapper.requestFullscreen();
+	switch (e.code.toLowerCase()) {
+		case "space":
+			e.preventDefault();
+			justplay();
+			break;
+		case "keyf":
+			video_wrapper.requestFullscreen();
+			break;
+		case "keym":
+			mute_sound();
+			break;
+		case "keyk":
+			justplay();
 	}
 });
 
 fullscreen.addEventListener("click", () => {
 	if (!document.fullscreenElement) {
 		video_wrapper.requestFullscreen();
-	} else if (document.fullscreenElement) {
+	}
+});
+
+exit_fullscreen.addEventListener("click", () => {
+	if (document.fullscreenElement) {
 		document.exitFullscreen();
 	}
 });
 
-document.addEventListener("fullscreenchange", () => {
-	if (!document.fullscreenElement) {
-		fullscreen.children[0].src = "../svg/fullscreen-sharp.svg";
-		AudioCloud_Controls.setAttribute("fullscreen", "false");
-	} else if (document.fullscreenElement) {
-		fullscreen.children[0].src = "../svg/fullscreen-exit-sharp.svg";
-		AudioCloud_Controls.setAttribute("fullscreen", "true");
-	}
-});
+document.addEventListener("fullscreenchange", switch_fullscreen);
 
 recent_volume.addEventListener("input", (e) => {
 	volume_change(e.path[0].value);
 });
 
-volume_icon.addEventListener("click", () => {
-	mute_sound();
+volume_icon.addEventListener("click", mute_sound);
+
+autoplay_checkbox.addEventListener("click", autoplay_switch);
+
+//slider.addEventListener("change", change_duration());
+
+slider.addEventListener("input", change_duration);
+
+play.addEventListener("click", justplay);
+
+previous.addEventListener("click", previous_song);
+
+next.addEventListener("click", next_song);
+
+pip.addEventListener("click", pip_player);
+
+shuffle.addEventListener("click", () => {
+	shuffle_f(Playlist);
 });
 
-autoplay_checkbox.addEventListener("click", () => {
-	autoplay_switch();
-});
+repeat_btn.addEventListener("click", switch_repeat);
 
-slider.addEventListener("change", () => {
-	change_duration();
-});
+function switch_fullscreen() {
+	if (!document.fullscreenElement) {
+		fullscreen.style.display = "flex";
+		exit_fullscreen.style.display = "none";
+		AudioCloud_Controls.setAttribute("fullscreen", "false");
+	} else if (document.fullscreenElement) {
+		fullscreen.style.display = "none";
+		exit_fullscreen.style.display = "flex";
+		AudioCloud_Controls.setAttribute("fullscreen", "true");
+	}
+}
 
-slider.addEventListener("input", () => {
-	slider.style.backgroundSize = ((slider.value - slider.min) * 100) / (slider.max - slider.min) + "% 100%";
-});
-
-play.addEventListener("click", () => {
-	justplay();
-});
-
-previous.addEventListener("click", () => {
-	previous_song();
-});
-
-next.addEventListener("click", () => {
-	next_song();
-});
-
-pip.addEventListener("click", () => {
-	pip_player();
-});
+function switch_repeat() {
+	let ls = JSON.parse(localStorage.getItem("AudioCloud"));
+	switch (repeat) {
+		case "repeat":
+			console.log("repeat");
+			repeat = "repeat_one";
+			repeat_btn.src = "../svg/repeat-one.svg";
+			ls.repeat = repeat;
+			localStorage.setItem("AudioCloud", JSON.stringify(ls));
+			break;
+		case "repeat_one":
+			console.log("repeat_one");
+			repeat = "no_repeat";
+			repeat_btn.src = "../svg/repeat.svg";
+			ls.repeat = repeat;
+			localStorage.setItem("AudioCloud", JSON.stringify(ls));
+			repeat_btn.classList.add("iron-icon");
+			break;
+		case "no_repeat":
+			console.log("no_repeat");
+			repeat = "repeat";
+			ls.repeat = repeat;
+			localStorage.setItem("AudioCloud", JSON.stringify(ls));
+			repeat_btn.classList.remove("iron-icon");
+			break;
+	}
+}
 
 function justplay() {
 	if (Playing_song == false) {
@@ -266,6 +320,7 @@ function RetrieveThumbnail(index) {
 }
 
 function load_track(index) {
+	history.pushState(null, null, `/Player/${Playlist[index].id}`);
 	clearInterval(timer);
 	reset_slider();
 	video.src = `/Media/${Playlist[index].name}`;
@@ -274,7 +329,6 @@ function load_track(index) {
 	Artist.innerText = Playlist[index].artist;
 	Description.innerText = Playlist[index].desc;
 	video.load();
-	console.log(RetrieveThumbnail(index));
 	if (RetrieveThumbnail(index)) {
 		video.poster = `/thumbnails/${Playlist[index].thumbnail}`;
 	} else {
@@ -341,6 +395,7 @@ function mute_sound() {
 		video.muted = true;
 		recent_volume.value = 0;
 		volume_icon.src = "../svg/volume-mute-outline.svg";
+		recent_volume.style.backgroundSize = "0% 100%";
 	} else {
 		if (video.volume === 0) {
 			volume_icon.src = "../svg/volume-off-outline.svg";
@@ -377,4 +432,24 @@ function showMiniplayer() {
 	if (isPiPAvailable) {
 		pip.style.display = "flex";
 	}
+}
+
+function shuffle_f(array) {
+	let currentMedium = array.splice(song_index, 1);
+	song_index = 0;
+	let currentIndex = array.length,
+		randomIndex;
+	while (currentIndex != 0) {
+		randomIndex = Math.floor(Math.random() * currentIndex);
+		currentIndex--;
+		[array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+	}
+	array.unshift(currentMedium.shift());
+	next_medium_list.textContent = "";
+	index = -1;
+	array.forEach((e) => {
+		index++;
+		createCard(e, index);
+	});
+	return array;
 }
