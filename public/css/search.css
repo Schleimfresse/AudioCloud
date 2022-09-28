@@ -1,5 +1,5 @@
 .edit_icon {
-	color: var(--bg);
+	color: var(--bg-page);
 	transition: 80ms;
 	display: flex;
 	align-items: center;
@@ -33,7 +33,7 @@
 
 #filter-Modal {
 	position: relative;
-	background-color: var(--bg);
+	background-color: var(--bg-page);
 	border: #fff solid 1px;
 	margin: 0.5em;
 }
@@ -92,4 +92,11 @@ main {
 	height: 70px;
 	align-items: center;
 	padding: 5px;
+	cursor: pointer;
+}
+
+.Media_Showcase_Artist {
+	line-height: 1.2;
+	font-size: 14px;
+	font-weight: 400;
 }

@@ -10,14 +10,20 @@
 			const filename = <%- JSON.stringify(data.medium) %>;
 			const information = <%- data.info %>;
 		</script>
-		<script defer src="../js/RetrieveThumbnail.js"></script>
+		<link rel="apple-touch-icon" sizes="180x180" href="../favicons/apple-touch-icon.png" />
+		<link rel="icon" type="image/png" sizes="32x32" href="../favicons/favicon-32x32.png" />
+		<link rel="icon" type="image/png" sizes="16x16" href="../favicons/favicon-16x16.png" />
+		<link rel="manifest" href="../favicons/site.webmanifest" />
+		<link rel="mask-icon" href="../favicons/safari-pinned-tab.svg" color="#3ea6ff" />
+		<meta name="msapplication-TileColor" content="#da532c" />
+		<meta name="theme-color" content="#3ea6ff" />
+		<script defer src="../js/global.js"></script>
 		<script defer src="../js/player.js"></script>
-		<script defer src="../js/searchformValidation.js"></script>
 		<link rel="stylesheet" href="../css/global.css" />
 		<link rel="stylesheet" href="../css/player.css" />
 	</head>
 	<body>
-		<header>
+		<header id="page-header">
 			<div id="menu" class="icon-spacing-right">
 				<a id="menu-link" href="/"
 					><img
@@ -43,14 +49,76 @@
 					<option value="strict">Strict</option>
 				</select>
 				<button
-					class="std_btn square_button no_margin_left"
+					class="std_btn square_button no_margin_left center"
 					onclick="return validation(this.parentElement.children[0])"
 					type="submit"
 				>
 					<img class="icons" src="../svg/search-outline.svg" alt="search" />
 				</button>
 			</form>
+			<div class="center" id="account-icon-container">
+				<img id="account-icon" src="../svg/account.svg" class="icons" alt="account-icon" />
+			</div>
+			<div id="account-card" visibility="false">
+				<header id="account-card-header">
+					<img id="account-icon" src="../svg/account_filled.svg" class="icons icon-size-large" alt="" />
+				</header>
+				<a id="settings-btn" class="account-item"
+					><div class="account-item-icon"><img class="icons" src="../svg/settings.svg" alt="" /></div>
+					<div class="item-string">Settings</div></a
+				>
+				<a href="/upload" class="account-item"
+					><div class="account-item-icon"><img class="icons" src="../svg/cloud_upload.svg" alt="" /></div>
+					<div class="item-string">Upload</div></a
+				>
+				<a href="/edit" class="account-item"
+					><div class="account-item-icon"><img class="icons" src="../svg/pen.svg" alt="" /></div>
+					<div class="item-string">Edit</div></a
+				>
+				<a href="/delete" class="account-item"
+					><div class="account-item-icon"><img class="icons" src="../svg/bin.svg" alt="" /></div>
+					<div class="item-string">Delete</div></a
+				>
+			</div>
 		</header>
+		<dialog id="settings">
+			<header>
+				<AudioCloud-Heading> Settings </AudioCloud-Heading>
+				<div><img src="../svg/close.svg" id="settings-close" class="icons iron-icon" alt="close" /></div>
+			</header>
+			<div id="settings-page">
+				<div id="settings-listbox">
+					<div class="settings-item" data-active="true">General</div>
+					<div class="settings-item">Playback</div>
+				</div>
+				<div id="settings-content-wrapper">
+					<div id="settings-content-general">
+						<div class="settings-content-row">
+							<div>
+								Audio on playback only
+								<div class="item-string item-paragraph">if disabled and a video track is provided, the video will play. (Needs reload)</div>
+							</div>
+							<label class="switch">
+								<input type="checkbox" id="video_playback_switch" class="checkbox_input" />
+								<span class="slider"></span>
+							</label>
+						</div>
+					</div>
+					<div id="settings-content-playback">
+						<div class="settings-content-row">
+							<div>
+								
+								<div class="item-string"></div>
+							</div>
+							<label class="switch">
+								<input type="checkbox" class="checkbox_input" />
+								<span class="slider"></span>
+							</label>
+						</div>
+					</div>
+				</div>
+			</div>
+		</dialog>
 		<main>
 			<div id="video-wrapper">
 				<div id="player-video-controles">
@@ -84,7 +152,7 @@
 						<div id="player-autoplay">
 							Autoplay
 							<label class="switch">
-								<input type="checkbox" id="player-autoplay-checkbox" />
+								<input type="checkbox" class="checkbox_input" id="player-autoplay-checkbox" />
 								<span class="slider"></span>
 							</label>
 						</div>
@@ -102,7 +170,7 @@
 								<button type="button" class="std-btn-round" id="player-play">
 									<svg viewBox="0 0 24 24">
 										<path fill="currentColor" d="M8,5.14V19.14L19,12.14L8,5.14Z" />
-									  </svg>
+									</svg>
 								</button>
 								<button type="button" class="std-btn-round" id="next_track">
 									<img class="icons" src="../svg/play-skip-forward.svg" alt="skip-forward" />
@@ -111,16 +179,31 @@
 						</div>
 						<div id="volume-wrapper">
 							<div>
-								<img id="repeat-btn" class="icons padding" src="../svg/repeat.svg" alt="shuffle">
+								<img id="repeat-btn" class="icons padding" src="../svg/repeat.svg" alt="shuffle" />
 							</div>
 							<div>
-								<img id="shuffle-btn" class="icons padding iron-icon" src="../svg/shuffle.svg" alt="shuffle">
+								<img
+									id="shuffle-btn"
+									class="icons padding iron-icon"
+									src="../svg/shuffle.svg"
+									alt="shuffle"
+								/>
 							</div>
 							<div>
-								<img id="exit_fullscreen_btn" class="icons" src="../svg/fullscreen-exit-sharp.svg" alt="exit_fullscreen">
+								<img
+									id="exit_fullscreen_btn"
+									class="icons"
+									src="../svg/fullscreen-exit-sharp.svg"
+									alt="exit_fullscreen"
+								/>
 							</div>
 							<input type="range" min="0" step="any" max="100" id="volume" />
-							<img class="icons padding iron-icon" id="volume_icon" src="../svg/volume-high-outline.svg" alt="volume-high" />
+							<img
+								class="icons padding iron-icon"
+								id="volume_icon"
+								src="../svg/volume-high-outline.svg"
+								alt="volume-high"
+							/>
 						</div>
 					</AudioCloud-Controles-inner>
 				</AudioCloud-Controls>
@@ -138,19 +221,27 @@
 						<AudioCloud-Artist></AudioCloud-Artist>
 					</div>
 				</div>
-				<section id="next_media">
-					<div id="next_media_list"></div>
-				</section>
 			</div>
-			
+			<section id="next_media">
+				<div id="next_media_list_wrapper">
+					<header id="next_media_list_header">
+						<AudioCloud-heading>Next title</AudioCloud-heading>
+					</header>
+					<div id="next-media-list_inner_wrapper">
+						<div id="autoplay_status"></div>
+						<div id="next_media_list"></div>
+					</div>
+				</div>
+			</section>
 		</main>
 		<template id="card-template">
 			<div class="next_media_item">
 				<span class="next_media_item-img-wrapper"><img thumbnail height="32px" width="32px" /></span>
-				<div>
-					<div class="Media_Showcase_Title"><strong title></strong></div>
-					<div class="Media_Showcase_Artist" artist></div>
+				<div class="Media_Showcase_title_artist">
+					<div class="Media_Showcase_Title item-string song-title" title></div>
+					<div class="Media_Showcase_Artist item-string" artist></div>
 				</div>
+				<div class="Media_Showcase_duration" duration></div>
 			</div>
 		</template>
 	</body>

@@ -13,12 +13,8 @@ window.onload = function () {
 		main.textContent = "";
 		data.forEach((e) => {
 			const div = cardTemplate.content.cloneNode(true);
-			div.children[0].setAttribute('onclick', `window.location.href = "./Player/${e.id}"`)
-			if (RetrieveThumbnailforList(e)) {
-				div.querySelector("[thumbnail]").src = `/thumbnails/${e.thumbnail}`;
-			} else {
-				div.querySelector("[thumbnail]").src = "/svg/musical-notes-outline-gray.svg";
-			}
+			div.children[0].setAttribute('onclick', `window.location.href = "./Player?v=${e.id}"`)
+			div.querySelector("[thumbnail]").src = `/thumbnails/${e.thumbnail}`;
 			div.querySelector("[title]").textContent = e.title;
 			main.append(div);
 		});

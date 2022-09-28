@@ -4,10 +4,9 @@ if (media == "") {
 	main.appendChild(temp.content.cloneNode(true));
 } else {
 	media.forEach((e) => {
-		console.log(e);
 		const div = document.createElement("div");
 		div.setAttribute("class", "box-search");
-		div.setAttribute("onclick", `window.location.href = "./delete/${e.name}"`);
+		div.setAttribute("onclick", `window.location.href = "./delete/m?v=${e.id}"`);
 		if (e.mime.mime.includes("video")) {
 			type = "Video";
 		} else if (e.mime.mime.includes("audio")) {

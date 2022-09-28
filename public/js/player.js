@@ -6,7 +6,8 @@ let song_index = 0;
 let if_statment_interupt = false;
 const slider = document.getElementById("player-track-duration-slider");
 const buffered_progress = document.getElementById("player-track-buffered-progress");
-const video = document.createElement("video");
+const audio = document.createElement("audio");
+let video = document.createElement("video");
 video.id = "player-video-element";
 video.innerText = "Sorry, your browser doesn't support embedded videos/audios";
 video.setAttribute("fullscreen", "false");
@@ -30,39 +31,56 @@ const shuffle = document.getElementById("shuffle-btn");
 const repeat_btn = document.getElementById("repeat-btn");
 const next_medium_list = document.getElementById("next_media_list");
 const exit_fullscreen = document.getElementById("exit_fullscreen_btn");
-const isPiPAvailable = () => {
-	return document.pictureInPictureEnabled || !video.disablePictureInPicture;
-};
-if (!isPiPAvailable()) pip.remove();
+const autoplay_status_box = document.getElementById("autoplay_status");
 if (localStorage.getItem("AudioCloud") != null) {
 	const AudioCloud = JSON.parse(localStorage.getItem("AudioCloud"));
+	if (AudioCloud.playback) {
+		media = video;
+	}
+	else {
+		media = audio;
+	}
 	autoplay = AudioCloud.autoplay;
-	video.volume = AudioCloud.volume;
+	media.volume = AudioCloud.volume;
 	recent_volume.value = AudioCloud.volume * 100;
 	repeat = AudioCloud.repeat;
 	if (repeat === "no_repeat") repeat_btn.classList.add("iron-icon");
 	else if (repeat === "repeat_one") repeat_btn.src = "../svg/repeat-one.svg";
 	if (AudioCloud.volume === 0) volume_icon.src = "../svg/volume-off-outline.svg";
 	recent_volume.style.backgroundSize = JSON.parse(localStorage.getItem("AudioCloud")).volume * 100 + "% 100%";
-	if (AudioCloud.autoplay === true) {
+	if (AudioCloud.autoplay) {
 		autoplay_checkbox.setAttribute("checked", true);
 	}
 } else {
+	media = video;
 	autoplay = true;
 	repeat = "no_repeat";
-	video.volume = 0.7;
-	localStorage.setItem("AudioCloud", JSON.stringify({ autoplay: true, volume: 0.7, repeat: "no_repeat" }));
-	autoplay_checkbox.setAttribute("checked", true);
-	recent_volume.style.backgroundSize = JSON.parse(localStorage.getItem("AudioCloud")).volume * 100 + "% 100%";
-	repeat_btn.classList.add("iron-icon");
-}
-document.getElementById("video-wrapper").append(video);
-document.title = `AudioCloud | ${information.title}`;
-
-// Initialisation end
-
-async function RetrieveData() {
-	const res = await fetch("/api");
+	media.volume = 0.7;
+	localStorage.setItem(
+		"AudioCloud",
+		JSON.stringify({ autoplay: true, volume: 0.7, repeat: "no_repeat", playback: true })
+		);
+		autoplay_checkbox.setAttribute("checked", true);
+		recent_volume.style.backgroundSize = JSON.parse(localStorage.getItem("AudioCloud")).volume * 100 + "% 100%";
+		repeat_btn.classList.add("iron-icon");
+	}
+	const isPiPAvailable = () => {
+		if (videoPlayback) {
+		return document.pictureInPictureEnabled || !video.disablePictureInPicture;
+		}
+		else {
+			return false;
+		}
+	};
+	if (!isPiPAvailable()) pip.remove();
+	document.getElementById("video-wrapper").append(video);
+	document.title = `${information.title} | AudioCloud`;
+	autoplay_infobox_update();
+	
+	// Initialisation end
+	
+	async function RetrieveData() {
+		const res = await fetch("/api");
 	Playlist = await res.json();
 	const currentMediumIndex = Playlist.findIndex((e) => {
 		return e.name == filename;
@@ -72,6 +90,7 @@ async function RetrieveData() {
 	});
 	Playlist.splice(currentMediumIndex, 1);
 	let index = 0;
+	createCard(currentMedium, index);
 	Playlist.forEach((e) => {
 		index++;
 		createCard(e, index);
@@ -88,16 +107,22 @@ function createCard(e, index) {
 	const div = document.getElementById("card-template").content.cloneNode(true);
 	div.children[0].setAttribute(
 		"onclick",
-		`history.pushState(null, null, '/Player/${e.id}'); load_track(${index});`
+		`history.pushState(null, null, '/Player?v=${e.id}'); load_track(${index});`
 	);
-	if (RetrieveThumbnailforList(e)) {
-		div.querySelector("[thumbnail]").src = `/thumbnails/${e.thumbnail}`;
-	} else {
-		div.querySelector("[thumbnail]").src = "/svg/musical-notes-outline-gray.svg";
-	}
+	div.children[0].setAttribute("data-song-index", index);
+	div.querySelector("[thumbnail]").src = `/thumbnails/${e.thumbnail}`;
 	div.querySelector("[artist]").textContent = e.artist;
 	div.querySelector("[title]").textContent = e.title;
+	div.querySelector("[duration]").textContent = e.duration;
 	next_medium_list.append(div);
+}
+
+function autoplay_infobox_update() {
+	if (autoplay) {
+		autoplay_status_box.textContent = "Autoplay is enabled";
+	} else if (!autoplay) {
+		autoplay_status_box.textContent = "Autoplay is disabled";
+	}
 }
 
 // Player functions
@@ -105,13 +130,12 @@ function createCard(e, index) {
 function next_song() {
 	if (song_index < Playlist.length - 1) {
 		song_index += 1;
-		console.log(song_index);
-		history.pushState(null, null, `/Player/${Playlist[song_index].id}`);
+		history.pushState(null, null, `/Player?v=${Playlist[song_index].id}`);
 		load_track(song_index);
 		playsong();
 	} else {
 		song_index = 0;
-		history.pushState(null, null, `/Player/${Playlist[song_index].id}`);
+		history.pushState(null, null, `/Player?v=${Playlist[song_index].id}`);
 		load_track(song_index);
 		playsong();
 	}
@@ -120,37 +144,37 @@ function next_song() {
 function previous_song() {
 	if (song_index > 0) {
 		song_index -= 1;
-		history.pushState(null, null, `/Player/${Playlist[song_index].id}`);
+		history.pushState(null, null, `/Player?v=${Playlist[song_index].id}`);
 		load_track(song_index);
 		playsong();
 	}
 }
 
 function change_duration() {
-	slider_position = video.duration * (slider.value / 100);
-	video.currentTime = slider_position;
+	slider_position = media.duration * (slider.value / 100);
+	media.currentTime = slider_position;
 	slider.style.backgroundSize = ((slider.value - slider.min) * 100) / (slider.max - slider.min) + "% 100%";
 }
 
 function range_slider() {
 	let position = 0;
-	if (!isNaN(video.duration)) {
-		position = video.currentTime * (100 / video.duration);
+	if (!isNaN(media.duration)) {
+		position = media.currentTime * (100 / media.duration);
 		slider.value = position;
-		const minutes = Math.floor(video.currentTime / 60);
-		const seconds = Math.round(video.currentTime % 60);
+		const minutes = Math.floor(media.currentTime / 60);
+		const seconds = Math.round(media.currentTime % 60);
 		timestamp.children[0].textContent = `${padTo2Digits(minutes)}:${padTo2Digits(seconds)}`;
 	}
-	if (!isNaN(video.buffered.end(video.buffered.length - 1))) {
-		position = (video.buffered.end(video.buffered.length - 1) / video.duration) * 100;
+	if (!isNaN(media.buffered.end(media.buffered.length - 1))) {
+		position = (media.buffered.end(media.buffered.length - 1) / media.duration) * 100;
 		buffered_progress.value = position;
 	}
 	slider.style.backgroundSize = ((slider.value - slider.min) * 100) / (slider.max - slider.min) + "% 100%";
 
-	video.onended = () => {
+	media.onended = () => {
 		if (autoplay == true) {
 			if (repeat === "repeat_one") {
-				video.currentTime = 0;
+				media.currentTime = 0;
 				playsong();
 			} else if (song_index < Playlist.length - 1) {
 				song_index += 1;
@@ -168,13 +192,14 @@ function range_slider() {
 	};
 }
 
-video.addEventListener("play", () => {
+media.addEventListener("play", () => {
 	Playing_song = true;
 	play.innerHTML =
 		'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M14,19H18V5H14M6,19H10V5H6V19Z" /></svg>';
 });
 
-video.addEventListener("pause", () => {
+
+media.addEventListener("pause", () => {
 	Playing_song = false;
 	play.innerHTML =
 		'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M8,5.14V19.14L19,12.14L8,5.14Z" /></svg>';
@@ -216,8 +241,21 @@ window.addEventListener("keydown", (e) => {
 			break;
 		case "keyk":
 			justplay();
+			break;
+		case "arrowleft":
+			skip(-5);
+			range_slider();
+			break;
+		case "arrowright":
+			skip(5);
+			range_slider();
+			break;
 	}
 });
+
+window.onbeforeunload = function (e) {
+	return "Do you want to exit this page?";
+};
 
 fullscreen.addEventListener("click", () => {
 	if (!document.fullscreenElement) {
@@ -275,14 +313,12 @@ function switch_repeat() {
 	let ls = JSON.parse(localStorage.getItem("AudioCloud"));
 	switch (repeat) {
 		case "repeat":
-			console.log("repeat");
 			repeat = "repeat_one";
 			repeat_btn.src = "../svg/repeat-one.svg";
 			ls.repeat = repeat;
 			localStorage.setItem("AudioCloud", JSON.stringify(ls));
 			break;
 		case "repeat_one":
-			console.log("repeat_one");
 			repeat = "no_repeat";
 			repeat_btn.src = "../svg/repeat.svg";
 			ls.repeat = repeat;
@@ -290,7 +326,6 @@ function switch_repeat() {
 			repeat_btn.classList.add("iron-icon");
 			break;
 		case "no_repeat":
-			console.log("no_repeat");
 			repeat = "repeat";
 			ls.repeat = repeat;
 			localStorage.setItem("AudioCloud", JSON.stringify(ls));
@@ -320,33 +355,35 @@ function RetrieveThumbnail(index) {
 }
 
 function load_track(index) {
-	history.pushState(null, null, `/Player/${Playlist[index].id}`);
+	history.pushState(null, null, `/Player?v=${Playlist[index].id}`);
+	if (index > 0) {
+		document.querySelector('[data-current-song="true"]').setAttribute("data-current-song", false);
+	}
+	document.querySelector(`[data-song-index="${index}"]`).setAttribute("data-current-song", true);
+	song_index = index;
 	clearInterval(timer);
 	reset_slider();
-	video.src = `/Media/${Playlist[index].name}`;
-	document.title = `AudioCloud | ${Playlist[index].title}`;
+	document.title = `${Playlist[index].title} | AudioCloud`;
 	Title.innerText = Playlist[index].title;
 	Artist.innerText = Playlist[index].artist;
 	Description.innerText = Playlist[index].desc;
-	video.load();
-	if (RetrieveThumbnail(index)) {
-		video.poster = `/thumbnails/${Playlist[index].thumbnail}`;
+	media.load();
+	video.poster = `/thumbnails/${Playlist[index].thumbnail}`;
+	if (videoPlayback) {
+		media.src = `/Media/${Playlist[index].name}`;
 	} else {
-		video.poster = "/svg/musical-notes-outline-gray.svg";
+		media.src = `/Media/${Playlist[index].name}`;
 	}
 	if (Playlist[index].mime.mime.includes("audio")) {
 		hideMiniplayer();
 	} else {
 		showMiniplayer();
 	}
-	video.onloadedmetadata = function () {
-		const minutes = Math.floor(video.duration / 60);
-		const seconds = Math.round(video.duration % 60);
-		timestamp.children[1].textContent = `${padTo2Digits(minutes)}:${padTo2Digits(seconds)}`;
+	media.onloadedmetadata = function () {
+		timestamp.children[1].textContent = Playlist[index].duration;
 		timestamp.children[0].textContent = "00:00";
 	};
-	justplay();
-
+	playsong();
 	timer = setInterval(range_slider, 1000);
 }
 
@@ -356,12 +393,15 @@ function autoplay_switch() {
 		let ls = JSON.parse(localStorage.getItem("AudioCloud"));
 		ls.autoplay = autoplay;
 		localStorage.setItem("AudioCloud", JSON.stringify(ls));
+		autoplay_checkbox.setAttribute("checked", false);
 	} else {
 		autoplay = true;
 		let ls = JSON.parse(localStorage.getItem("AudioCloud"));
 		ls.autoplay = autoplay;
 		localStorage.setItem("AudioCloud", JSON.stringify(ls));
+		autoplay_checkbox.setAttribute("checked", true);
 	}
+	autoplay_infobox_update();
 }
 
 function reset_slider() {
@@ -369,21 +409,21 @@ function reset_slider() {
 }
 
 function playsong() {
-	video.play();
+	media.play();
 }
 
 function pausesong() {
-	video.pause();
+	media.pause();
 }
 
 function volume_change(value) {
-	video.muted = false;
+	media.muted = false;
 	let ls = JSON.parse(localStorage.getItem("AudioCloud"));
 	ls.volume = value / 100;
 	localStorage.setItem("AudioCloud", JSON.stringify(ls));
-	video.volume = JSON.parse(localStorage.getItem("AudioCloud")).volume;
+	media.volume = JSON.parse(localStorage.getItem("AudioCloud")).volume;
 	recent_volume.style.backgroundSize = JSON.parse(localStorage.getItem("AudioCloud")).volume * 100 + "% 100%";
-	if (video.volume === 0) {
+	if (media.volume === 0) {
 		volume_icon.src = "../svg/volume-off-outline.svg";
 	} else {
 		volume_icon.src = "../svg/volume-high-outline.svg";
@@ -391,19 +431,19 @@ function volume_change(value) {
 }
 
 function mute_sound() {
-	if (video.muted === false) {
-		video.muted = true;
+	if (media.muted === false) {
+		media.muted = true;
 		recent_volume.value = 0;
 		volume_icon.src = "../svg/volume-mute-outline.svg";
 		recent_volume.style.backgroundSize = "0% 100%";
 	} else {
-		if (video.volume === 0) {
+		if (media.volume === 0) {
 			volume_icon.src = "../svg/volume-off-outline.svg";
 		} else {
 			volume_icon.src = "../svg/volume-high-outline.svg";
 		}
-		video.muted = false;
-		video.volume = JSON.parse(localStorage.getItem("AudioCloud")).volume;
+		media.muted = false;
+		media.volume = JSON.parse(localStorage.getItem("AudioCloud")).volume;
 		recent_volume.value = JSON.parse(localStorage.getItem("AudioCloud")).volume * 100;
 		recent_volume.style.backgroundSize =
 			JSON.parse(localStorage.getItem("AudioCloud")).volume * 100 + "% 100%";
@@ -436,6 +476,7 @@ function showMiniplayer() {
 
 function shuffle_f(array) {
 	let currentMedium = array.splice(song_index, 1);
+	currentMedium = currentMedium.shift();
 	song_index = 0;
 	let currentIndex = array.length,
 		randomIndex;
@@ -444,12 +485,18 @@ function shuffle_f(array) {
 		currentIndex--;
 		[array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
 	}
-	array.unshift(currentMedium.shift());
 	next_medium_list.textContent = "";
-	index = -1;
+	index = 0;
+	createCard(currentMedium, index);
+	document.querySelector(`[data-song-index="0"]`).setAttribute("data-current-song", true);
 	array.forEach((e) => {
 		index++;
 		createCard(e, index);
 	});
+	array.unshift(currentMedium);
 	return array;
+}
+
+function skip(number) {
+	media.currentTime += number;
 }

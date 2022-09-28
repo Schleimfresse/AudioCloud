@@ -1,7 +1,7 @@
 html,
 body {
 	max-width: 100vw;
-	max-height: 100vh;
+	max-height: 100%;
 }
 
 video {
@@ -34,7 +34,7 @@ video[fullscreen="true"] {
 	margin-inline: 0 !important;
 }
 
-header {
+#page-header {
 	position: relative;
 }
 #information {
@@ -88,6 +88,7 @@ main {
 	margin: 0 !important;
 	position: relative;
 	top: 0;
+	height: 100%;
 }
 
 #player_title-wrapper {
@@ -98,21 +99,56 @@ main {
 }
 
 #next_media {
-	display: flex;
-	flex-direction: column;
-	right: 10px;
-	position: absolute;
-	min-width: 100%;
+	position: relative;
+	width: 100vw;
 	height: 80vh;
-}
-#next_media_list {
-	right: 0;
-	position: absolute;
-	width: 50%;
-	overflow-y: auto;
-	height: 90%;
+	margin-top: 56px;
 }
 
+#next_media_list_header {
+	width: 100%;
+	height: 48px;
+	display: flex;
+	align-items: center;
+	border-bottom: 1px solid var(--border);
+}
+
+#next_media_list_wrapper {
+	right: 0;
+	padding: 0 48px 0 0;
+	position: absolute;
+	display: flex;
+	flex-direction: column;
+	width: 36%;
+	max-width: 800px;
+	height: 100%;
+}
+
+#autoplay_status {
+	margin: 16px 16px 12px 8px;
+	color: var(--gray-font-color);
+}
+
+#next-media-list_inner_wrapper {
+	overflow-x: hidden;
+	overflow-y: scroll;
+}
+
+#next_media_list {
+	position: relative;
+	width: 100%;
+	height: 90%;
+	margin: 16px 0 0 0;
+}
+
+@media (min-width: 616px) and (max-width: 935px) {
+	#next_media_list_wrapper {
+		padding: 0 32px 0 32px;
+		width: 100%;
+		max-width: none;
+		right: auto;
+	}
+}
 [thumbnail] {
 	object-fit: contain;
 	width: 100%;
@@ -122,8 +158,22 @@ main {
 .next_media_item {
 	border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 	display: flex;
-	height: 50px;
+	height: 56px;
 	align-items: center;
+	padding: 0 8px;
+	position: relative;
+}
+
+.Media_Showcase_title_artist {
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+	align-self: center;
+	min-width: 1px;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	background: transparent;
 }
 
 .next_media_item-img-wrapper {
@@ -134,6 +184,24 @@ main {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+}
+
+#next_media_list::-webkit-scrollbar-track {
+	background-color: #161616;
+}
+
+#next_media_list::-webkit-scrollbar {
+	width: 6px;
+	background-color: #161616;
+}
+
+#next_media_list::-webkit-scrollbar-thumb {
+	background-color: #323232;
+}
+
+.Media_Showcase_duration {
+	padding: 0 0 0 8px;
+	color: var(--gray-font-color);
 }
 
 .player-track-sliders {
@@ -327,61 +395,6 @@ AudioCloud-Controles-inner {
 	align-items: center;
 }
 
-.switch {
-	position: relative;
-	display: inline-block;
-	width: 50px;
-	height: 25px;
-	margin-top: 5px;
-}
-
-/* Hide default HTML checkbox */
-.switch input {
-	opacity: 0;
-	width: 0;
-	height: 0;
-}
-
-/* The slider */
-.slider {
-	position: absolute;
-	cursor: pointer;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background-color: rgb(71, 71, 71);
-	-webkit-transition: 0.4s;
-	transition: 0.4s;
-	border-radius: 34px;
-}
-
-.slider:before {
-	position: absolute;
-	content: "";
-	height: 20px;
-	width: 20px;
-	left: 4px;
-	bottom: 3px;
-	background-color: rgb(133, 133, 133);
-	-webkit-transition: 0.4s;
-	transition: 0.4s;
-	border-radius: 50%;
-}
-
-input:checked + .slider:before {
-	background-color: #3ea6ff;
-}
-
-input:checked + .slider {
-	background-color: #14334e;
-}
-input:checked + .slider:before {
-	-webkit-transform: translateX(20px);
-	-ms-transform: translateX(20px);
-	transform: translateX(20px);
-}
-
 #player-video-controles {
 	width: 100%;
 	bottom: 0;
@@ -434,11 +447,11 @@ input:checked + .slider:before {
 	cursor: pointer;
 }
 
-#exit_fullscreen_btn{
+#exit_fullscreen_btn {
 	display: none;
 }
 
-.iron-icon{
+.iron-icon {
 	filter: invert(64%) sepia(0%) saturate(169%) hue-rotate(243deg) brightness(92%) contrast(71%);
 }
 
@@ -450,6 +463,7 @@ input:checked + .slider:before {
 	margin-right: 5px;
 	margin-left: auto;
 	width: 200px;
+	padding: 0 5px 0 0;
 }
 
 #volume {
@@ -513,8 +527,6 @@ input:checked + .slider:before {
 	border: none;
 }
 
-@media (max-width: 800px) {
-	#next_media_list {
-		width: 100%;
-	}
+.next_media_item[data-current-song="true"] {
+	background-color: var(--currentSong-bg);
 }
