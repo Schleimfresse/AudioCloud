@@ -10,7 +10,7 @@ function load() {
 		const Video_Content = document.querySelector("#video-content");
 		media.forEach((e) => {
 			const div = document.getElementById("card-template").content.cloneNode(true);
-			div.children[0].setAttribute("onclick", `window.location.href = "./Player/${e.id}"`);
+			div.children[0].href = `/player?v=${e.id}`;
 			div.querySelector("[thumbnail]").src = `/thumbnails/${e.thumbnail}`;
 			div.querySelector("[artist]").textContent = e.artist;
 			div.querySelector("[title]").textContent = e.title;

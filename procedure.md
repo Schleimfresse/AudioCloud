@@ -41,7 +41,7 @@
 errors:
   - shuffle -> pushState (click) -> shuffle: liste zeigt anderes item als spielt [+]
 
-  Media
+  Media [+]
    | |
    A V  - Audio + Video -> Media Prinzip
    -> const audio
@@ -50,3 +50,5 @@ errors:
 
 PiP through media
 -> wird im only audio mode angezeigt -> icon [+]
+
+- Input vergrößern -> icon etc

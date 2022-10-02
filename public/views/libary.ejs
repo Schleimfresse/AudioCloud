@@ -6,8 +6,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Start | AudioCloud</title>
 		<link rel="stylesheet" href="../css/global.css" />
-		<link rel="stylesheet" href="../css/index.css" />
-		<script defer src="../js/index.js"></script>
+		<link rel="stylesheet" href="../css/libary.css" />
+		<script defer src="../js/libary.js"></script>
 		<script defer src="../js/global.js"></script>
 		<link rel="apple-touch-icon" sizes="180x180" href="../favicons/apple-touch-icon.png" />
 		<link rel="icon" type="image/png" sizes="32x32" href="../favicons/favicon-32x32.png" />
@@ -16,6 +16,9 @@
 		<link rel="mask-icon" href="../favicons/safari-pinned-tab.svg" color="#3ea6ff" />
 		<meta name="msapplication-TileColor" content="#da532c" />
 		<meta name="theme-color" content="#3ea6ff" />
+		<script defer>
+			const playlists = <%- data.playlists %>;
+		</script>
 	</head>
 	<body>
 		<header id="page-header">
@@ -26,10 +29,10 @@
 				</a>
 			</div>
 			<div class="AudioCloud-nav-bar">
-				<div class="AudioCloud-nav-bar-item" data-page="current" onclick="window.location.href = '/'">
-					Start
+				<div class="AudioCloud-nav-bar-item" onclick="window.location.href = '/'">Start</div>
+				<div class="AudioCloud-nav-bar-item" data-page="current" onclick="window.location.href = '/libary'">
+					Libary
 				</div>
-				<div class="AudioCloud-nav-bar-item" onclick="window.location.href = '/libary'">Libary</div>
 				<div class="AudioCloud-nav-bar-item nav-search" id="nav-search-btn">Search</div>
 				<form id="AudioCloud-nav-bar-search" action="/search">
 					<input
@@ -119,34 +122,53 @@
 				</div>
 			</div>
 		</dialog>
-		<main>
-			<div id="Media_Showcase_wrapper"></div>
-		</main>
-		<template id="skeleton-card-template">
-			<div class="box">
-				<span class="img-wrapper skeleton"><img thumbnail /></span>
-				<div class="Media_Showcase_Title skeleton skeleton-text"></div>
-			</div>
-		</template>
-		<template id="card-template">
-			<div class="box">
-				<div class="img-outer">
-					<a link>
-					<span
-						class="img-wrapper"
-						onmousemove="this.children[0].children[1].style.display = 'none';"
-						onclick="this.children[0].children[0].style.display = 'none'; this.children[0].children[1].style.display = 'block'"
-						><div class="img-hover">
-							<img src="../svg/play-sharp.svg" class="icons" alt="play" /><img
-								class="icons"
-								src="../svg/sync-outline.svg"
-								alt="loading"
-							/>
-						</div>
-						<img thumbnail
-					/></span></a>
+		<dialog id="create-playlist-modal">
+			<header>
+				<AudioCloud-Heading> New Playlist </AudioCloud-Heading>
+			</header>
+			<div>
+				<div id="create-playlist-input-wrapper">
+					<form autocomplete="off" id="playlist-form">
+						<input type="text" placeholder="title" class="createPlaylist-form-input" name="title"/>
+						<input
+							type="text"
+							placeholder="description"
+							class="createPlaylist-form-input"
+							id="create-playlist-desc"
+							name="description"
+						/>
 				</div>
-				<div class="Media_Showcase_Title" title></div>
+						<div id="create-playlist-footer">
+							<button id="create-playlist-close" class="std_btn">Cancel</button
+							><button type="submit" class="std_btn" onclick="return validation(this.parentElement.parentElement.children[0].children[0].children[0], true)">Create</button>
+						</div>
+					</form>
+				
+			</div>
+		</dialog>
+		<main>
+			<div class="libary-content-wrapper">
+				<div id="recent-songs">
+					<div>Recent Songs</div>
+				</div>
+			</div>
+			<div class="libary-content-wrapper">
+				<div id="Libary-Playlists">
+					<div id="createPlaylist-item" class="playlist-item">
+						<div class="playlist-thumbnail center">
+							<img class="icons icon-size-large" src="../svg/add.svg" alt="" />
+						</div>
+						<div class="playlist-title">New Playlist</div>
+					</div>
+				</div>
+			</div>
+		</main>
+		<template id="card-template">
+			<div class="playlist-item">
+				<a><div class="playlist-thumbnail center">
+					<object data="/svg/playlist-thumbnail.svg"> </object>
+				</div></a>
+				<a class="underline_link"><div class="playlist-title" title></div></a>
 			</div>
 		</template>
 	</body>

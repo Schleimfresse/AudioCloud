@@ -107,7 +107,7 @@ function createCard(e, index) {
 	const div = document.getElementById("card-template").content.cloneNode(true);
 	div.children[0].setAttribute(
 		"onclick",
-		`history.pushState(null, null, '/Player?v=${e.id}'); load_track(${index});`
+		`history.pushState(null, null, '/player?v=${e.id}'); load_track(${index});`
 	);
 	div.children[0].setAttribute("data-song-index", index);
 	div.querySelector("[thumbnail]").src = `/thumbnails/${e.thumbnail}`;
@@ -130,12 +130,12 @@ function autoplay_infobox_update() {
 function next_song() {
 	if (song_index < Playlist.length - 1) {
 		song_index += 1;
-		history.pushState(null, null, `/Player?v=${Playlist[song_index].id}`);
+		history.pushState(null, null, `/player?v=${Playlist[song_index].id}`);
 		load_track(song_index);
 		playsong();
 	} else {
 		song_index = 0;
-		history.pushState(null, null, `/Player?v=${Playlist[song_index].id}`);
+		history.pushState(null, null, `/player?v=${Playlist[song_index].id}`);
 		load_track(song_index);
 		playsong();
 	}
@@ -144,7 +144,7 @@ function next_song() {
 function previous_song() {
 	if (song_index > 0) {
 		song_index -= 1;
-		history.pushState(null, null, `/Player?v=${Playlist[song_index].id}`);
+		history.pushState(null, null, `/player?v=${Playlist[song_index].id}`);
 		load_track(song_index);
 		playsong();
 	}
@@ -222,6 +222,10 @@ video.addEventListener("fullscreenchange", () => {
 		video.setAttribute("fullscreen", "false");
 	}
 });
+
+/*video.addEventListener('mousemove', () => {
+	document.body.style.cursor = 'auto'
+})*/
 
 video_wrapper.addEventListener("mouseout", () => {
 	video_controls.style.opacity = 0;
@@ -302,10 +306,12 @@ function switch_fullscreen() {
 		fullscreen.style.display = "flex";
 		exit_fullscreen.style.display = "none";
 		AudioCloud_Controls.setAttribute("fullscreen", "false");
+		video.setAttribute("fullscreen", "false");
 	} else if (document.fullscreenElement) {
 		fullscreen.style.display = "none";
 		exit_fullscreen.style.display = "flex";
 		AudioCloud_Controls.setAttribute("fullscreen", "true");
+		video.setAttribute("fullscreen", "true");
 	}
 }
 
@@ -346,16 +352,8 @@ function padTo2Digits(num) {
 	return num.toString().padStart(2, "0");
 }
 
-function RetrieveThumbnail(index) {
-	let request = new XMLHttpRequest();
-	let url = `/thumbnails/${Playlist[index].thumbnail}`;
-	request.open("HEAD", url, false);
-	request.send();
-	return request.status != 404;
-}
-
 function load_track(index) {
-	history.pushState(null, null, `/Player?v=${Playlist[index].id}`);
+	history.pushState(null, null, `/player?v=${Playlist[index].id}`);
 	if (index > 0) {
 		document.querySelector('[data-current-song="true"]').setAttribute("data-current-song", false);
 	}

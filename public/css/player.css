@@ -34,9 +34,6 @@ video[fullscreen="true"] {
 	margin-inline: 0 !important;
 }
 
-#page-header {
-	position: relative;
-}
 #information {
 	padding-top: 20px;
 	padding-bottom: 8px;
@@ -82,13 +79,6 @@ AudioCloud-AddedOn {
 #player_inner_wrapper {
 	display: flex;
 	flex-direction: column;
-}
-
-main {
-	margin: 0 !important;
-	position: relative;
-	top: 0;
-	height: 100%;
 }
 
 #player_title-wrapper {
@@ -263,7 +253,7 @@ main {
 
 #player-track-duration-slider::-webkit-slider-thumb {
 	border-radius: 50px;
-	background-color: #1994ff;
+	background-color: var(--theme-color);
 	appearance: none;
 	-webkit-appearance: none;
 	height: 20px;
@@ -275,7 +265,7 @@ main {
 
 #player-track-duration-slider::-moz-range-thumb {
 	border-radius: 50px;
-	background-color: #1994ff;
+	background-color: var(--theme-color);
 	height: 20px;
 	width: 20px;
 	cursor: pointer;
@@ -435,6 +425,10 @@ AudioCloud-Controles-inner {
 
 #player-video-element::-webkit-media-controls {
 	display: none;
+}
+
+#player-video-element {
+	cursor: none;
 }
 
 #volume-wrapper > * {
