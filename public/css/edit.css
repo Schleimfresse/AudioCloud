@@ -3,3 +3,13 @@
     flex-direction: column;
     align-items: flex-start;
 }
+
+#edit_form-wrapper {
+    height: 100%;
+    width: 100%;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+}

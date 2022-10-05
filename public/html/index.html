@@ -132,22 +132,33 @@
 			<div class="box">
 				<div class="img-outer">
 					<a link>
-					<span
-						class="img-wrapper"
-						onmousemove="this.children[0].children[1].style.display = 'none';"
-						onclick="this.children[0].children[0].style.display = 'none'; this.children[0].children[1].style.display = 'block'"
-						><div class="img-hover">
-							<img src="../svg/play-sharp.svg" class="icons" alt="play" /><img
-								class="icons"
-								src="../svg/sync-outline.svg"
-								alt="loading"
-							/>
-						</div>
-						<img thumbnail
-					/></span></a>
+						<span
+							class="img-wrapper"
+							onmousemove="this.children[0].children[1].style.display = 'none';"
+							onclick="this.children[0].children[0].style.display = 'none'; this.children[0].children[1].style.display = 'block'"
+							><div class="img-hover">
+								<img src="../svg/play-sharp.svg" class="icons" alt="play" /><img
+									class="icons"
+									src="../svg/sync-outline.svg"
+									alt="loading"
+								/>
+							</div>
+							<img thumbnail id="start-showcase" /></span
+					></a>
 				</div>
 				<div class="Media_Showcase_Title" title></div>
 			</div>
 		</template>
+		<div id="contextmenu">
+			<div class="account-item" id="addToPlaylist">
+				<div class="account-item-icon"><img class="icons" src="../svg/add.svg" alt="" /></div>
+				<div class="item-string">Add to Playlist</div>
+			</div>
+			<div class="account-item">
+				<div class="account-item-icon"><img class="icons" src="../svg/add.svg" alt="" /></div>
+				<div class="item-string">Share</div>
+			</div>
+			<div class="account-item"></div>
+		</div>
 	</body>
 </html>

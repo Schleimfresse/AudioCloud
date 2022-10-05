@@ -28,8 +28,10 @@
 		"express-fileupload": "^1.4.0",
 		"file-type": "^18.0.0",
 		"fluent-ffmpeg": "^2.1.2",
+		"jsmediatags": "^3.9.7",
 		"nedb": "^1.8.0",
 		"nodemon": "^2.0.19",
+		"sharp": "^0.31.1",
 		"uniqid": "^5.4.0"
 	}
 }

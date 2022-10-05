@@ -32,6 +32,7 @@ body {
 
 a {
 	text-decoration: none;
+	cursor: pointer;
 }
 .underline_link:hover {
 	text-decoration: underline;
@@ -206,6 +207,7 @@ option {
 	width: max-content;
 	overflow: hidden;
 	min-width: 160px;
+	position: relative;
 }
 
 .img-hover:hover {
@@ -258,10 +260,6 @@ option {
 	font-weight: 600;
 	margin-bottom: 4px;
 	line-height: 20px;
-}
-
-img {
-	height: 160px;
 }
 
 #account-icon-container {
@@ -523,4 +521,58 @@ AudioCloud-Heading {
 #searchquery_input {
 	font-size: 18px;
 	width: 40%;
+}
+
+.fullspace {
+	height: 100%;
+	width: 100%;
+}
+
+@media (min-width: 616px) and (max-width: 935px) {
+	#next_media_list_wrapper {
+		padding: 0 32px 0 32px;
+		width: 100%;
+		max-width: none;
+		right: auto;
+	}
+}
+[thumbnail] {
+	object-fit: contain;
+	width: 100%;
+}
+
+.next_media_item {
+	border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+	display: flex;
+	height: 56px;
+	align-items: center;
+	padding: 0 8px;
+	position: relative;
+}
+
+.Media_Showcase_title_artist {
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+	align-self: center;
+	min-width: 1px;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	background: transparent;
+}
+
+.next_media_item-img-wrapper {
+	height: 32px;
+	width: 32px;
+	background-color: black;
+	margin-right: 16px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.Media_Showcase_duration {
+	padding: 0 0 0 8px;
+	color: var(--gray-font-color);
 }

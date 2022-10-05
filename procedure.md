@@ -52,3 +52,5 @@ PiP through media
 -> wird im only audio mode angezeigt -> icon [+]
 
 - Input vergrößern -> icon etc
+
+## BACKEND mp3 thubnails in quadrat schneiden

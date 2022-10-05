@@ -7,25 +7,24 @@
 		<title>Edit | AudioCloud</title>
 		<link rel="stylesheet" href="/css/global.css" />
 		<link rel="stylesheet" href="/css/edit.css" />
-		<link rel="apple-touch-icon" sizes="180x180" href="../favicons/apple-touch-icon.png">
-		<link rel="icon" type="image/png" sizes="32x32" href="../favicons/favicon-32x32.png">
-		<link rel="icon" type="image/png" sizes="16x16" href="../favicons/favicon-16x16.png">
-		<link rel="manifest" href="../favicons/site.webmanifest">
-		<link rel="mask-icon" href="../favicons/safari-pinned-tab.svg" color="#3ea6ff">
-		<meta name="msapplication-TileColor" content="#da532c">
-		<meta name="theme-color" content="#3ea6ff">
-		<script>
-			// EJS Variables
-			const information =  <%- data %>;
-		</script>
-		<script defer type="module" src="../js/edit/edit_item.js"></script>
+		<link rel="apple-touch-icon" sizes="180x180" href="../favicons/apple-touch-icon.png" />
+		<link rel="icon" type="image/png" sizes="32x32" href="../favicons/favicon-32x32.png" />
+		<link rel="icon" type="image/png" sizes="16x16" href="../favicons/favicon-16x16.png" />
+		<link rel="manifest" href="../favicons/site.webmanifest" />
+		<link rel="mask-icon" href="../favicons/safari-pinned-tab.svg" color="#3ea6ff" />
+		<meta name="msapplication-TileColor" content="#da532c" />
+		<meta name="theme-color" content="#3ea6ff" />
 		<script defer src="/js/global.js"></script>
 	</head>
 	<body>
 		<header id="page-header">
 			<div class="icon-spacing-right" id="menu">
 				<a id="menu-link" href="/"
-					><img class="icons icon-spacing-right" src="../svg/musical-notes-outline.svg" alt="music-note" /><span><span class="bold">A</span>udioCloud</span></a
+					><img
+						class="icons icon-spacing-right"
+						src="../svg/musical-notes-outline.svg"
+						alt="music-note"
+					/><span><span class="bold">A</span>udioCloud</span></a
 				>
 			</div>
 			<form class="row" action="/search">
@@ -48,35 +47,49 @@
 					onclick="return validation(this.parentElement.children[0])"
 					type="submit"
 				>
-				<img class="icons" src="../svg/search-outline.svg" alt="search" />
+					<img class="icons" src="../svg/search-outline.svg" alt="search" />
 				</button>
 			</form>
 			<div class="center" id="account-icon-container">
-				<img id="account-icon" src="../svg/account.svg" class="icons" alt="account-icon">
+				<img id="account-icon" src="../svg/account.svg" class="icons" alt="account-icon" />
 			</div>
 			<div id="account-card" visibility="false">
 				<header id="account-card-header">
-					<img id="account-icon" src="../svg/account_filled.svg" class="icons icon-size-large" alt="">
+					<img id="account-icon" src="../svg/account_filled.svg" class="icons icon-size-large" alt="" />
 				</header>
-				<a id="settings-btn" class="account-item" ><div class="account-item-icon"><img class="icons" src="../svg/settings.svg" alt=""></div><div class="item-string">Settings</div></a>
-				<a href="/upload" class="account-item" ><div class="account-item-icon"><img class="icons" src="../svg/cloud_upload.svg" alt=""></div><div class="item-string">Upload</div></a>
-				<a href="/edit" class="account-item" ><div class="account-item-icon"><img class="icons" src="../svg/pen.svg" alt=""></div><div class="item-string">Edit</div></a>
-				<a href="/delete" class="account-item" ><div class="account-item-icon"><img class="icons" src="../svg/bin.svg" alt=""></div><div class="item-string">Delete</div></a>
+				<a id="settings-btn" class="account-item"
+					><div class="account-item-icon"><img class="icons" src="../svg/settings.svg" alt="" /></div>
+					<div class="item-string">Settings</div></a
+				>
+				<a href="/upload" class="account-item"
+					><div class="account-item-icon"><img class="icons" src="../svg/cloud_upload.svg" alt="" /></div>
+					<div class="item-string">Upload</div></a
+				>
+				<a href="/edit" class="account-item"
+					><div class="account-item-icon"><img class="icons" src="../svg/pen.svg" alt="" /></div>
+					<div class="item-string">Edit</div></a
+				>
+				<a href="/delete" class="account-item"
+					><div class="account-item-icon"><img class="icons" src="../svg/bin.svg" alt="" /></div>
+					<div class="item-string">Delete</div></a
+				>
 			</div>
 		</header>
 		<main>
 			<div>
-				<h2>Currently being edited: <span id="title"></span></h2>
+				<h2>Currently being edited: <%= title %></h2>
 			</div>
-			<form id="edit_form" method="post" action="/edit/<% data.name %>/success">
-				<label for="title">Title</label>
-				<input type="text" required class="std_btn" placeholder="Title" name="title" />
-				<label for="desc">Description</label>
-				<input type="text" class="std_btn" placeholder="Description" name="desc" />
-				<label for="artist">Artist</label>
-				<input type="text" class="std_btn" placeholder="Artist" name="artist" />
-				<input type="submit" class="std_btn slide" value="Update" />
-			</form>
+			<div id="edit_form-wrapper">
+				<form id="edit_form" method="post" action="/edit/<%= name %>/success">
+					<label for="title">Title</label>
+					<input type="text" required class="std_btn" placeholder="Title" name="title" value="<%= title %>" />
+					<label for="desc">Description</label>
+					<input type="text" class="std_btn" placeholder="Description" name="desc" value="<%= desc %>" />
+					<label for="artist">Artist</label>
+					<input type="text" class="std_btn" placeholder="Artist" name="artist" value="<%= artist %>" />
+					<input type="submit" class="std_btn slide" value="Update" />
+				</form>
+			</div>
 		</main>
 	</body>
 </html>

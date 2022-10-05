@@ -1,5 +1,6 @@
 const createPlaylistModal = document.getElementById("create-playlist-modal");
-const createPlaylist_item = document.getElementById("createPlaylist-item");
+const createPlaylist_thumbnail = document.getElementById("createPlaylist-thumbnail");
+const createPlaylist_string = document.getElementById("createPlaylist-string");
 const create_playlist_close = document.getElementById("create-playlist-close");
 const create_playlist_inputfields = [...document.getElementsByClassName("createPlaylist-form-input")];
 const playlist_form = document.getElementById("playlist-form");
@@ -7,8 +8,8 @@ const playlist_form = document.getElementById("playlist-form");
 const addCard = (data) => {
 	console.log(data);
 	const div = document.getElementById("card-template").content.cloneNode(true);
-	div.children[0].children[0].href = `/playlist?list=${data.name}`;
-	div.children[0].children[1].href = `/playlist?list=${data.name}`;
+	div.children[0].children[0].children[0].href = `/playlist?list=${data.name}`;
+	div.children[0].children[1].children[0].href = `/playlist?list=${data.name}`;
 	div.querySelector("[title]").textContent = data.title;
 	document.getElementById("Libary-Playlists").append(div);
 };
@@ -17,15 +18,16 @@ playlists.forEach((e) => {
 	addCard(e);
 });
 
-createPlaylist_item.addEventListener("click", () => {
+createPlaylist_string.addEventListener("click", () => {
+	createPlaylistModal.showModal();
+});
+
+createPlaylist_thumbnail.addEventListener("click", () => {
 	createPlaylistModal.showModal();
 });
 
 const clearinput = () => {
 	createPlaylistModal.close();
-	create_playlist_inputfields.forEach((inputfield) => {
-		inputfield.value = "";
-	});
 	playlist_form.children[0].style.borderBottom = "2px solid #fff";
 };
 

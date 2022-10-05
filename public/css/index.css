@@ -33,3 +33,16 @@
 		background-color: rgb(66, 66, 66);
 	  }
 }
+
+#contextmenu{
+	display: none;
+	flex-direction: column;
+	position: absolute;
+	background-color: var(--box-bg-dark);
+	border: 1px solid var(--border);
+
+}
+
+#start-showcase{
+	height: 160px;
+}

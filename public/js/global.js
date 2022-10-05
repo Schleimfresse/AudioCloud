@@ -95,3 +95,4 @@ settings_list.addEventListener("click", (e) => {
 });
 
 video_playback_switch.addEventListener("click", video_playback);
+

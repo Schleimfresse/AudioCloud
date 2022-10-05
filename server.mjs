@@ -23,7 +23,7 @@ global.__dirname = path.resolve(__dirname);
 // Middleware
 
 app.use(express.json());
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({ extended: false }));
 app.use(upload());
 app.use(express.static(__dirname + "/public"));
 app.set("view engine", "ejs");
@@ -80,10 +80,9 @@ app.get("/api", (request, res) => {
 	});
 });
 
-// 404 Handeling
+// Error Handeling
 
 app.use(function (req, res) {
-	res.status(404);
-	res.sendFile(__dirname + "/public/html/404.html");
-	return;
+	res.status(200);
+	res.redirect("/");
 });

@@ -6,7 +6,7 @@ if (media == "") {
 	media.forEach((e) => {
 		const div = document.createElement("div");
 		div.setAttribute("class", "box-search");
-		div.setAttribute("onclick", `window.location.href = "./edit/${e.name}"`);
+		div.setAttribute("onclick", `window.location.href = "./edit/${e.id}"`);
 		div.innerText = e.title;
 		main.append(div);
 	});

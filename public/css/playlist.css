@@ -1,0 +1,17 @@
+#playlist-header{
+    display: flex;
+    flex-direction: row;
+}
+#playlist-tracks{
+    width: 90%;
+}
+
+#playlist-tracks-wrapper{
+    width: 100%;
+    display: flex;
+   justify-content: center;
+}
+
+.next_media_item-wrapper{
+    width: 100%;
+}

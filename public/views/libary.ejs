@@ -139,7 +139,7 @@
 						/>
 				</div>
 						<div id="create-playlist-footer">
-							<button id="create-playlist-close" class="std_btn">Cancel</button
+							<button type="reset" id="create-playlist-close" class="std_btn">Cancel</button
 							><button type="submit" class="std_btn" onclick="return validation(this.parentElement.parentElement.children[0].children[0].children[0], true)">Create</button>
 						</div>
 					</form>
@@ -154,21 +154,21 @@
 			</div>
 			<div class="libary-content-wrapper">
 				<div id="Libary-Playlists">
-					<div id="createPlaylist-item" class="playlist-item">
-						<div class="playlist-thumbnail center">
+					<div class="playlist-item">
+						<div id="createPlaylist-thumbnail" class="playlist-thumbnail center">
 							<img class="icons icon-size-large" src="../svg/add.svg" alt="" />
 						</div>
-						<div class="playlist-title">New Playlist</div>
+						<div class="playlist-title"><a id="createPlaylist-string" class="underline_link">New Playlist</a></div>
 					</div>
 				</div>
 			</div>
 		</main>
 		<template id="card-template">
 			<div class="playlist-item">
-				<a><div class="playlist-thumbnail center">
-					<object data="/svg/playlist-thumbnail.svg"> </object>
-				</div></a>
-				<a class="underline_link"><div class="playlist-title" title></div></a>
+				<div class="playlist-thumbnail">
+					<a class="fullspace center"><img playlist-thumbnail class="icon-size-large" src="/svg/playlist-thumbnail.svg" /></a>
+				</div>
+				<div class="playlist-title" ><a class="underline_link" title></a></div>
 			</div>
 		</template>
 	</body>

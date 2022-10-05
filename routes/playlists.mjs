@@ -14,6 +14,10 @@ router.post("/create", (req, res) => {
 			type: "playlist",
 			title: req.body.title,
 			desc: req.body.description,
+			searchquery: req.body.title.toLowerCase(),
+			thumbnail: "playlist-thumbnail.svg",
+			totalduration: 0,
+			tracks: [],
 		},
 		(err, data) => {
 			if (err) {
@@ -24,6 +28,42 @@ router.post("/create", (req, res) => {
 			res.send({ title: req.body.title, desc: req.body.description, name: uniqid_inst });
 		}
 	);
+});
+
+router.get("/", (req, res) => {
+	database.find({ name: req.query.list }, (err, data) => {
+		if (err || data === null || data == "") {
+			res.status(500);
+			res.send("Data could not be accessed.");
+			res.end();
+			return;
+		}
+		data = data.shift();
+		res.render(__dirname + "/public/views/playlist.ejs", {
+			playlist: JSON.stringify(data),
+			name: data.title,
+			thumbnail: data.thumbnail,
+		});
+	});
+});
+
+router.post("/add", (req, res) => {
+	database.findOne({ id: req.body.id }, (err, data) => {
+		if (err || data === null || data == "") {
+			res.status(500);
+			res.send("Data could not be accessed.");
+			res.end();
+			return;
+		}
+		database.update({ name: req.body.playlist }, { $push: { tracks: data }, $inc: {totalduration: data.int_duration} }, (err, data) => {
+			if (err || data === null || data == "") {
+				res.status(500);
+				res.send("Data could not be accessed.");
+				res.end();
+				return;
+			}
+		});
+	});
 });
 
 export { router };

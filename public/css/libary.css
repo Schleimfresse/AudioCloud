@@ -83,3 +83,7 @@ main {
 #create-playlist-desc{
 	margin: 32px 0;
 }
+
+[playlist-thumbnail] {
+	height: 120px;
+}
