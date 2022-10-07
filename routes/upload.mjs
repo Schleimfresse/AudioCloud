@@ -106,7 +106,7 @@ router.post("/", async (req, res) => {
 				return;
 			} else {
 				const date = new Date();
-				const Db_duration = Lib.formatDuration(metadata);
+				const Db_duration = Lib.formatDuration(metadata.duration);
 				const type = await fileTypeFromFile(__dirname + "/public/Media/" + filename);
 				const added_date = `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`;
 				if (

@@ -3,6 +3,7 @@ const cardTemplate = document.getElementById("card-template");
 const main = document.getElementById("Media_Showcase_wrapper");
 const contextmenu = document.getElementById("contextmenu");
 const addToPlaylist = document.getElementById("addToPlaylist");
+const notification_box = document.getElementById("notification-banner");
 for (let i = 0; i < 30; i++) {
 	main.append(skel_cardTemplate.content.cloneNode(true));
 }
@@ -53,6 +54,15 @@ const onContextmenu = (e) => {
 
 window.addEventListener("click", onContextmenu);
 
+const displayNotification = (data) => {
+	contextmenu.style.display = "none";
+	notification_box.setAttribute("data-visibility", "");
+	notification_box.textContent = data.message;
+	setTimeout(() => {
+		notification_box.removeAttribute("data-visibility", "");
+	}, 3000);
+};
+
 addToPlaylist.addEventListener("click", (e) => {
 	console.log(addToPlaylist.parentElement.getAttribute("current"));
 	fetch("/playlist/add", {
@@ -60,6 +70,11 @@ addToPlaylist.addEventListener("click", (e) => {
 		headers: {
 			"Content-Type": "application/json",
 		},
-		body: JSON.stringify({id: addToPlaylist.parentElement.getAttribute("current"), playlist: "2f7if0k0l8t36cnk"}),
+		body: JSON.stringify({
+			id: addToPlaylist.parentElement.getAttribute("current"),
+			playlist: "2f7if0a40l8xcc87p",
+		}),
 	})
+		.then((res) => res.json())
+		.then((data) => displayNotification(data));
 });

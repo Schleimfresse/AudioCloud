@@ -122,13 +122,31 @@
 			</div>
 		</dialog>
 		<main>
-			<div id="playlist-header">
-				<div id="playlist-header-img"><img src="/svg/<%- thumbnail %>" alt="" /></div>
-				<div>
-					<h1><%- name %></h1>
-					<div id="playlist-header-box"></div>
+			<header id="playlist-header">
+				<div id="playlist-header-innerwrapper">
+					<img id="playlist-header-img" src="/svg/<%- thumbnail %>" alt="" />
+					<div>
+						<h1><%- title %></h1>
+						<div id="playlist-header-box">
+							<div id="header-playlist-row"><%- duration %>&nbsp;•&nbsp;<%- amount %> tracks</div>
+							<div id="header-playlist-btn-row">
+								<a href="/player/?list=<%- name %>">
+									<button class="std_btn">
+										<img class="icons icon-spacing-right" src="/svg/play.svg" alt="" /><span>Play</span>
+									</button></a
+								>
+								<a href="/player/?list=<%- name %>&v=<%-firsttrack %>"
+									><button class="std_btn">
+										<img class="icons icon-spacing-right" src="/svg/shuffle.svg" alt="" /><span
+											>Random mix</span
+										>
+									</button></a
+								>
+							</div>
+						</div>
+					</div>
 				</div>
-			</div>
+			</header>
 			<div id="playlist-tracks-wrapper"><div id="playlist-tracks"></div></div>
 		</main>
 		<template id="card-template">

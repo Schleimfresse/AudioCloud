@@ -8,6 +8,6 @@ playlist.tracks.forEach((e) => {
 	div.querySelector("[thumbnail]").src = `/thumbnails/${e.thumbnail}`;
 	div.querySelector("[artist]").textContent = e.artist;
 	div.querySelector("[title]").textContent = e.title;
-	div.querySelector("[duration]").textContent = e.duration;
+	div.querySelector("[duration]").textContent = e.str_duration;
 	main.append(div);
 });

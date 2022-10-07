@@ -53,19 +53,36 @@ app.get("/", (req, res) => {
 });
 
 app.get("/player", (req, res) => {
-	Lib.database.find({ id: req.query.v }, (err, data) => {
-		if (err || data === null || data == "") {
-			res.status(500);
-			res.send("Data could not be accessed.");
-			res.end();
-			return;
-		}
-		data = data.shift();
-		res.status(200);
-		res.render(__dirname + "/public/views/player.ejs", {
-			data: { medium: data.name, info: JSON.stringify(data) },
+	if (req.query.list) {
+		Lib.database.findOne({ name: req.query.list }, (err, data) => {
+			if (err || data === null || data == "") {
+				res.status(500);
+				res.send("Data could not be accessed.");
+				res.end();
+				return;
+			}
+			let track = data.tracks.find(e => e.id == req.query.v );
+			let tracks = data.tracks;
+			res.status(200);
+			res.render(__dirname + "/public/views/player.ejs", {
+				data: { medium: track.name, info: JSON.stringify(tracks) },
+			});
 		});
-	});
+	} else if (req.query.v) {
+		Lib.database.find({ id: req.query.v }, (err, data) => {
+			if (err || data === null || data == "") {
+				res.status(500);
+				res.send("Data could not be accessed.");
+				res.end();
+				return;
+			}
+			data = data.shift();
+			res.status(200);
+			res.render(__dirname + "/public/views/player.ejs", {
+				data: { medium: data.name, info: JSON.stringify(data) },
+			});
+		});
+	}
 });
 
 app.get("/api", (request, res) => {
