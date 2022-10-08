@@ -57,7 +57,7 @@ app.get("/player", (req, res) => {
 		Lib.database.findOne({ name: req.query.list }, (err, data) => {
 			if (err || data === null || data == "") {
 				res.status(500);
-				res.send("Data could not be accessed.");
+				res.sendFile(__dirname + "/public/html/notfound.html")
 				res.end();
 				return;
 			}
@@ -71,8 +71,8 @@ app.get("/player", (req, res) => {
 	} else if (req.query.v) {
 		Lib.database.find({ id: req.query.v }, (err, data) => {
 			if (err || data === null || data == "") {
-				res.status(500);
-				res.send("Data could not be accessed.");
+				res.status(304)
+				res.sendFile(__dirname + "/public/html/notfound.html");
 				res.end();
 				return;
 			}
@@ -97,9 +97,21 @@ app.get("/api", (request, res) => {
 	});
 });
 
+app.get("/api/tracks", (request, res) => {
+	Lib.database.find({type: "track"}, (err, data) => {
+		if (err) {
+			res.status(500);
+			res.send("<h1>500 Internal Server Error</h1>");
+			res.end();
+			return;
+		}
+		res.json(data);
+	});
+});
+
 // Error Handeling
 
-app.use(function (req, res) {
+/*app.use(function (req, res) {
 	res.status(200);
 	res.redirect("/");
-});
+});*/

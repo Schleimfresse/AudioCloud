@@ -6,7 +6,7 @@ router.get("/", (req, res) => {
 	database.find({ type: "playlist" }, (err, data) => {
 		if (err || data === null) {
 			res.status(500);
-			res.send("Data could not be accessed.");
+			res.sendFile(__dirname + "/public/html/notfound.html")
 			res.end();
 			return;
 		}

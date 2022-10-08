@@ -1,6 +1,7 @@
 const cardTemplate = document.getElementById("card-template");
 const main = document.getElementById("wrapper");
 const searchfield = document.getElementById("searchquery_input");
+const URLparameter = new URLSearchParams(window.location.search);
 searchfield.value = query;
 
 function load() {
@@ -27,4 +28,28 @@ function load() {
 		main.append(document.getElementById("noresults").content.cloneNode(true));
 	}
 }
+
+const addSearchInputToLocalStorage = () => {
+	const value = URLparameter.get("query");
+	const mode = URLparameter.get("mode");
+	if (searchHistory.length >= 8) {
+		searchHistory.pop();
+	}
+	let excistingItemIndex = searchHistory.findIndex((e) => {
+		return e.value == value;
+	});
+	if (excistingItemIndex != -1
+		) {
+		let excistingItem = searchHistory.splice(excistingItemIndex, 1);
+		obj = excistingItem.shift();
+	} else {
+		obj = { value: value, mode: mode, type: "search" };
+	}
+	console.log('trigger 2', obj)
+	searchHistory.unshift(obj);
+	localStorage.searchHistory = JSON.stringify(searchHistory);
+};
+
 load();
+addSearchInputToLocalStorage();
+pushSearchHistoryInDOM(searchHistory);

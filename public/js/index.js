@@ -4,6 +4,9 @@ const main = document.getElementById("Media_Showcase_wrapper");
 const contextmenu = document.getElementById("contextmenu");
 const addToPlaylist = document.getElementById("addToPlaylist");
 const notification_box = document.getElementById("notification-banner");
+const tracks_wrapper = document.getElementById("tracks");
+const playlists_wrapper = document.getElementById("playlists");
+const content_wapper = document.getElementById("content-main");
 for (let i = 0; i < 30; i++) {
 	main.append(skel_cardTemplate.content.cloneNode(true));
 }
@@ -13,6 +16,9 @@ window.onload = function () {
 		const res = await fetch("/api");
 		const data = await res.json();
 		main.textContent = "";
+		main.append(content_wapper.content.cloneNode(true));
+		const tracks_wrapper = document.getElementById("tracks").children[1];
+		const playlists_wrapper = document.getElementById("playlists").children[1];
 		data.forEach((e) => {
 			const div = cardTemplate.content.cloneNode(true);
 			if (e.type === "track") {
@@ -34,8 +40,11 @@ window.onload = function () {
 			div.querySelector("[link]").href = `./player?v=${e.id}`;
 			div.querySelector("[thumbnail]").src = `/thumbnails/${e.thumbnail}`;
 			div.querySelector("[title]").textContent = e.title;
-			main.append(div);
+			if (e.type == "track") tracks_wrapper.append(div);
+			else if (e.type == "playlist") playlists_wrapper.append(div);
 		});
+		if (tracks_wrapper.textContent.trim() === "") tracks_wrapper.remove();
+		if (playlists_wrapper.textContent.trim() === "") playlists_wrapper.remove();
 	}
 	load();
 };
@@ -72,7 +81,7 @@ addToPlaylist.addEventListener("click", (e) => {
 		},
 		body: JSON.stringify({
 			id: addToPlaylist.parentElement.getAttribute("current"),
-			playlist: "2f7if0a40l8xcc87p",
+			playlist: "2f7if0h8ol8yr32g1",
 		}),
 	})
 		.then((res) => res.json())

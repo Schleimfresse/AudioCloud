@@ -32,14 +32,14 @@ router.post("/create", (req, res) => {
 });
 
 router.get("/", (req, res) => {
-	database.find({ name: req.query.list }, (err, data) => {
+	database.findOne({ name: req.query.list }, (err, data) => {
 		if (err || data === null || data == "") {
 			res.status(500);
-			res.send("Data could not be accessed.");
+			res.sendFile(__dirname + "/public/html/notfound.html")
 			res.end();
 			return;
 		}
-		data = data.shift();
+		console.log(data.tracks[0].id);
 		res.render(__dirname + "/public/views/playlist.ejs", {
 			playlist: JSON.stringify(data),
 			name: data.name,
@@ -53,27 +53,41 @@ router.get("/", (req, res) => {
 });
 
 router.post("/add", (req, res) => {
-	database.findOne({ id: req.body.id }, (err, data) => {
-		if (err || data === null || data == "") {
+	database.findOne({ id: req.body.id }, (err, track) => {
+		if (err || track === null || track == "") {
 			res.status(500);
 			res.send({ message: "An Error ocured!" });
 			res.end();
 			return;
 		}
-		database.update(
-			{ name: req.body.playlist },
-			{ $push: { tracks: data }, $inc: { totalduration: data.int_duration }, $inc: { amount: +1 } },
-			(err, data) => {
-				if (err || data === null || data == "") {
-					res.status(500);
-					res.send({ message: "An Error ocured!" });
-					res.end();
-					return;
-				}
+		database.findOne({ name: req.body.playlist }, (err, data) => {
+			if (err || data === null || data == "") {
+				res.status(500);
+				res.send({ message: "An Error ocured!" });
+				res.end();
+				return;
 			}
-		);
+			const check = data.tracks.find((e) => e.id == req.body.id);
+			if (check) {
+				res.status(200).send({ message: "The track is already in the playlist!" });
+				res.end();
+				return;
+			}
+			database.update(
+				{ name: req.body.playlist },
+				{ $inc: { totalduration: track.int_duration }, $inc: { amount: 1 }, $push: { tracks: track } },
+				(err, data) => {
+					if (err || data === null || data == "") {
+						res.status(500);
+						res.send({ message: "An Error ocured!" });
+						res.end();
+						return;
+					}
+					res.send({ message: "Track was successfully added!" });
+				}
+			);
+		});
 	});
-	res.send({ message: "Track was successfully added!" });
 });
 
 export { router };

@@ -20,45 +20,71 @@
 	<body>
 		<header id="page-header">
 			<div class="icon-spacing-right" id="menu">
-				<a id="menu-link" href="/"></a>
+				<a id="menu-link" href="/">
 					<img class="icons icon-spacing-right" src="../svg/musical-notes-outline.svg" alt="music-note" />
-					<span><span class="bold">A</span>udioCloud</span></a
-				>
+					<span><span class="bold">A</span>udioCloud</span>
+				</a>
 			</div>
-			<form class="row" action="/search">
-				<input
-					class="std_btn no_margin_right"
-					spellcheck="true"
-					placeholder="Search for music ..."
-					type="search"
-					name="query"
-					id="searchquery_input"
-				/>
-				<input type="hidden" name="mediatype" value="" />
-				<input type="hidden" name="type" value="search" />
-				<select name="mode" class="std_btn no_padding-top-bot">
-					<option value="standard">Standard</option>
-					<option value="strict">Strict</option>
-				</select>
-				<button
-					class="std_btn square_button no_margin_left center"
-					onclick="return validation(this.parentElement.children[0])"
-					type="submit"
-				>
-					<img class="icons" src="../svg/search-outline.svg" alt="search" />
-				</button>
-			</form>
+			<div class="AudioCloud-nav-bar">
+				<div class="AudioCloud-nav-bar-item" onclick="window.location.href = '/'">Start</div>
+				<div class="AudioCloud-nav-bar-item" onclick="window.location.href = '/libary'">Libary</div>
+				<div class="AudioCloud-nav-bar-item nav-search" data-page="current" id="nav-search-btn">Search</div>
+				<div id="AudioCloud-nav-bar-search-wrapper">
+					<div id="AudioCloud-nav-bar-search-innerwrapper">
+						<form id="AudioCloud-nav-bar-search" action="/search">
+							<div id="input-wrapper">
+								<img id="input-arrow-back" src="/svg/arrow-back-outline.svg" alt="" />
+								<input
+									autocomplete="off"
+									class="std_btn no-margin noborder nav-search"
+									spellcheck="true"
+									placeholder="Search for music ..."
+									type="search"
+									name="query"
+									id="searchquery_input"
+								/>
+							</div>
+							<input type="hidden" name="mediatype" value="" />
+							<input type="hidden" name="type" value="search" />
+							<select name="mode" class="std_btn no-margin no_padding-top-bot nav-search noborder">
+								<option value="standard">Standard</option>
+								<option value="strict">Strict</option>
+							</select>
+							<button
+								class="std_btn noborder no-margin square_button no_margin_left center nav-search"
+								onclick="return validation(this.parentElement.children[0])"
+								type="submit"
+							>
+								<img class="icons nav-search" src="../svg/search-outline.svg" alt="search" />
+							</button>
+						</form>
+						<div id="searchHistory"></div>
+					</div>
+				</div>
+			</div>
 			<div class="center" id="account-icon-container">
-				<img id="account-icon" src="../svg/account.svg" class="icons" alt="account-icon">
+				<img id="account-icon" src="../svg/account.svg" class="icons" alt="account-icon" />
 			</div>
 			<div id="account-card" visibility="false">
 				<header id="account-card-header">
-					<img id="account-icon" src="../svg/account_filled.svg" class="icons icon-size-large" alt="">
+					<img id="account-icon" src="../svg/account_filled.svg" class="icons icon-size-large" alt="" />
 				</header>
-				<a id="settings-btn" class="account-item" ><div class="account-item-icon"><img class="icons" src="../svg/settings.svg" alt=""></div><div class="item-string">Settings</div></a>
-				<a href="/upload" class="account-item" ><div class="account-item-icon"><img class="icons" src="../svg/cloud_upload.svg" alt=""></div><div class="item-string">Upload</div></a>
-				<a href="/edit" class="account-item" ><div class="account-item-icon"><img class="icons" src="../svg/pen.svg" alt=""></div><div class="item-string">Edit</div></a>
-				<a href="/delete" class="account-item" ><div class="account-item-icon"><img class="icons" src="../svg/bin.svg" alt=""></div><div class="item-string">Delete</div></a>
+				<a id="settings-btn" class="account-item"
+					><div class="account-item-icon"><img class="icons" src="../svg/settings.svg" alt="" /></div>
+					<div class="item-string">Settings</div></a
+				>
+				<a href="/upload" class="account-item"
+					><div class="account-item-icon"><img class="icons" src="../svg/cloud_upload.svg" alt="" /></div>
+					<div class="item-string">Upload</div></a
+				>
+				<a href="/edit" class="account-item"
+					><div class="account-item-icon"><img class="icons" src="../svg/pen.svg" alt="" /></div>
+					<div class="item-string">Edit</div></a
+				>
+				<a href="/delete" class="account-item"
+					><div class="account-item-icon"><img class="icons" src="../svg/bin.svg" alt="" /></div>
+					<div class="item-string">Delete</div></a
+				>
 			</div>
 		</header>
 		<main>
@@ -91,5 +117,13 @@
 				</form>
 			</div>
 		</main>
+		<template id="searchHistory-Temp">
+			<div class="searchHistory-item nav-search">
+				<div class="searchHistory-item-img nav-search center">
+					<img class="nav-search" height="24px" width="24px" src="/svg/search-history-outline.svg" alt="" />
+				</div>
+				<div class="nav-search"></div>
+			</div>
+	</template>
 	</body>
 </html>

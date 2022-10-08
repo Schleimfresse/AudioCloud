@@ -54,3 +54,8 @@ PiP through media
 - Input vergrößern -> icon etc
 
 ## BACKEND mp3 thubnails in quadrat schneiden
+
+
+## sendFile() überarbeiten
+
+## suggestion press wird nicht als form submit initalisiert <-----

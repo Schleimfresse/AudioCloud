@@ -79,7 +79,7 @@ autoplay_infobox_update();
 
 // Initialisation end
 async function RetrieveData() {
-	const res = await fetch("/api");
+	const res = await fetch("/api/tracks");
 	return await res.json();
 }
 
@@ -88,18 +88,12 @@ function InitialisePlaylist(playlist) {
 	const currentMediumIndex = Playlist.findIndex((e) => {
 		return e.name == filename;
 	});
-	const currentMedium = Playlist.find((e) => {
-		return e.name == filename;
-	});
-	Playlist.splice(currentMediumIndex, 1);
 	let index = 0;
-	createCard(currentMedium, index);
 	Playlist.forEach((e) => {
-		index++;
 		createCard(e, index);
+		index++;
 	});
-	Playlist.unshift(currentMedium);
-	load_track(song_index);
+	load_track(currentMediumIndex);
 }
 
 function InitialiseData() {
@@ -368,7 +362,7 @@ function padTo2Digits(num) {
 
 function load_track(index) {
 	history.pushState(null, null, `/player?${list}v=${Playlist[index].id}`);
-	if (index > 0) {
+	if (document.querySelector('[data-current-song="true"]')) {
 		document.querySelector('[data-current-song="true"]').setAttribute("data-current-song", false);
 	}
 	document.querySelector(`[data-song-index="${index}"]`).setAttribute("data-current-song", true);
