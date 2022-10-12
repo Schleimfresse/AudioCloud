@@ -32,7 +32,7 @@
 			<div class="AudioCloud-nav-bar">
 				<div class="AudioCloud-nav-bar-item" onclick="window.location.href = '/'">Start</div>
 				<div class="AudioCloud-nav-bar-item" onclick="window.location.href = '/libary'">Libary</div>
-				<div class="AudioCloud-nav-bar-item nav-search" data-page="current" id="nav-search-btn">Search</div>
+				<div class="AudioCloud-nav-bar-item nav-search" id="nav-search-btn">Search</div>
 				<div id="AudioCloud-nav-bar-search-wrapper">
 					<div id="AudioCloud-nav-bar-search-innerwrapper">
 						<form id="AudioCloud-nav-bar-search" action="/search">
@@ -62,7 +62,7 @@
 								<img class="icons nav-search" src="../svg/search-outline.svg" alt="search" />
 							</button>
 						</form>
-						<div id="searchHistory"></div>
+						<div id="searchHistory" class="nav-search"></div>
 					</div>
 				</div>
 			</div>
@@ -175,7 +175,10 @@
 					<img class="nav-search" height="24px" width="24px" src="/svg/search-history-outline.svg" alt="" />
 				</div>
 				<div class="nav-search"></div>
+				<div class="center nav-search delete-suggestion ds">
+					<img class="nav-search ds" src="/svg/bin.svg" height="24px" width="24px" alt="" />
+				</div>
 			</div>
-	</template>
+		</template>
 	</body>
 </html>

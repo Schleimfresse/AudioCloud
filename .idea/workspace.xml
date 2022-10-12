@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="0f24199e-df05-44db-9dc1-0bee051cec3e" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/procedure.md" beforeDir="false" afterPath="$PROJECT_DIR$/procedure.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/delete.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/delete.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/global.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/global.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/libary.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/libary.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/search.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/search.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/html/404.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/html/404.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/html/delete.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/html/delete.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/html/edit.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/html/edit.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/html/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/html/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/html/notfound.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/html/upload.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/html/upload.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/delete/delete_item.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/delete/delete_results.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/edit/edit_results.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/global.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/global.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/libary.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/libary.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/svg/account.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/svg/account.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/svg/account_filled.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/svg/account_filled.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/svg/add.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/svg/add.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/svg/bin.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/svg/bin.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/svg/cloud_upload.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/svg/cloud_upload.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/svg/fullscreen-exit-sharp.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/svg/fullscreen-exit-sharp.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/svg/fullscreen-sharp.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/svg/fullscreen-sharp.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/svg/home-outline.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/svg/home-outline.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/svg/miniplayer-sharp.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/svg/miniplayer-sharp.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/svg/musical-notes-outline.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/svg/musical-notes-outline.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/svg/pause.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/svg/pause.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/svg/pen.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/svg/pen.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/svg/play-sharp.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/svg/play-sharp.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/svg/play-skip-back.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/svg/play-skip-back.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/svg/play-skip-forward.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/svg/play-skip-forward.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/svg/play.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/svg/play.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/svg/repeat-one.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/svg/repeat-one.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/svg/repeat.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/svg/repeat.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/svg/search-outline.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/svg/search-outline.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/svg/settings.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/svg/settings.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/svg/shuffle.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/svg/shuffle.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/svg/volume-high-outline.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/svg/volume-high-outline.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/svg/volume-mute-outline.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/svg/volume-mute-outline.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/svg/volume-off-outline.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/svg/volume-off-outline.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/views/delete.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/public/views/delete.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/views/delete_item.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/public/views/delete_item.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/views/edit.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/public/views/edit.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/views/edit_item.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/public/views/edit_item.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/views/libary.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/public/views/libary.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/views/player.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/public/views/player.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/views/playlist.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/public/views/playlist.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/views/search.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/public/views/search.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/delete.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/routes/delete.mjs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/edit.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/routes/edit.mjs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/libary.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/routes/libary.mjs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/playlists.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/routes/playlists.mjs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/search.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/routes/search.mjs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/upload.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/routes/upload.mjs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/server.mjs" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2Fx7uw0mtMMlBoep026eBJSx4QV" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "D:/Substitutionplan - WebScraper",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0f24199e-df05-44db-9dc1-0bee051cec3e" name="Changes" comment="" />
+      <created>1665422113507</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1665422113507</updated>
+      <workItem from="1665422119700" duration="19000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

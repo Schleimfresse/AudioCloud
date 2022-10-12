@@ -23,12 +23,24 @@ const pushSearchHistoryInDOM = (array) => {
 	searchHistory_DOM.textContent = "";
 	array.forEach((e) => {
 		const div = document.getElementById("searchHistory-Temp").content.cloneNode(true);
-		div.children[0].onclick = function () {
-			window.location.href = `/search?query=${e.value}&mediatype=&type=${e.type}&mode=${e.mode}`;
+		div.children[0].onclick = function (event) {
+			if (!event.target.classList.contains("ds"))
+				window.location.href = `/search?query=${e.value}&mediatype=&type=${e.type}&mode=${e.mode}`;
+		};
+		div.children[0].children[2].onclick = function () {
+			const deleteIndex = searchHistory.findIndex((elem) => {
+				elem.value === e.value;
+			});
+			searchHistory.splice(deleteIndex, 1);
+			localStorage.searchHistory = JSON.stringify(searchHistory);
+			this.parentElement.remove();
 		};
 		div.children[0].children[1].textContent = e.value;
 		searchHistory_DOM.append(div);
 	});
+	if ((searchHistory_DOM.textContent === "")) {
+		searchHistory_DOM.remove();
+	}
 };
 
 pushSearchHistoryInDOM(searchHistory);
@@ -51,8 +63,7 @@ const switch_account_card_visibility = () => {
 };
 
 const nav_searchbar_switch = (e) => {
-	if (nav_search_wrapper.getAttribute("strong-open") === "") return; 
-	console.log('trigger')
+	if (nav_search_wrapper.getAttribute("strong-open") === "") return;
 	if (!(e.composedPath()[0].id == "account-card")) {
 		if (!(e.composedPath()[0].id == "account-icon")) {
 			account_card.setAttribute("visibility", "false");

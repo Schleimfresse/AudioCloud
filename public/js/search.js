@@ -1,8 +1,10 @@
 const cardTemplate = document.getElementById("card-template");
 const main = document.getElementById("wrapper");
 const searchfield = document.getElementById("searchquery_input");
+const typefield = document.querySelector("[name = 'mode']");
 const URLparameter = new URLSearchParams(window.location.search);
-searchfield.value = query;
+searchfield.value = URLparameter.get("query");
+typefield.value = URLparameter.get("mode");
 
 function load() {
 	if (!(media == "")) {
@@ -38,14 +40,13 @@ const addSearchInputToLocalStorage = () => {
 	let excistingItemIndex = searchHistory.findIndex((e) => {
 		return e.value == value;
 	});
-	if (excistingItemIndex != -1
-		) {
+	if (excistingItemIndex != -1) {
 		let excistingItem = searchHistory.splice(excistingItemIndex, 1);
 		obj = excistingItem.shift();
 	} else {
 		obj = { value: value, mode: mode, type: "search" };
 	}
-	console.log('trigger 2', obj)
+	console.log("trigger 2", obj);
 	searchHistory.unshift(obj);
 	localStorage.searchHistory = JSON.stringify(searchHistory);
 };

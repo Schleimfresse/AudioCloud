@@ -33,7 +33,7 @@
 			<div class="AudioCloud-nav-bar">
 				<div class="AudioCloud-nav-bar-item" onclick="window.location.href = '/'">Start</div>
 				<div class="AudioCloud-nav-bar-item" onclick="window.location.href = '/libary'">Libary</div>
-				<div class="AudioCloud-nav-bar-item nav-search" data-page="current" id="nav-search-btn">Search</div>
+				<div class="AudioCloud-nav-bar-item nav-search" id="nav-search-btn">Search</div>
 				<div id="AudioCloud-nav-bar-search-wrapper">
 					<div id="AudioCloud-nav-bar-search-innerwrapper">
 						<form id="AudioCloud-nav-bar-search" action="/search">
@@ -63,7 +63,7 @@
 								<img class="icons nav-search" src="../svg/search-outline.svg" alt="search" />
 							</button>
 						</form>
-						<div id="searchHistory"></div>
+						<div id="searchHistory" class="nav-search"></div>
 					</div>
 				</div>
 			</div>
@@ -107,7 +107,9 @@
 						<div class="settings-content-row">
 							<div>
 								Audio on playback only
-								<div class="item-string item-paragraph">if disabled and a video track is provided, the video will play. (Needs reload)</div>
+								<div class="item-string item-paragraph">
+									if disabled and a video track is provided, the video will play. (Needs reload)
+								</div>
 							</div>
 							<label class="switch">
 								<input type="checkbox" id="video_playback_switch" class="checkbox_input" />
@@ -118,7 +120,6 @@
 					<div id="settings-content-playback">
 						<div class="settings-content-row">
 							<div>
-								
 								<div class="item-string"></div>
 							</div>
 							<label class="switch">
@@ -261,7 +262,10 @@
 					<img class="nav-search" height="24px" width="24px" src="/svg/search-history-outline.svg" alt="" />
 				</div>
 				<div class="nav-search"></div>
+				<div class="center nav-search delete-suggestion ds">
+					<img class="nav-search ds" src="/svg/bin.svg" height="24px" width="24px" alt="" />
+				</div>
 			</div>
-	</template>
+		</template>
 	</body>
 </html>

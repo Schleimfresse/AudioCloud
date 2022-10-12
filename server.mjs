@@ -18,6 +18,7 @@ import { router as libaryR } from "./routes/libary.mjs";
 import { router as uploadR } from "./routes/upload.mjs";
 import { router as searchR } from "./routes/search.mjs";
 import { router as playlistR } from "./routes/playlists.mjs";
+import { router as playerR } from "./routes/player.mjs";
 global.__dirname = path.resolve(__dirname);
 
 // Middleware
@@ -37,6 +38,7 @@ app.use("/libary", libaryR);
 app.use("/upload", uploadR);
 app.use("/search", searchR);
 app.use("/playlist", playlistR);
+app.use("/player", playerR);
 
 // Database
 
@@ -50,39 +52,6 @@ server.listen(port, () => {
 app.get("/", (req, res) => {
 	res.status(200);
 	res.sendFile(__dirname + "/public/html/index.html");
-});
-
-app.get("/player", (req, res) => {
-	if (req.query.list) {
-		Lib.database.findOne({ name: req.query.list }, (err, data) => {
-			if (err || data === null || data == "") {
-				res.status(500);
-				res.sendFile(__dirname + "/public/html/notfound.html")
-				res.end();
-				return;
-			}
-			let track = data.tracks.find(e => e.id == req.query.v );
-			let tracks = data.tracks;
-			res.status(200);
-			res.render(__dirname + "/public/views/player.ejs", {
-				data: { medium: track.name, info: JSON.stringify(tracks) },
-			});
-		});
-	} else if (req.query.v) {
-		Lib.database.find({ id: req.query.v }, (err, data) => {
-			if (err || data === null || data == "") {
-				res.status(304)
-				res.sendFile(__dirname + "/public/html/notfound.html");
-				res.end();
-				return;
-			}
-			data = data.shift();
-			res.status(200);
-			res.render(__dirname + "/public/views/player.ejs", {
-				data: { medium: data.name, info: JSON.stringify(data) },
-			});
-		});
-	}
 });
 
 app.get("/api", (request, res) => {
@@ -111,7 +80,7 @@ app.get("/api/tracks", (request, res) => {
 
 // Error Handeling
 
-/*app.use(function (req, res) {
+app.use(function (req, res) {
 	res.status(200);
-	res.redirect("/");
-});*/
+	res.sendFile(__dirname + "/public/html/404.html")
+});

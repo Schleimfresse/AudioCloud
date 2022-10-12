@@ -33,33 +33,3 @@
 		background-color: rgb(66, 66, 66);
 	  }
 }
-
-#contextmenu{
-	display: none;
-	flex-direction: column;
-	position: absolute;
-	background-color: var(--box-bg-dark);
-	border: 1px solid var(--border);
-
-}
-
-#start-showcase{
-	height: 160px;
-}
-
-#notification-banner{
-	position: absolute;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	bottom: 0;
-	background-color: var(--currentSong-bg);
-	border-radius: 3px;
-	border: 1px solid var(--border);
-	padding: 20px 10px 20px 10px;
-	opacity: 0;
-}
-
-#notification-banner[data-visibility] {
-	opacity: 1;
-	bottom: 40px;
-}

@@ -28,7 +28,10 @@ router.post("/", async (req, res) => {
 		if (!file.mimetype.includes("audio/")) {
 			if (!file.mimetype.includes("video/")) {
 				res.status(400);
-				res.send(`<h1>400 Bad request</h1><p>Invalid filetype: ${req.files.file.mimetype}</p>`);
+				res.render(__dirname + "/public/views/error.ejs", {
+					heading: "Bad request",
+					desc: `The file type ${req.files.file.mimetype} is invalid, check your request and try again`,
+				});
 				return;
 			}
 		}
@@ -49,16 +52,22 @@ router.post("/", async (req, res) => {
 					thumbnail.mv(__dirname + `/thumbnails/${thumbnail_name + img_ext}`, async function (err) {
 						if (err) {
 							res.status(500);
-							res.send("<h1>500 Internal Server Error</h1>");
+							res.render(__dirname + "/public/views/error.ejs", {
+								heading: "Internal Server Error",
+								desc: "An error occurred while trying to write the thumbnail image file.",
+							});
 							return;
 						}
 					});
 				} else {
 					res.status(400);
-					res.send(`<h1>400 Bad request</h1><p>Invalid filetype: ${req.files.thumbnail.mimetype}</p>`);
+					res.render(__dirname + "/public/views/error.ejs", {
+						heading: "Bad request",
+						desc: `The image type ${req.files.thumbnail.mimetype} is invalid, check your request and try again`,
+					});
+					return;
 				}
 			} else if (thumbnail == undefined) {
-				console.log("Buffer !");
 				jsmediatags.read(__dirname + `/public/Media/${filename}`, {
 					onSuccess: async function (tag) {
 						console.log(tag);
@@ -74,25 +83,19 @@ router.post("/", async (req, res) => {
 								}
 							);
 						} else {
-							console.log("other options");
 							if (file.mimetype.includes("video/") && thumbnail_autocreate == true) {
-								console.log("createThumbnail");
-								Lib.createThumbnail(metadata, thumbnail_name, filename);
+								Lib.createThumbnail(metadata, thumbnail_name, filename, res);
 							} else {
-								console.log("music note");
 								thumbnail_autocreate = false;
 								thumbnail_name = Lib.STANDARD_THUMBNAIL;
 								img_ext = Lib.STANDARD_THUMBNAIL_EXT;
 							}
-							console.log(thumbnail_autocreate);
 						}
 					},
 					onError: async function () {
 						if (file.mimetype.includes("video/") && thumbnail_autocreate == true) {
-							console.log("createThumbnail");
-							Lib.createThumbnail(metadata, thumbnail_name, filename);
+							Lib.createThumbnail(metadata, thumbnail_name, filename, res);
 						} else {
-							console.log("music note");
 							thumbnail_autocreate = false;
 							thumbnail_name = Lib.STANDARD_THUMBNAIL;
 							img_ext = Lib.STANDARD_THUMBNAIL_EXT;
@@ -102,7 +105,10 @@ router.post("/", async (req, res) => {
 			}
 			if (err) {
 				res.status(500);
-				res.send("<h1>500 Internal Server Error</h1>");
+				res.render(__dirname + "/public/views/error.ejs", {
+					heading: "Internal Server Error",
+					desc: "An error occurred while trying to write the thumbnail image file.",
+				});
 				return;
 			} else {
 				const date = new Date();
@@ -117,9 +123,10 @@ router.post("/", async (req, res) => {
 					Db_duration === null
 				) {
 					res.status(500);
-					res.send(
-						"<h1>500 Internal Server Error</h1><p>Some information for the video could not be generated, try again!</p>"
-					);
+					res.render(__dirname + "/public/views/error.ejs", {
+						heading: "Internal Server Error",
+						desc: "Some metadata for the video file could not be generated or is not specified.",
+					});
 					return;
 				}
 				if (metadata.tags != undefined) {
@@ -145,10 +152,13 @@ router.post("/", async (req, res) => {
 						str_duration: Db_duration,
 						int_duration: Math.round(metadata.duration),
 					},
-					(err, data) => {
+					(err) => {
 						if (err) {
 							res.status(500);
-							res.send("<h1>500 Internal Server Error</h1>");
+							res.render(__dirname + "/public/views/error.ejs", {
+								heading: "Internal Server Error",
+								desc: "An error occurred while trying to write the thumbnail image file.",
+							});
 							return;
 						}
 					}
@@ -159,7 +169,10 @@ router.post("/", async (req, res) => {
 		});
 	} else {
 		res.status(400);
-		res.send("<h1>400 Bad request</h1>");
+		res.render(__dirname + "/public/views/error.ejs", {
+			heading: "Bad request",
+			desc: `Invalid request, either no file could be identified or the form was not filled out sufficiently. Try again!`,
+		});
 		return;
 	}
 });

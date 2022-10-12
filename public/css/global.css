@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat");
+/*@import url("https://fonts.googleapis.com/css2?family=Montserrat");*/
 * {
 	font-family: "Montserrat", sans-serif;
 	color: white;
@@ -59,13 +59,13 @@ a {
 	border: 2px solid #fff;
 	font: inherit;
 	line-height: 1;
-	margin: 0.5em;
 	padding: 0.5em 1em 0.5em 1em;
 	cursor: pointer;
 	color: white;
 	outline: none;
 	display: flex;
 	align-items: center;
+	justify-content: center;
 	margin: 8px 8px 8px 0;
 }
 
@@ -99,7 +99,6 @@ a {
 	height: 1em;
 	width: 1em;
 	font-size: 24px;
-	filter: invert(100%) sepia(97%) saturate(0%) hue-rotate(136deg) brightness(104%) contrast(101%);
 }
 
 #home_btn {
@@ -585,6 +584,14 @@ background-color: var(--hover);
 	flex-direction: column;
 }
 
+.delete-suggestion{
+	padding: 0 16px 0 16px;
+	position: absolute;
+	right: 0px;
+	cursor: pointer;
+	box-sizing: border-box;
+}
+
 .AudioCloud-nav-bar-item[data-page="current"] {
 	color: #fff;
 }
@@ -641,6 +648,7 @@ input[type="search"]::-webkit-search-cancel-button {
 [thumbnail] {
 	object-fit: contain;
 	width: 100%;
+	height: 160px;
 }
 
 .next_media_item {
@@ -677,4 +685,30 @@ input[type="search"]::-webkit-search-cancel-button {
 .Media_Showcase_duration {
 	padding: 0 0 0 8px;
 	color: var(--gray-font-color);
+}
+
+#contextmenu{
+	display: none;
+	flex-direction: column;
+	position: absolute;
+	background-color: var(--box-bg-dark);
+	border: 1px solid var(--border);
+
+}
+
+#notification-banner{
+	position: absolute;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	bottom: 0;
+	background-color: var(--currentSong-bg);
+	border-radius: 3px;
+	border: 1px solid var(--border);
+	padding: 20px 10px 20px 10px;
+	opacity: 0;
+}
+
+#notification-banner[data-visibility] {
+	opacity: 1;
+	bottom: 40px;
 }

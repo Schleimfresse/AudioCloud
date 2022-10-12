@@ -5,15 +5,16 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Start | AudioCloud</title>
-		<link rel="stylesheet" href="../css/global.css" />
-		<link rel="stylesheet" href="../css/index.css" />
-		<script defer src="../js/index.js"></script>
-		<script defer src="../js/global.js"></script>
-		<link rel="apple-touch-icon" sizes="180x180" href="../favicons/apple-touch-icon.png" />
-		<link rel="icon" type="image/png" sizes="32x32" href="../favicons/favicon-32x32.png" />
-		<link rel="icon" type="image/png" sizes="16x16" href="../favicons/favicon-16x16.png" />
-		<link rel="manifest" href="../favicons/site.webmanifest" />
-		<link rel="mask-icon" href="../favicons/safari-pinned-tab.svg" color="#3ea6ff" />
+		<link rel="stylesheet" href="/css/global.css" />
+		<link rel="stylesheet" href="/css/index.css" />
+		<script defer src="/js/index.js"></script>
+		<script defer src="/js/global.js"></script>
+		<script defer src="/js/contextmenu.js"></script>
+		<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png" />
+		<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png" />
+		<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png" />
+		<link rel="manifest" href="/favicons/site.webmanifest" />
+		<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#3ea6ff" />
 		<meta name="msapplication-TileColor" content="#da532c" />
 		<meta name="theme-color" content="#3ea6ff" />
 	</head>
@@ -21,17 +22,17 @@
 		<header id="page-header">
 			<div class="icon-spacing-right" id="menu">
 				<a id="menu-link" href="/">
-					<img class="icons icon-spacing-right" src="../svg/musical-notes-outline.svg" alt="music-note" />
+					<img class="icons icon-spacing-right" src="/svg/musical-notes-outline.svg" alt="music-note" />
 					<span><span class="bold">A</span>udioCloud</span>
 				</a>
 			</div>
 			<div class="AudioCloud-nav-bar">
-				<div class="AudioCloud-nav-bar-item" onclick="window.location.href = '/'">Start</div>
+				<div class="AudioCloud-nav-bar-item" onclick="window.location.href = '/'" data-page="current">Start</div>
 				<div class="AudioCloud-nav-bar-item" onclick="window.location.href = '/libary'">Libary</div>
-				<div class="AudioCloud-nav-bar-item nav-search" data-page="current" id="nav-search-btn">Search</div>
+				<div class="AudioCloud-nav-bar-item nav-search" id="nav-search-btn">Search</div>
 				<div id="AudioCloud-nav-bar-search-wrapper">
 					<div id="AudioCloud-nav-bar-search-innerwrapper">
-						<form id="AudioCloud-nav-bar-search" action="" onsubmit="return false;">
+						<form id="AudioCloud-nav-bar-search" action="/search" >
 							<div id="input-wrapper">
 								<img id="input-arrow-back" src="/svg/arrow-back-outline.svg" alt="" />
 								<input
@@ -58,7 +59,7 @@
 								<img class="icons nav-search" src="../svg/search-outline.svg" alt="search" />
 							</button>
 						</form>
-						<div id="searchHistory"></div>
+						<div id="searchHistory" class="nav-search"></div>
 					</div>
 				</div>
 			</div>
@@ -161,7 +162,7 @@
 			<div class="box">
 				<div class="img-outer">
 					<a link>
-						<span class="img-wrapper" onmousemove="this.children[0].children[1].style.display = 'none';"
+						<span class="img-wrapper"
 							><div class="img-hover">
 								<img src="../svg/play-sharp.svg" class="icons" alt="play" />
 							</div>
@@ -172,12 +173,13 @@
 			</div>
 		</template>
 		<template id="searchHistory-Temp">
-				<div class="searchHistory-item nav-search">
-					<div class="searchHistory-item-img nav-search center">
-						<img class="nav-search" height="24px" width="24px" src="/svg/search-history-outline.svg" alt="" />
-					</div>
-					<div class="nav-search"></div>
+			<div class="searchHistory-item nav-search">
+				<div class="searchHistory-item-img nav-search center">
+					<img class="nav-search" height="24px" width="24px" src="/svg/search-history-outline.svg" alt="" />
 				</div>
+				<div class="nav-search"></div>
+				<div class="center nav-search delete-suggestion ds" ><img class="nav-search ds" src="/svg/bin.svg" height="24px" width="24px" alt=""></div>
+			</div>
 		</template>
 	</body>
 </html>

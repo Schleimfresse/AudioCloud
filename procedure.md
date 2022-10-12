@@ -53,9 +53,14 @@ PiP through media
 
 - Input vergrößern -> icon etc
 
-## BACKEND mp3 thubnails in quadrat schneiden
+## BACKEND mp3 thubnails in quadrat schneiden <-------------------------------------------------------------------############-
 
 
-## sendFile() überarbeiten
+## sendFile() überarbeiten [+]
 
-## suggestion press wird nicht als form submit initalisiert <-----
+## suggestion press wird nicht als form submit initalisiert <----- [+]
+
+- recent order mit $inc fixen -> database.find({ recent: { key: "recent" } }) fixen <- findet mit dieser Syntax nichts <-- [+]
+
+
+- track wird nicht nach oben sortiert wenn angezeigter track angeclickt wird! kommt vom playlist (list) handler wenn möglich v 6 list mehr trennen randomized tracks track muss oben sein bei playlist nich

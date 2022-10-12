@@ -14,13 +14,7 @@
 		<link rel="mask-icon" href="../favicons/safari-pinned-tab.svg" color="#3ea6ff">
 		<meta name="msapplication-TileColor" content="#da532c">
 		<meta name="theme-color" content="#3ea6ff">
-		<script>
-			// EJS Variables
-			const information =  <%- data %>;
-		</script>
-		<script defer type="module" src="../js/delete/delete_item.js"></script>
-		<script defer src="/js/global.js"></script>
-		
+		<script defer src="/js/global.js"></script>	
 	</head>
 	<body>
 		<header id="page-header">
@@ -33,7 +27,7 @@
 			<div class="AudioCloud-nav-bar">
 				<div class="AudioCloud-nav-bar-item" onclick="window.location.href = '/'">Start</div>
 				<div class="AudioCloud-nav-bar-item" onclick="window.location.href = '/libary'">Libary</div>
-				<div class="AudioCloud-nav-bar-item nav-search" data-page="current" id="nav-search-btn">Search</div>
+				<div class="AudioCloud-nav-bar-item nav-search" id="nav-search-btn">Search</div>
 				<div id="AudioCloud-nav-bar-search-wrapper">
 					<div id="AudioCloud-nav-bar-search-innerwrapper">
 						<form id="AudioCloud-nav-bar-search" action="/search">
@@ -63,7 +57,7 @@
 								<img class="icons nav-search" src="../svg/search-outline.svg" alt="search" />
 							</button>
 						</form>
-						<div id="searchHistory"></div>
+						<div id="searchHistory" class="nav-search"></div>
 					</div>
 				</div>
 			</div>
@@ -94,9 +88,9 @@
 		</header>
 		<main class="center">
 			<div>
-				<div><h2 id="heading"></h2></div>
-                <form id="delete_confirm_form" method="post">
-				<div><button type="button" class="std_btn" onclick="window.history.go(-1)">No, command back</button><button type="submit" class="std_btn">Yes, delete</button></div>
+				<h2 id="heading">Are you sure you want to delete <%- title %>? You cannot reverse this process.</h2>
+                <form class="center" method="post" action="/delete/<%-id%>/success">
+				<div id="delete_button_row"><button type="button" class="std_btn" onclick="window.history.go(-1)">No, command back</button><button type="submit" class="std_btn">Yes, delete</button></div>
 			</div></form>
 		</main>
 		<template id="searchHistory-Temp">
@@ -105,7 +99,8 @@
 					<img class="nav-search" height="24px" width="24px" src="/svg/search-history-outline.svg" alt="" />
 				</div>
 				<div class="nav-search"></div>
+				<div class="center nav-search delete-suggestion ds" ><img class="nav-search ds" src="/svg/bin.svg" height="24px" width="24px" alt=""></div>
 			</div>
-	</template>
+		</template>
 	</body>
 </html>

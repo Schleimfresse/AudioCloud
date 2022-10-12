@@ -4,15 +4,48 @@ const createPlaylist_string = document.getElementById("createPlaylist-string");
 const create_playlist_close = document.getElementById("create-playlist-close");
 const create_playlist_inputfields = [...document.getElementsByClassName("createPlaylist-form-input")];
 const playlist_form = document.getElementById("playlist-form");
+const cardTemplate = document.getElementById("card-template");
+const recent_songs_box = document.getElementById("recent-songs-box");
+const playlist_item = document.getElementById("card-template-playlist");
 
 const addCard = (data) => {
 	console.log(data);
-	const div = document.getElementById("card-template").content.cloneNode(true);
+	const div = playlist_item.content.cloneNode(true);
 	div.children[0].children[0].children[0].href = `/playlist?list=${data.name}`;
 	div.children[0].children[1].children[0].href = `/playlist?list=${data.name}`;
 	div.querySelector("[title]").textContent = data.title;
 	document.getElementById("Libary-Playlists").append(div);
 };
+
+const addRecentSong = async () => {
+	recent.forEach((e) => {
+		const div = cardTemplate.content.cloneNode(true);
+		console.log("if:", e);
+		if (e.type === "track") {
+			div.children[0].setAttribute("data-track", e.id);
+		}
+		div.children[0].oncontextmenu = function (e) {
+			e.preventDefault();
+			contextmenu.style.display = "flex";
+			contextmenu.style.left = e.pageX + "px";
+			contextmenu.style.top = e.pageY + "px";
+			console.log(this);
+			console.log(e.path);
+			console.log(e.composedPath().includes(this));
+			if (e.composedPath().includes(this)) {
+				contextmenu.setAttribute("current", this.getAttribute("data-track"));
+			}
+			return false;
+		};
+		console.log(div);
+		div.querySelector("[link]").href = `./player?v=${e.id}`;
+		div.querySelector("[thumbnail]").src = `/thumbnails/${e.thumbnail}`;
+		div.querySelector("[title]").textContent = e.title;
+		recent_songs_box.append(div);
+	});
+};
+
+addRecentSong();
 
 playlists.forEach((e) => {
 	addCard(e);

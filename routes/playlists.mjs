@@ -1,7 +1,7 @@
 import express from "express";
 import { database, formatDuration } from "../lib/lib.js";
 import uniqid from "uniqid";
-
+import { updateRecentActivity } from "../lib/lib.js";
 let router = express.Router();
 
 router.post("/create", (req, res) => {
@@ -23,7 +23,10 @@ router.post("/create", (req, res) => {
 		(err, data) => {
 			if (err) {
 				res.status(500);
-				res.send("<h1>500 Internal Server Error</h1>");
+				res.render(__dirname + "/public/views/error.ejs", {
+					heading: "Internal Server Error",
+					desc: "An error occurred while trying to access the database, try sending your request again.",
+				});
 				return;
 			}
 			res.send({ title: req.body.title, desc: req.body.description, name: uniqid_inst });
@@ -34,12 +37,18 @@ router.post("/create", (req, res) => {
 router.get("/", (req, res) => {
 	database.findOne({ name: req.query.list }, (err, data) => {
 		if (err || data === null || data == "") {
-			res.status(500);
-			res.sendFile(__dirname + "/public/html/notfound.html")
-			res.end();
+			res.status(404);
+			res.render(__dirname + "/public/views/error.ejs", {
+				heading: "Not found",
+				desc: "The requested resource could not be found, check your request and try again!",
+			});
 			return;
 		}
-		console.log(data.tracks[0].id);
+		updateRecentActivity(JSON.stringify("req.query.list"), res);
+		let firsttrack;
+		if (data.tracks.length > 1) {
+			firsttrack = data.tracks[0].id;
+		}
 		res.render(__dirname + "/public/views/playlist.ejs", {
 			playlist: JSON.stringify(data),
 			name: data.name,
@@ -47,7 +56,7 @@ router.get("/", (req, res) => {
 			thumbnail: data.thumbnail,
 			duration: formatDuration(data.totalduration),
 			amount: data.amount,
-			firsttrack: data.tracks[0].id,
+			firsttrack: firsttrack,
 		});
 	});
 });
@@ -55,16 +64,20 @@ router.get("/", (req, res) => {
 router.post("/add", (req, res) => {
 	database.findOne({ id: req.body.id }, (err, track) => {
 		if (err || track === null || track == "") {
-			res.status(500);
-			res.send({ message: "An Error ocured!" });
-			res.end();
+			res.status(404);
+			res.render(__dirname + "/public/views/error.ejs", {
+				heading: "Not found",
+				desc: "A required resource could not be retrieved, try resending your request.",
+			});
 			return;
 		}
 		database.findOne({ name: req.body.playlist }, (err, data) => {
 			if (err || data === null || data == "") {
-				res.status(500);
-				res.send({ message: "An Error ocured!" });
-				res.end();
+				res.status(404);
+				res.render(__dirname + "/public/views/error.ejs", {
+					heading: "Not found",
+					desc: "The requested resource could not be found, check your request and try again!",
+				});
 				return;
 			}
 			const check = data.tracks.find((e) => e.id == req.body.id);
@@ -79,8 +92,10 @@ router.post("/add", (req, res) => {
 				(err, data) => {
 					if (err || data === null || data == "") {
 						res.status(500);
-						res.send({ message: "An Error ocured!" });
-						res.end();
+						res.render(__dirname + "/public/views/error.ejs", {
+							heading: "Internal Server Error",
+							desc: "An error occurred while trying to update the database, try sending your request again.",
+						});
 						return;
 					}
 					res.send({ message: "Track was successfully added!" });

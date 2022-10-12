@@ -7,8 +7,9 @@
 		<title>Start | AudioCloud</title>
 		<link rel="stylesheet" href="../css/global.css" />
 		<link rel="stylesheet" href="../css/libary.css" />
-		<script defer src="../js/libary.js"></script>
-		<script defer src="../js/global.js"></script>
+		<script defer src="/js/libary.js"></script>
+		<script defer src="/js/global.js"></script>
+		<script defer src="/js/contextmenu.js"></script>
 		<link rel="apple-touch-icon" sizes="180x180" href="../favicons/apple-touch-icon.png" />
 		<link rel="icon" type="image/png" sizes="32x32" href="../favicons/favicon-32x32.png" />
 		<link rel="icon" type="image/png" sizes="16x16" href="../favicons/favicon-16x16.png" />
@@ -18,6 +19,7 @@
 		<meta name="theme-color" content="#3ea6ff" />
 		<script defer>
 			const playlists = <%- data.playlists %>;
+			const recent = <%- data.recent %>;
 		</script>
 	</head>
 	<body>
@@ -30,8 +32,8 @@
 			</div>
 			<div class="AudioCloud-nav-bar">
 				<div class="AudioCloud-nav-bar-item" onclick="window.location.href = '/'">Start</div>
-				<div class="AudioCloud-nav-bar-item" onclick="window.location.href = '/libary'">Libary</div>
-				<div class="AudioCloud-nav-bar-item nav-search" data-page="current" id="nav-search-btn">Search</div>
+				<div class="AudioCloud-nav-bar-item" onclick="window.location.href = '/libary'"  data-page="current">Libary</div>
+				<div class="AudioCloud-nav-bar-item nav-search" id="nav-search-btn">Search</div>
 				<div id="AudioCloud-nav-bar-search-wrapper">
 					<div id="AudioCloud-nav-bar-search-innerwrapper">
 						<form id="AudioCloud-nav-bar-search" action="/search">
@@ -61,7 +63,7 @@
 								<img class="icons nav-search" src="../svg/search-outline.svg" alt="search" />
 							</button>
 						</form>
-						<div id="searchHistory"></div>
+						<div id="searchHistory" class="nav-search"></div>
 					</div>
 				</div>
 			</div>
@@ -156,11 +158,13 @@
 		<main>
 			<div class="libary-content-wrapper">
 				<div id="recent-songs">
-					<h2>Recent Songs</h2>
+					<h2>Recent Activity</h2>
 					<div id="recent-songs-box"></div>
 				</div>
 			</div>
-			<div class="libary-content-wrapper">
+			</div>
+			<div class="libary-content-wrapper" id="playlist-wrapper">
+				<h2>Playlists</h2>
 				<div id="Libary-Playlists">
 					<div class="playlist-item">
 						<div id="createPlaylist-thumbnail" class="playlist-thumbnail center">
@@ -171,7 +175,19 @@
 				</div>
 			</div>
 		</main>
-		<template id="card-template">
+		<div id="contextmenu">
+			<div class="account-item" id="addToPlaylist">
+				<div class="account-item-icon"><img class="icons" src="../svg/add.svg" alt="" /></div>
+				<div class="item-string">Add to Playlist</div>
+			</div>
+			<div class="account-item">
+				<div class="account-item-icon"><img class="icons" src="../svg/add.svg" alt="" /></div>
+				<div class="item-string">Share</div>
+			</div>
+			<div class="account-item"></div>
+		</div>
+		<div id="notification-banner"></div>
+		<template id="card-template-playlist">
 			<div class="playlist-item">
 				<div class="playlist-thumbnail">
 					<a class="fullspace center"><img playlist-thumbnail class="icon-size-large" src="/svg/playlist-thumbnail.svg" /></a>
@@ -185,7 +201,22 @@
 					<img class="nav-search" height="24px" width="24px" src="/svg/search-history-outline.svg" alt="" />
 				</div>
 				<div class="nav-search"></div>
+				<div class="center nav-search delete-suggestion ds" ><img class="nav-search ds" src="/svg/bin.svg" height="24px" width="24px" alt=""></div>
 			</div>
-	</template>
+		</template>
+		<template id="card-template">
+			<div class="box">
+				<div class="img-outer">
+					<a link>
+						<span class="img-wrapper"
+							><div class="img-hover">
+								<img src="../svg/play-sharp.svg" class="icons" alt="play" />
+							</div>
+							<img thumbnail id="start-showcase" /></span
+					></a>
+				</div>
+				<div class="Media_Showcase_Title" title></div>
+			</div>
+		</template>
 	</body>
 </html>

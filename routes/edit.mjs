@@ -10,12 +10,13 @@ router.get("/", (req, res) => {
 router.get("/:id", (req, res) => {
 	database.findOne({ id: req.params.id }, (err, data) => {
 		if (err || data == null) {
-			res.status(500);
-			res.sendFile(__dirname + "/public/html/notfound.html")
-			res.end();
+			res.status(404);
+			res.render(__dirname + "/public/views/error.ejs", {
+				heading: "Not found",
+				desc: "Check your request for spelling and syntax errors.",
+			});
 			return;
 		}
-		console.log(data);
 		res.status(200);
 		res.render(__dirname + "/public/views/edit_item.ejs", {
 			title: data.title,
@@ -34,12 +35,15 @@ router.post("/:id/success", (req, res) => {
 				$set: req.body,
 			}
 		);
-		console.log(req.body);
 		res.status(200);
 		res.sendFile(__dirname + "/public/html/success.html");
 	} catch (err) {
 		res.status(500);
-		res.send("<h1>500 Internal Server Error</h1>");
+		res.render(__dirname + "/public/views/error.ejs", {
+			heading: "Internal Server Error",
+			desc: "An Error occoured. Try again or check your request.",
+		});
+		return;
 	}
 });
 

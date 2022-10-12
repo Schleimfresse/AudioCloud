@@ -474,3 +474,9 @@ AudioCloud-Controles-inner {
 .next_media_item[data-current-song="true"] {
 	background-color: var(--currentSong-bg);
 }
+
+[thumbnail] {
+	object-fit: contain;
+    width: 32px;
+    height: 32px;
+}
