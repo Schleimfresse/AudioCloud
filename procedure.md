@@ -63,4 +63,4 @@ PiP through media
 - recent order mit $inc fixen -> database.find({ recent: { key: "recent" } }) fixen <- findet mit dieser Syntax nichts <-- [+]
 
 
-- track wird nicht nach oben sortiert wenn angezeigter track angeclickt wird! kommt vom playlist (list) handler wenn möglich v 6 list mehr trennen randomized tracks track muss oben sein bei playlist nich
+- track wird nicht nach oben sortiert wenn angezeigter track angeclickt wird! kommt vom playlist (list) handler wenn möglich v & list mehr trennen randomized tracks track muss oben sein bei playlist nich

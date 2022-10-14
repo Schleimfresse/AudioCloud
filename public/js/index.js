@@ -9,7 +9,6 @@ for (let i = 0; i < 30; i++) {
 }
 
 window.onload = function () {
-	console.time("timer");
 	async function load() {
 		const res = await fetch("/api");
 		const data = await res.json();
@@ -27,9 +26,6 @@ window.onload = function () {
 				contextmenu.style.display = "flex";
 				contextmenu.style.left = e.pageX + "px";
 				contextmenu.style.top = e.pageY + "px";
-				console.log(this);
-				console.log(e.path);
-				console.log(e.composedPath().includes(this));
 				if (e.composedPath().includes(this)) {
 					contextmenu.setAttribute("current", this.getAttribute("data-track"));
 				}
@@ -38,9 +34,9 @@ window.onload = function () {
 			div.querySelector("[thumbnail]").src = `/thumbnails/${e.thumbnail}`;
 			console.log(e);
 			if (e.type === "playlist") {
-				div.querySelector("[link]").href = `./playlist?list=${e.name}`;
+				div.querySelector("[link]").href = `./playlist?list=${e.id}`;
 				div.children[0].children[1].append(document.createElement("a"));
-				div.children[0].children[1].children[0].href = `/playlist?list=${e.name}`;
+				div.children[0].children[1].children[0].href = `/playlist?list=${e.id}`;
 				div.children[0].children[1].children[0].classList.add("underline_link");
 				div.children[0].children[1].children[0].textContent = e.title;
 			} else {
@@ -52,6 +48,7 @@ window.onload = function () {
 		});
 		if (tracks_wrapper.children[1].textContent.trim() === "") tracks_wrapper.remove();
 		if (playlists_wrapper.children[1].textContent.trim() === "") playlists_wrapper.remove();
+		addScrollBtnLogic();
 	}
 	load();
 };

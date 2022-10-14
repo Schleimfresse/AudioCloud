@@ -27,12 +27,14 @@
 				</a>
 			</div>
 			<div class="AudioCloud-nav-bar">
-				<div class="AudioCloud-nav-bar-item" onclick="window.location.href = '/'" data-page="current">Start</div>
+				<div class="AudioCloud-nav-bar-item" onclick="window.location.href = '/'" data-page="current">
+					Start
+				</div>
 				<div class="AudioCloud-nav-bar-item" onclick="window.location.href = '/libary'">Libary</div>
 				<div class="AudioCloud-nav-bar-item nav-search" id="nav-search-btn">Search</div>
 				<div id="AudioCloud-nav-bar-search-wrapper">
 					<div id="AudioCloud-nav-bar-search-innerwrapper">
-						<form id="AudioCloud-nav-bar-search" action="/search" >
+						<form id="AudioCloud-nav-bar-search" action="/search">
 							<div id="input-wrapper">
 								<img id="input-arrow-back" src="/svg/arrow-back-outline.svg" alt="" />
 								<input
@@ -89,7 +91,7 @@
 			</div>
 		</header>
 		<dialog id="settings">
-			<header>
+			<header class="modal_heading">
 				<AudioCloud-Heading> Settings </AudioCloud-Heading>
 				<div><img src="../svg/close.svg" id="settings-close" class="icons iron-icon" alt="close" /></div>
 			</header>
@@ -144,7 +146,16 @@
 		<div id="notification-banner"></div>
 		<template id="content-main">
 			<div id="tracks">
-				<h1 class="media-showcase-row-heading">Tracks</h1>
+				<AudioCloud-Heading class="Showcase-heading"
+					><h1 class="media-showcase-row-heading">Tracks</h1>
+					<div class="navigation-tracks">
+						<button class="navigate-round-btn" disabled id="row-previous">
+							<img height="40px" width="40px" src="/svg/Navigate-Before-outline.svg" alt="" /></button
+						><button class="navigate-round-btn" id="row-next">
+							<img height="40px" width="40px" src="/svg/Navigate-Next-outline.svg" alt="" />
+						</button>
+					</div>
+				</AudioCloud-Heading>
 				<div class="media-showcase-row"></div>
 			</div>
 			<div id="playlists">
@@ -178,8 +189,24 @@
 					<img class="nav-search" height="24px" width="24px" src="/svg/search-history-outline.svg" alt="" />
 				</div>
 				<div class="nav-search"></div>
-				<div class="center nav-search delete-suggestion ds" ><img class="nav-search ds" src="/svg/bin.svg" height="24px" width="24px" alt=""></div>
+				<div class="center nav-search delete-suggestion ds">
+					<img class="nav-search ds" src="/svg/bin.svg" height="24px" width="24px" alt="" />
+				</div>
 			</div>
 		</template>
+		<dialog id="addToPlaylist-playlist-wrapper">
+			<header class="modal_heading">
+				<AudioCloud-Heading>Choose Playlist</AudioCloud-Heading>
+				<div>
+					<img
+						src="../svg/close.svg"
+						id="addToPlaylist-playlist-wrapper-close"
+						class="icons iron-icon"
+						alt="close"
+					/>
+				</div>
+			</header>
+			<div></div>
+		</dialog>
 	</body>
 </html>

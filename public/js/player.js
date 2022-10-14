@@ -314,11 +314,13 @@ function switch_fullscreen() {
 		fullscreen.style.display = "flex";
 		exit_fullscreen.style.display = "none";
 		AudioCloud_Controls.setAttribute("fullscreen", "false");
+		video_controls.setAttribute("fullscreen", "false");
 		video.setAttribute("fullscreen", "false");
 	} else if (document.fullscreenElement) {
 		fullscreen.style.display = "none";
 		exit_fullscreen.style.display = "flex";
 		AudioCloud_Controls.setAttribute("fullscreen", "true");
+		video_controls.setAttribute("fullscreen", "true");
 		video.setAttribute("fullscreen", "true");
 	}
 }

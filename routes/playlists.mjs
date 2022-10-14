@@ -10,7 +10,7 @@ router.post("/create", (req, res) => {
 	let uniqid_inst = uniqid();
 	database.insert(
 		{
-			name: uniqid_inst,
+			id: uniqid_inst,
 			type: "playlist",
 			title: req.body.title,
 			desc: req.body.description,
@@ -35,7 +35,7 @@ router.post("/create", (req, res) => {
 });
 
 router.get("/", (req, res) => {
-	database.findOne({ name: req.query.list }, (err, data) => {
+	database.findOne({ id: req.query.list }, (err, data) => {
 		if (err || data === null || data == "") {
 			res.status(404);
 			res.render(__dirname + "/public/views/error.ejs", {
@@ -44,14 +44,14 @@ router.get("/", (req, res) => {
 			});
 			return;
 		}
-		updateRecentActivity(JSON.stringify("req.query.list"), res);
+		updateRecentActivity(JSON.stringify(req.query.list), res);
 		let firsttrack;
 		if (data.tracks.length > 1) {
 			firsttrack = data.tracks[0].id;
 		}
 		res.render(__dirname + "/public/views/playlist.ejs", {
 			playlist: JSON.stringify(data),
-			name: data.name,
+			name: data.id,
 			title: data.title,
 			thumbnail: data.thumbnail,
 			duration: formatDuration(data.totalduration),
@@ -71,7 +71,7 @@ router.post("/add", (req, res) => {
 			});
 			return;
 		}
-		database.findOne({ name: req.body.playlist }, (err, data) => {
+		database.findOne({ id: req.body.playlist }, (err, data) => {
 			if (err || data === null || data == "") {
 				res.status(404);
 				res.render(__dirname + "/public/views/error.ejs", {
@@ -87,8 +87,9 @@ router.post("/add", (req, res) => {
 				return;
 			}
 			database.update(
-				{ name: req.body.playlist },
-				{ $inc: { totalduration: track.int_duration }, $inc: { amount: 1 }, $push: { tracks: track } },
+				{ id: req.body.playlist },
+				{ $push: { tracks: track }, $inc: { amount: 1, totalduration: track.int_duration } },
+				{},
 				(err, data) => {
 					if (err || data === null || data == "") {
 						res.status(500);

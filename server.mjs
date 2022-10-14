@@ -19,6 +19,7 @@ import { router as uploadR } from "./routes/upload.mjs";
 import { router as searchR } from "./routes/search.mjs";
 import { router as playlistR } from "./routes/playlists.mjs";
 import { router as playerR } from "./routes/player.mjs";
+import { router as Api } from "./routes/api.mjs";
 global.__dirname = path.resolve(__dirname);
 
 // Middleware
@@ -39,6 +40,7 @@ app.use("/upload", uploadR);
 app.use("/search", searchR);
 app.use("/playlist", playlistR);
 app.use("/player", playerR);
+app.use("/api", Api);
 
 // Database
 
@@ -52,30 +54,6 @@ server.listen(port, () => {
 app.get("/", (req, res) => {
 	res.status(200);
 	res.sendFile(__dirname + "/public/html/index.html");
-});
-
-app.get("/api", (request, res) => {
-	Lib.database.find({}, (err, data) => {
-		if (err) {
-			res.status(500);
-			res.send("<h1>500 Internal Server Error</h1>");
-			res.end();
-			return;
-		}
-		res.json(data);
-	});
-});
-
-app.get("/api/tracks", (request, res) => {
-	Lib.database.find({type: "track"}, (err, data) => {
-		if (err) {
-			res.status(500);
-			res.send("<h1>500 Internal Server Error</h1>");
-			res.end();
-			return;
-		}
-		res.json(data);
-	});
 });
 
 // Error Handeling

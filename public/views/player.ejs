@@ -162,11 +162,13 @@
 					></progress>
 					<AudioCloud-Controles-inner>
 						<div id="player-autoplay">
-							Autoplay
-							<label class="switch">
-								<input type="checkbox" class="checkbox_input" id="player-autoplay-checkbox" />
-								<span class="slider"></span>
-							</label>
+							<div>
+								Autoplay
+								<label class="switch">
+									<input type="checkbox" class="checkbox_input" id="player-autoplay-checkbox" />
+									<span class="slider"></span>
+								</label>
+							</div>
 						</div>
 						<div id="player-controles">
 							<div id="player-controles-timestamp">
@@ -201,6 +203,13 @@
 									alt="shuffle"
 								/>
 							</div>
+							<input type="range" min="0" step="any" max="100" id="volume" />
+							<img
+								class="icons padding iron-icon"
+								id="volume_icon"
+								src="../svg/volume-high-outline.svg"
+								alt="volume-high"
+							/>
 							<div>
 								<img
 									id="exit_fullscreen_btn"
@@ -209,13 +218,6 @@
 									alt="exit_fullscreen"
 								/>
 							</div>
-							<input type="range" min="0" step="any" max="100" id="volume" />
-							<img
-								class="icons padding iron-icon"
-								id="volume_icon"
-								src="../svg/volume-high-outline.svg"
-								alt="volume-high"
-							/>
 						</div>
 					</AudioCloud-Controles-inner>
 				</AudioCloud-Controls>

@@ -35,7 +35,7 @@ router.get("/", (req, res) => {
 				});
 				return;
 			}
-			updateRecentActivity(JSON.stringify("req.query.v"), res);
+			updateRecentActivity(JSON.stringify(req.query.v), res);
 			data = data.shift();
 			res.status(200);
 			res.render(__dirname + "/public/views/player.ejs", {

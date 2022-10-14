@@ -259,9 +259,15 @@ AudioCloud-Controls[fullscreen="true"]::before {
 }
 
 AudioCloud-Controles-inner {
-	display: flex;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
 	align-items: center;
+	justify-items: start;
 	height: 100%;
+	width: 100%;
+}
+
+AudioCloud-Controles-inner > * {
 	width: 100%;
 }
 
@@ -270,9 +276,7 @@ AudioCloud-Controles-inner {
 	justify-content: center;
 	align-items: center;
 	height: 100%;
-	left: 50%;
-	position: absolute;
-	transform: translate(-50%);
+	grid-column: 2 / 3;
 	flex-direction: column;
 }
 
@@ -327,12 +331,18 @@ AudioCloud-Controles-inner {
 
 #player-autoplay {
 	height: 100%;
-	justify-content: center;
-	left: 5px;
-	position: relative;
+	padding-left: 10px;
 	display: flex;
-	flex-direction: column;
+	justify-content: flex-start;
 	align-items: center;
+	grid-column: 1 / 2;
+	box-sizing: border-box;
+}
+
+#player-autoplay > div {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
 }
 
 #player-video-controles {
@@ -346,6 +356,11 @@ AudioCloud-Controles-inner {
 	justify-content: flex-end;
 	transition: 200ms all;
 }
+
+#player-video-controles[fullscreen="true"] {
+	opacity: 0 !important;
+}
+
 .player-video-controles-item {
 	cursor: pointer;
 	height: 100%;
@@ -401,13 +416,12 @@ AudioCloud-Controles-inner {
 
 #volume-wrapper {
 	display: flex;
-	justify-content: center;
+	justify-content: flex-end;
 	align-items: center;
 	height: 100%;
-	margin-right: 5px;
-	margin-left: auto;
-	width: 200px;
-	padding: 0 5px 0 0;
+	padding-right: 10px;
+	grid-column: 3 / 4;
+	box-sizing: border-box;
 }
 
 #volume {
@@ -477,6 +491,6 @@ AudioCloud-Controles-inner {
 
 [thumbnail] {
 	object-fit: contain;
-    width: 32px;
-    height: 32px;
+	width: 32px;
+	height: 32px;
 }

@@ -1,6 +1,8 @@
 const main = document.getElementById("playlist-tracks");
 const cardTemplate = document.getElementById("card-template");
-
+if(playlist.tracks.length === 1) {
+	document.getElementById('header-playlist-row').children[0].textContent = "track"
+}
 playlist.tracks.forEach((e) => {
 	const div = cardTemplate.content.cloneNode(true);
     console.log(e);

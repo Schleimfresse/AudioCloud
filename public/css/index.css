@@ -1,6 +1,5 @@
 #Media_Showcase_wrapper {
-	margin-left: 2em;
-	margin-top: 2em;
+	margin: 2em 2em 0 2em;
 	display: flex;
 	flex-direction: column;
 	flex-wrap: wrap;
@@ -9,6 +8,10 @@
 .skeleton {
 	opacity: 0.5;
 	animation: skeleton-loading 1s linear infinite alternate;
+}
+
+#tracks{
+	width: 100%;
 }
 
 .skeleton-text {

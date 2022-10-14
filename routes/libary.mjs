@@ -15,7 +15,7 @@ router.get("/", (req, res) => {
 		let recent = [];
 		let playlists = [];
 		data.forEach((playlist) => {
-			playlists.push({ name: playlist.name, title: playlist.title });
+			playlists.push({ id: playlist.id, title: playlist.title, type: playlist.type });
 		});
 		database.find({ recent_key: "recent" }, (err, data) => {
 			if (err || data === null) {

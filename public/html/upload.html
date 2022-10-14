@@ -7,13 +7,13 @@
 		<title>Upload | AudioCloud</title>
 		<link rel="stylesheet" href="../css/upload.css" />
 		<link rel="stylesheet" href="../css/global.css" />
-		<link rel="apple-touch-icon" sizes="180x180" href="../favicons/apple-touch-icon.png">
-		<link rel="icon" type="image/png" sizes="32x32" href="../favicons/favicon-32x32.png">
-		<link rel="icon" type="image/png" sizes="16x16" href="../favicons/favicon-16x16.png">
-		<link rel="manifest" href="../favicons/site.webmanifest">
-		<link rel="mask-icon" href="../favicons/safari-pinned-tab.svg" color="#3ea6ff">
-		<meta name="msapplication-TileColor" content="#da532c">
-		<meta name="theme-color" content="#3ea6ff">
+		<link rel="apple-touch-icon" sizes="180x180" href="../favicons/apple-touch-icon.png" />
+		<link rel="icon" type="image/png" sizes="32x32" href="../favicons/favicon-32x32.png" />
+		<link rel="icon" type="image/png" sizes="16x16" href="../favicons/favicon-16x16.png" />
+		<link rel="manifest" href="../favicons/site.webmanifest" />
+		<link rel="mask-icon" href="../favicons/safari-pinned-tab.svg" color="#3ea6ff" />
+		<meta name="msapplication-TileColor" content="#da532c" />
+		<meta name="theme-color" content="#3ea6ff" />
 	</head>
 	<body>
 		<header id="page-header">
@@ -85,9 +85,9 @@
 				>
 			</div>
 		</header>
-		<form id="upload_form" method="post" action="/upload" enctype="multipart/form-data">
-			<label for="fileinput"
-				>File</label>
+		<main class="center">
+			<form id="upload_form" method="post" action="/upload" enctype="multipart/form-data">
+				<label for="fileinput">File</label>
 				<input
 					type="file"
 					required
@@ -95,23 +95,31 @@
 					id="fileinput"
 					class="std_btn_file_btn"
 					name="file"
-			/>
-			<label for="thumbnail"
-				>Thumbnail</label>
-				<input type="file" id="thumbnail" class="std_btn_file_btn" accept="image/*" placeholder="Thumbnail" name="thumbnail"
-			/>
-			<input type="text" required class="std_btn" placeholder="Title" name="title" />
-			<input type="text" class="std_btn" placeholder="Description" name="desc" />
-			<input type="text" class="std_btn" placeholder="Artist" name="artist" />
-			<input type="submit" class="std_btn slide" value="Upload" />
-		</form>
+				/>
+				<label for="thumbnail">Thumbnail</label>
+				<input
+					type="file"
+					id="thumbnail"
+					class="std_btn_file_btn"
+					accept="image/*"
+					placeholder="Thumbnail"
+					name="thumbnail"
+				/>
+				<input type="text" required class="std_btn" placeholder="Title" name="title" />
+				<input type="text" class="std_btn" placeholder="Description" name="desc" />
+				<input type="text" class="std_btn" placeholder="Artist" name="artist" />
+				<input type="submit" class="std_btn slide" value="Upload" />
+			</form>
+		</main>
 		<template id="searchHistory-Temp">
 			<div class="searchHistory-item nav-search">
 				<div class="searchHistory-item-img nav-search center">
 					<img class="nav-search" height="24px" width="24px" src="/svg/search-history-outline.svg" alt="" />
 				</div>
 				<div class="nav-search"></div>
-				<div class="center nav-search delete-suggestion ds" ><img class="nav-search ds" src="/svg/bin.svg" height="24px" width="24px" alt=""></div>
+				<div class="center nav-search delete-suggestion ds">
+					<img class="nav-search ds" src="/svg/bin.svg" height="24px" width="24px" alt="" />
+				</div>
 			</div>
 		</template>
 	</body>
