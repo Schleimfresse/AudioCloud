@@ -363,6 +363,13 @@ function padTo2Digits(num) {
 }
 
 function load_track(index) {
+	fetch("/history", {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify(Playlist[index]),
+	});
 	history.pushState(null, null, `/player?${list}v=${Playlist[index].id}`);
 	if (document.querySelector('[data-current-song="true"]')) {
 		document.querySelector('[data-current-song="true"]').setAttribute("data-current-song", false);
@@ -374,7 +381,7 @@ function load_track(index) {
 	document.title = `${Playlist[index].title} | AudioCloud`;
 	Title.innerText = Playlist[index].title;
 	Artist.innerText = Playlist[index].artist;
-	Description.innerText = Playlist[index].desc;
+	Description.innerHTML = Playlist[index].desc;
 	media.load();
 	video.poster = `/thumbnails/${Playlist[index].thumbnail}`;
 	if (videoPlayback) {

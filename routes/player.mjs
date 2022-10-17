@@ -5,7 +5,7 @@ let router = express.Router();
 
 router.get("/", (req, res) => {
 	if (req.query.list) {
-		database.findOne({ name: req.query.list }, (err, data) => {
+		database.findOne({ id: req.query.list }, (err, data) => {
 			if (err || data === null || data == "") {
 				res.status(404);
 				res.render(__dirname + "/public/views/error.ejs", {

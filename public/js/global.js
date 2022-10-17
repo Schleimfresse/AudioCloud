@@ -11,6 +11,7 @@ const nav_search_wrapper = document.getElementById("AudioCloud-nav-bar-search-wr
 const nav_back_arrow = document.getElementById("input-arrow-back");
 const nav_bar_input = document.getElementById("searchquery_input");
 const searchHistory_DOM = document.getElementById("searchHistory");
+const settings_content_page = document.getElementById("settings-content-wrapper");
 let searchHistory = localStorage.searchHistory ? JSON.parse(localStorage.searchHistory) : [];
 if (localStorage.AudioCloud != null) {
 	videoPlayback = JSON.parse(localStorage.getItem("AudioCloud")).playback;
@@ -34,11 +35,14 @@ const pushSearchHistoryInDOM = (array) => {
 			searchHistory.splice(deleteIndex, 1);
 			localStorage.searchHistory = JSON.stringify(searchHistory);
 			this.parentElement.remove();
+			if (searchHistory_DOM.textContent.trim() === "") {
+				searchHistory_DOM.remove();
+			}
 		};
 		div.children[0].children[1].textContent = e.value;
 		searchHistory_DOM.append(div);
 	});
-	if ((searchHistory_DOM.textContent === "")) {
+	if (searchHistory_DOM.textContent === "") {
 		searchHistory_DOM.remove();
 	}
 };
@@ -89,6 +93,7 @@ const switch_modal_visibility = (e, modal) => {
 	}
 };
 
+// Sets if the video stream has to play or not
 function video_playback() {
 	if (videoPlayback) {
 		videoPlayback = false;
@@ -105,6 +110,36 @@ function video_playback() {
 	}
 }
 
+// Changes the content in the Settings modal for the diffrent tabs
+const changePageContent = (tab) => {
+	switch (tab.textContent) {
+		case "General":
+			settings_content_page.textContent = "";
+			settings_content_page.append(document.getElementById("settings-page-playback").content.cloneNode(true));
+			break;
+		case "Playback":
+			settings_content_page.textContent = "";
+			settings_content_page.append(document.getElementById("settings-page-general").content.cloneNode(true));
+			break;
+		case "Privacy":
+			settings_content_page.textContent = "";
+			settings_content_page.append(document.getElementById("settings-page-privacy").content.cloneNode(true));
+			break;
+	}
+};
+
+function ContextmenuLogic() {
+	this.preventDefault();
+	contextmenu.style.display = "flex";
+	contextmenu.style.left = this.pageX + "px";
+	contextmenu.style.top = this.pageY + "px";
+	const elementAttr = this.composedPath().find((e) => e.getAttribute("data-track"));
+	console.log(elementAttr)
+	if (elementAttr) {
+		contextmenu.setAttribute("current", elementAttr.getAttribute("data-track"));
+	}
+}
+
 settings_btn.addEventListener("click", (e) => {
 	switch_account_card_visibility;
 	settings.showModal();
@@ -112,6 +147,8 @@ settings_btn.addEventListener("click", (e) => {
 settings_list.addEventListener("click", (e) => {
 	document.querySelector('[data-active="true"]').setAttribute("data-active", "false");
 	e.composedPath()[0].setAttribute("data-active", "true");
+	const current_tab = document.querySelector("[data-active = 'true']");
+	changePageContent(current_tab);
 });
 account_icon.addEventListener("click", switch_account_card_visibility);
 nav_search_btn.addEventListener("click", () => {

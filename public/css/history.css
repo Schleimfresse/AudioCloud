@@ -1,0 +1,29 @@
+#search-history-list {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 80%;
+	flex-direction: column;
+}
+
+.next_media_item-wrapper {
+	width: 100%;
+}
+
+#history-header {
+	margin: 50px 0 50px 0;
+	display: flex;
+	justify-content: center;
+}
+
+#history-innerwrapper {
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+}
+
+#search-history-wrapper{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}

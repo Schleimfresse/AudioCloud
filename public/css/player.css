@@ -410,10 +410,6 @@ AudioCloud-Controles-inner > * {
 	display: none;
 }
 
-.iron-icon {
-	filter: invert(64%) sepia(0%) saturate(169%) hue-rotate(243deg) brightness(92%) contrast(71%);
-}
-
 #volume-wrapper {
 	display: flex;
 	justify-content: flex-end;

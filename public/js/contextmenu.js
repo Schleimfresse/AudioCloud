@@ -27,16 +27,17 @@ const displayNotification = (data) => {
 };
 
 const addToPlaylist = (playlist_id) => {
+	const body = JSON.stringify({
+		id: addToPlaylistDOM.parentElement.getAttribute("current"),
+		playlist: playlist_id,
+	});
 	playlist_item_wrapper.close();
 	fetch("/playlist/add", {
 		method: "post",
 		headers: {
 			"Content-Type": "application/json",
 		},
-		body: JSON.stringify({
-			id: addToPlaylistDOM.parentElement.getAttribute("current"),
-			playlist: playlist_id,
-		}),
+		body: body,
 	})
 		.then((res) => res.json())
 		.then((data) => displayNotification(data));
@@ -77,7 +78,6 @@ const addScrollBtnLogic = () => {
 			left: tracks.offsetWidth,
 			behavior: "smooth",
 		});
-		console.log(tracks.scrollLeft);
 		setTimeout(() => {
 			if (tracks.scrollLeft !== 0) {
 				tracks_previous_btn.removeAttribute("disabled");
@@ -87,9 +87,6 @@ const addScrollBtnLogic = () => {
 			}
 		}, 500);
 	};
-	if (!(tracks.scrollWidth > tracks.clientWidth)) {
-		tracks_next_btn.setAttribute("disabled", "");
-	}
 	tracks_previous_btn.onclick = function () {
 		tracks.scrollBy({
 			left: -tracks.offsetWidth,
@@ -102,4 +99,9 @@ const addScrollBtnLogic = () => {
 			tracks_next_btn.removeAttribute("disabled");
 		}, 500);
 	};
+	setTimeout(() => {
+		if (!(tracks.scrollWidth > tracks.offsetWidth)) {
+			tracks_next_btn.setAttribute("disabled", "");
+		}
+	}, 50);
 };

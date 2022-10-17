@@ -22,9 +22,8 @@ router.post("/", async (req, res) => {
 		let uniqid_inst = uniqid();
 		let filename = uniqid_inst + ext;
 		let thumbnail_name = uniqid_inst;
-		let description = req.body.desc;
+		let description = Lib.replaceURLs(req.body.desc);
 		let artist = req.body.artist;
-
 		if (!file.mimetype.includes("audio/")) {
 			if (!file.mimetype.includes("video/")) {
 				res.status(400);
@@ -36,23 +35,14 @@ router.post("/", async (req, res) => {
 			}
 		}
 		file.mv(__dirname + `/public/Media/${filename}`, async function (err) {
-			const getMetadata = new Promise((resolve, reject) => {
-				Lib.ffmpeg.ffprobe(__dirname + `/public/Media/${filename}`, (err, metadata) => {
-					if (err) {
-						reject(false);
-					}
-					resolve(metadata.format);
-				});
-			});
-			let metadata = await getMetadata;
+			let metadata = await Lib.getMetadata();
 			if (thumbnail !== undefined) {
 				img_ext = path.extname(thumbnail.name);
 				if (thumbnail.mimetype.includes("image/")) {
 					thumbnail_autocreate = false;
-					thumbnail.mv(__dirname + `/thumbnails/${thumbnail_name + img_ext}`, async function (err) {
+					thumbnail.mv(__dirname + `/public/thumbnails/${thumbnail_name + img_ext}`, async function (err) {
 						if (err) {
-							res.status(500);
-							res.render(__dirname + "/public/views/error.ejs", {
+							res.status(500).render(__dirname + "/public/views/error.ejs", {
 								heading: "Internal Server Error",
 								desc: "An error occurred while trying to write the thumbnail image file.",
 							});

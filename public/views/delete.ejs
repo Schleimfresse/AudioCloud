@@ -25,13 +25,15 @@
 		<header id="page-header">
 			<div class="icon-spacing-right" id="menu">
 				<a id="menu-link" href="/">
-					<img class="icons icon-spacing-right" src="../svg/musical-notes-outline.svg" alt="music-note" />
-					<span><span class="bold">A</span>udioCloud</span>
+					<img class="icons icon-spacing-right" src="/svg/musical-notes-outline.svg" alt="music-note" />
+					<span class="bold">AudioCloud</span>
 				</a>
 			</div>
 			<div class="AudioCloud-nav-bar">
-				<div class="AudioCloud-nav-bar-item" onclick="window.location.href = '/'">Start</div>
-				<div class="AudioCloud-nav-bar-item" onclick="window.location.href = '/libary'">Libary</div>
+				<div class="AudioCloud-nav-bar-item" onclick="window.location.href = '/'" >
+					Start
+				</div>
+				<div class="AudioCloud-nav-bar-item" onclick="window.location.href = '/library'">library</div>
 				<div class="AudioCloud-nav-bar-item nav-search" id="nav-search-btn">Search</div>
 				<div id="AudioCloud-nav-bar-search-wrapper">
 					<div id="AudioCloud-nav-bar-search-innerwrapper">
@@ -73,22 +75,42 @@
 				<header id="account-card-header">
 					<img id="account-icon" src="../svg/account_filled.svg" class="icons icon-size-large" alt="" />
 				</header>
-				<a id="settings-btn" class="account-item"
-					><div class="account-item-icon"><img class="icons" src="../svg/settings.svg" alt="" /></div>
-					<div class="item-string">Settings</div></a
-				>
-				<a href="/upload" class="account-item"
-					><div class="account-item-icon"><img class="icons" src="../svg/cloud_upload.svg" alt="" /></div>
-					<div class="item-string">Upload</div></a
-				>
-				<a href="/edit" class="account-item"
-					><div class="account-item-icon"><img class="icons" src="../svg/pen.svg" alt="" /></div>
-					<div class="item-string">Edit</div></a
-				>
-				<a href="/delete" class="account-item"
-					><div class="account-item-icon"><img class="icons" src="../svg/bin.svg" alt="" /></div>
-					<div class="item-string">Delete</div></a
-				>
+				<div id="first-account-card-inner-wrapper" class="account-card-inner-wrapper">
+					<a id="settings-btn" class="account-item"
+						><div class="account-item-icon"><img class="icons" src="../svg/logout.svg" alt="" /></div>
+						<div class="item-string">Log out</div></a
+					>
+				</div>
+				<div class="account-card-inner-wrapper">
+					<a id="settings-btn" class="account-item"
+						><div class="account-item-icon"><img class="icons" src="../svg/settings.svg" alt="" /></div>
+						<div class="item-string">Settings</div></a
+					>
+					<a href="/history" class="account-item"
+						><div class="account-item-icon">
+							<img class="icons" src="../svg/search-history-outline.svg" alt="" />
+						</div>
+						<div class="item-string">History</div></a
+					>
+					<a href="/upload" class="account-item"
+						><div class="account-item-icon"><img class="icons" src="../svg/cloud_upload.svg" alt="" /></div>
+						<div class="item-string">Upload</div></a
+					>
+					<a href="/edit" class="account-item"
+						><div class="account-item-icon"><img class="icons" src="../svg/pen.svg" alt="" /></div>
+						<div class="item-string">Edit</div></a
+					>
+					<a href="/delete" class="account-item"
+						><div class="account-item-icon"><img class="icons" src="../svg/bin.svg" alt="" /></div>
+						<div class="item-string">Delete</div></a
+					>
+					<a href="/impressum" class="account-item"
+						><div class="account-item-icon">
+							<img class="icons" src="../svg/open-in-new-outline.svg" alt="" />
+						</div>
+						<div class="item-string">Impressum</div></a
+					>
+				</div>
 			</div>
 		</header>
 		<main></main>

@@ -302,10 +302,17 @@ option {
 	position: fixed;
 	right: 20px;
 	top: 50px;
-	padding: 8px 0 8px 0;
 	margin: 0;
 	display: none;
 	flex-direction: column;
+}
+
+.account-card-inner-wrapper {
+	padding: 8px 0 8px 0;
+}
+
+#first-account-card-inner-wrapper{
+	border-bottom: 1px solid var(--border);
 }
 
 #account-card[visibility="true"] {
@@ -416,6 +423,7 @@ AudioCloud-Heading {
 	flex-direction: row;
 	justify-content: space-between;
 	padding: 20px 0;
+	align-items: center;
 }
 
 .switch {
@@ -760,12 +768,14 @@ input[type="search"]::-webkit-search-cancel-button {
 	align-items: center;
 	justify-content: center;
 	margin-left: 10px;
+	cursor: pointer;
 }
 
 .navigation-tracks {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
+	justify-content: center;
 }
 
 button[disabled] {
@@ -780,4 +790,27 @@ button[disabled] > img {
 .Showcase-heading {
 	display: flex;
 	justify-content: space-between;
+}
+
+#recent-songs {
+	width: 100%;
+}
+
+#sub-page-title {
+	font-style: italic;
+	font-size: 14px;
+	line-height: 24px;
+}
+
+#menu-wrapper {
+	display: flex;
+}
+
+.iron-icon {
+	filter: invert(64%) sepia(0%) saturate(169%) hue-rotate(243deg) brightness(92%) contrast(71%);
+}
+
+.link_std {
+	color: -webkit-link;
+	color: LinkText;
 }

@@ -64,20 +64,16 @@ router.get("/", (req, res) => {
 router.post("/add", (req, res) => {
 	database.findOne({ id: req.body.id }, (err, track) => {
 		if (err || track === null || track == "") {
-			res.status(404);
-			res.render(__dirname + "/public/views/error.ejs", {
-				heading: "Not found",
-				desc: "A required resource could not be retrieved, try resending your request.",
-			});
+			res
+				.status(404)
+				.send({ message: "A required resource could not be retrieved, try resending your request" });
 			return;
 		}
 		database.findOne({ id: req.body.playlist }, (err, data) => {
 			if (err || data === null || data == "") {
-				res.status(404);
-				res.render(__dirname + "/public/views/error.ejs", {
-					heading: "Not found",
-					desc: "The requested resource could not be found, check your request and try again!",
-				});
+				res
+					.status(404)
+					.send({ message: "The requested resource could not be found, check your request and try again!" });
 				return;
 			}
 			const check = data.tracks.find((e) => e.id == req.body.id);
@@ -92,10 +88,9 @@ router.post("/add", (req, res) => {
 				{},
 				(err, data) => {
 					if (err || data === null || data == "") {
-						res.status(500);
-						res.render(__dirname + "/public/views/error.ejs", {
-							heading: "Internal Server Error",
-							desc: "An error occurred while trying to update the database, try sending your request again.",
+						res.status(500).send({
+							message:
+								"An error occurred while trying to update the database, try sending your request again",
 						});
 						return;
 					}

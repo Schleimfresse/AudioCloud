@@ -23,14 +23,14 @@
 			<div class="icon-spacing-right" id="menu">
 				<a id="menu-link" href="/">
 					<img class="icons icon-spacing-right" src="/svg/musical-notes-outline.svg" alt="music-note" />
-					<span><span class="bold">A</span>udioCloud</span>
+					<span class="bold">AudioCloud</span>
 				</a>
 			</div>
 			<div class="AudioCloud-nav-bar">
 				<div class="AudioCloud-nav-bar-item" onclick="window.location.href = '/'" data-page="current">
 					Start
 				</div>
-				<div class="AudioCloud-nav-bar-item" onclick="window.location.href = '/libary'">Libary</div>
+				<div class="AudioCloud-nav-bar-item" onclick="window.location.href = '/library'">library</div>
 				<div class="AudioCloud-nav-bar-item nav-search" id="nav-search-btn">Search</div>
 				<div id="AudioCloud-nav-bar-search-wrapper">
 					<div id="AudioCloud-nav-bar-search-innerwrapper">
@@ -72,22 +72,42 @@
 				<header id="account-card-header">
 					<img id="account-icon" src="../svg/account_filled.svg" class="icons icon-size-large" alt="" />
 				</header>
-				<a id="settings-btn" class="account-item"
-					><div class="account-item-icon"><img class="icons" src="../svg/settings.svg" alt="" /></div>
-					<div class="item-string">Settings</div></a
-				>
-				<a href="/upload" class="account-item"
-					><div class="account-item-icon"><img class="icons" src="../svg/cloud_upload.svg" alt="" /></div>
-					<div class="item-string">Upload</div></a
-				>
-				<a href="/edit" class="account-item"
-					><div class="account-item-icon"><img class="icons" src="../svg/pen.svg" alt="" /></div>
-					<div class="item-string">Edit</div></a
-				>
-				<a href="/delete" class="account-item"
-					><div class="account-item-icon"><img class="icons" src="../svg/bin.svg" alt="" /></div>
-					<div class="item-string">Delete</div></a
-				>
+				<div id="first-account-card-inner-wrapper" class="account-card-inner-wrapper">
+					<a id="settings-btn" class="account-item"
+						><div class="account-item-icon"><img class="icons" src="../svg/logout.svg" alt="" /></div>
+						<div class="item-string">Log out</div></a
+					>
+				</div>
+				<div class="account-card-inner-wrapper">
+					<a id="settings-btn" class="account-item"
+						><div class="account-item-icon"><img class="icons" src="../svg/settings.svg" alt="" /></div>
+						<div class="item-string">Settings</div></a
+					>
+					<a href="/history" class="account-item"
+						><div class="account-item-icon">
+							<img class="icons" src="../svg/search-history-outline.svg" alt="" />
+						</div>
+						<div class="item-string">History</div></a
+					>
+					<a href="/upload" class="account-item"
+						><div class="account-item-icon"><img class="icons" src="../svg/cloud_upload.svg" alt="" /></div>
+						<div class="item-string">Upload</div></a
+					>
+					<a href="/edit" class="account-item"
+						><div class="account-item-icon"><img class="icons" src="../svg/pen.svg" alt="" /></div>
+						<div class="item-string">Edit</div></a
+					>
+					<a href="/delete" class="account-item"
+						><div class="account-item-icon"><img class="icons" src="../svg/bin.svg" alt="" /></div>
+						<div class="item-string">Delete</div></a
+					>
+					<a href="/impressum" class="account-item"
+						><div class="account-item-icon">
+							<img class="icons" src="../svg/open-in-new-outline.svg" alt="" />
+						</div>
+						<div class="item-string">Impressum</div></a
+					>
+				</div>
 			</div>
 		</header>
 		<dialog id="settings">
@@ -99,6 +119,7 @@
 				<div id="settings-listbox">
 					<div class="settings-item" data-active="true">General</div>
 					<div class="settings-item">Playback</div>
+					<div class="settings-item">Privacy</div>
 				</div>
 				<div id="settings-content-wrapper">
 					<div id="settings-content-general">
@@ -111,17 +132,6 @@
 							</div>
 							<label class="switch">
 								<input type="checkbox" id="video_playback_switch" class="checkbox_input" />
-								<span class="slider"></span>
-							</label>
-						</div>
-					</div>
-					<div id="settings-content-playback">
-						<div class="settings-content-row">
-							<div>
-								<div class="item-string"></div>
-							</div>
-							<label class="switch">
-								<input type="checkbox" class="checkbox_input" />
 								<span class="slider"></span>
 							</label>
 						</div>
@@ -194,6 +204,57 @@
 				</div>
 			</div>
 		</template>
+		<template id="settings-page-general">
+			<div id="settings-content-general">
+				<div class="settings-content-row">
+					<div>
+						Audio on playback only
+						<div class="item-string item-paragraph">
+							if disabled and a video track is provided, the video will play. (Needs reload)
+						</div>
+					</div>
+					<label class="switch">
+						<input type="checkbox" id="video_playback_switch" class="checkbox_input" />
+						<span class="slider"></span>
+					</label>
+				</div>
+			</div>
+		</template>
+		<template id="settings-page-playback">
+			<div id="settings-content-playback">
+				<div class="settings-content-row">
+					<div>
+						<div class="item-string"></div>
+					</div>
+					<label class="switch">
+						<input type="checkbox" class="checkbox_input" />
+						<span class="slider"></span>
+					</label>
+				</div>
+			</div>
+		</template>
+		<template id="settings-page-privacy">
+			<div id="settings-content-privacy">
+				<div class="settings-content-row">
+					<div>
+						<div>
+							Delete search history
+							<div class="item-string item-paragraph">
+								By clicking on the delete button your complete search history will be cleared
+							</div>
+						</div>
+					</div>
+					<button class="std_btn">Delete</button>
+				</div>
+				<div class="settings-content-row">
+					<div>
+						<div>
+							<a href="/privacy">Privacy policies</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</template>
 		<dialog id="addToPlaylist-playlist-wrapper">
 			<header class="modal_heading">
 				<AudioCloud-Heading>Choose Playlist</AudioCloud-Heading>
@@ -208,5 +269,6 @@
 			</header>
 			<div></div>
 		</dialog>
+		<div id="notification-banner"></div>
 	</body>
 </html>

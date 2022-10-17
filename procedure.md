@@ -5,7 +5,7 @@
 - Zufallsmix [+]
 - Soundregler [+]
 
-- Sound icon !IMPORTANT [+]
+- Sound icon [+]
 
 - Volume mit local Storage verknüpfen [+]
 
@@ -25,21 +25,21 @@
 -> Duration in liste einfügen [+]
 
 ## Backend kordinieren + erweitern
--> routes
--> Lib
--> server file saubern
+-> routes [+]
+-> Lib [+]
+-> server file saubern [+]
 
 
 ## settings
 -> Audioqualität gut/schlecht 
--> Videos enablen & disablen 
+-> Videos enablen & disablen [+]
 
 ## Player 
 -> Video-controles 
 -> currentSong bg change [+]
 
 errors:
-  - shuffle -> pushState (click) -> shuffle: liste zeigt anderes item als spielt [+]
+   shuffle -> pushState (click) -> shuffle: liste zeigt anderes item als spielt [+]
 
   Media [+]
    | |
@@ -53,7 +53,7 @@ PiP through media
 
 - Input vergrößern -> icon etc
 
-## BACKEND mp3 thubnails in quadrat schneiden <-------------------------------------------------------------------############-
+## BACKEND mp3 thubnails in quadrat schneiden <---------------######-
 
 
 ## sendFile() überarbeiten [+]
@@ -64,3 +64,15 @@ PiP through media
 
 
 - track wird nicht nach oben sortiert wenn angezeigter track angeclickt wird! kommt vom playlist (list) handler wenn möglich v & list mehr trennen randomized tracks track muss oben sein bei playlist nich
+
+-> Verlauf \n
+||
+----> Zweite Database wenn Song -> fetch & add song [+]
+----> bei Anfrage alle ausgeben
+-> UI fixen [+]
+
+-> bei edit werden die searchHistory ergebnisse nicht editiert
+
+-> Impress
+
+-> Backend: Image überprüfen -> wenn image fill vorhanden und man added image -> error [+] (Path "/public" missing)
