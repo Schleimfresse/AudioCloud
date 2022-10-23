@@ -26,7 +26,7 @@
 		<header id="page-header">
 			<div class="icon-spacing-right" id="menu">
 				<a id="menu-link" href="/">
-					<img class="icons icon-spacing-right" src="/svg/musical-notes-outline.svg" alt="music-note" />
+					<img class="icons icon-spacing-right" src="/assets/svg/musical-notes-outline.svg" alt="music-note" />
 					<span class="bold">AudioCloud</span>
 				</a>
 			</div>
@@ -40,7 +40,7 @@
 					<div id="AudioCloud-nav-bar-search-innerwrapper">
 						<form id="AudioCloud-nav-bar-search" action="/search">
 							<div id="input-wrapper">
-								<img id="input-arrow-back" src="/svg/arrow-back-outline.svg" alt="" />
+								<img id="input-arrow-back" src="/assets/svg/arrow-back-outline.svg" alt="" />
 								<input
 									autocomplete="off"
 									class="std_btn no-margin noborder nav-search"
@@ -62,7 +62,7 @@
 								onclick="return validation(this.parentElement.children[0])"
 								type="submit"
 							>
-								<img class="icons nav-search" src="../svg/search-outline.svg" alt="search" />
+								<img class="icons nav-search" src="../assets/svg/search-outline.svg" alt="search" />
 							</button>
 						</form>
 						<div id="searchHistory" class="nav-search"></div>
@@ -70,44 +70,49 @@
 				</div>
 			</div>
 			<div class="center" id="account-icon-container">
-				<img id="account-icon" src="../svg/account.svg" class="icons" alt="account-icon" />
+				<img id="account-icon" src="../assets/svg/account.svg" class="icons" alt="account-icon" />
 			</div>
 			<div id="account-card" visibility="false">
 				<header id="account-card-header">
-					<img id="account-icon" src="../svg/account_filled.svg" class="icons icon-size-large" alt="" />
-				</header>
+						<img id="account-icon" src="../assets/svg/account_filled.svg" class="icons icon-size-large icon-spacing-right" icon-spacing-right" alt="" />
+						<AudioCloud-Heading><div class="center"><%- data.user.username %></div></AudioCloud-Heading>
+					</header>
 				<div id="first-account-card-inner-wrapper" class="account-card-inner-wrapper">
-					<a id="settings-btn" class="account-item"
-						><div class="account-item-icon"><img class="icons" src="../svg/logout.svg" alt="" /></div>
+					<a href="/profile" class="account-item"
+						><div class="account-item-icon"><img class="icons" src="../assets/svg/account.svg" alt="" /></div>
+						<div class="item-string">Profile</div></a
+					>
+					<a href="/auth/signout" class="account-item"
+						><div class="account-item-icon"><img class="icons" src="../assets/svg/logout.svg" alt="" /></div>
 						<div class="item-string">Log out</div></a
 					>
 				</div>
 				<div class="account-card-inner-wrapper">
 					<a id="settings-btn" class="account-item"
-						><div class="account-item-icon"><img class="icons" src="../svg/settings.svg" alt="" /></div>
+						><div class="account-item-icon"><img class="icons" src="../assets/svg/settings.svg" alt="" /></div>
 						<div class="item-string">Settings</div></a
 					>
 					<a href="/history" class="account-item"
 						><div class="account-item-icon">
-							<img class="icons" src="../svg/search-history-outline.svg" alt="" />
+							<img class="icons" src="../assets/svg/search-history-outline.svg" alt="" />
 						</div>
 						<div class="item-string">History</div></a
 					>
 					<a href="/upload" class="account-item"
-						><div class="account-item-icon"><img class="icons" src="../svg/cloud_upload.svg" alt="" /></div>
+						><div class="account-item-icon"><img class="icons" src="../assets/svg/cloud_upload.svg" alt="" /></div>
 						<div class="item-string">Upload</div></a
 					>
 					<a href="/edit" class="account-item"
-						><div class="account-item-icon"><img class="icons" src="../svg/pen.svg" alt="" /></div>
+						><div class="account-item-icon"><img class="icons" src="../assets/svg/pen.svg" alt="" /></div>
 						<div class="item-string">Edit</div></a
 					>
 					<a href="/delete" class="account-item"
-						><div class="account-item-icon"><img class="icons" src="../svg/bin.svg" alt="" /></div>
+						><div class="account-item-icon"><img class="icons" src="../assets/svg/bin.svg" alt="" /></div>
 						<div class="item-string">Delete</div></a
 					>
 					<a href="/impressum" class="account-item"
 						><div class="account-item-icon">
-							<img class="icons" src="../svg/open-in-new-outline.svg" alt="" />
+							<img class="icons" src="../assets/svg/open-in-new-outline.svg" alt="" />
 						</div>
 						<div class="item-string">Impressum</div></a
 					>
@@ -115,9 +120,9 @@
 			</div>
 		</header>
 		<dialog id="settings">
-			<header>
+			<header class="modal_heading">
 				<AudioCloud-Heading> Settings </AudioCloud-Heading>
-				<div><img src="../svg/close.svg" id="settings-close" class="icons iron-icon" alt="close" /></div>
+				<div><img src="../assets/svg/close.svg" id="settings-close" class="icons iron-icon" alt="close" /></div>
 			</header>
 			<div id="settings-page">
 				<div id="settings-listbox">
@@ -154,7 +159,7 @@
 			</div>
 		</dialog>
 		<dialog id="create-playlist-modal">
-			<header>
+			<header class="modal_heading">
 				<AudioCloud-Heading> New Playlist </AudioCloud-Heading>
 			</header>
 			<div>
@@ -183,11 +188,11 @@
 					<AudioCloud-Heading class="Showcase-heading"
 					><h2 class="media-showcase-row-heading">Recent Activity</h2>
 					<div class="navigation-tracks">
-							<a id="history-icon-link" href="/history"><img class="iron-icon" height="32px" width="32px" src="/svg/search-history-outline.svg" alt="" /></a>
+							<a id="history-icon-link" href="/history"><img class="iron-icon" height="32px" width="32px" src="/assets/svg/search-history-outline.svg" alt="" /></a>
 						<button class="navigate-round-btn" disabled id="row-previous">
-							<img height="40px" width="40px" src="/svg/Navigate-Before-outline.svg" alt="" /></button
+							<img height="40px" width="40px" src="/assets/svg/Navigate-Before-outline.svg" alt="" /></button
 						><button class="navigate-round-btn" id="row-next">
-							<img height="40px" width="40px" src="/svg/Navigate-Next-outline.svg" alt="" />
+							<img height="40px" width="40px" src="/assets/svg/Navigate-Next-outline.svg" alt="" />
 						</button>
 					</div>
 				</AudioCloud-Heading>
@@ -200,7 +205,7 @@
 				<div id="library-Playlists">
 					<div class="playlist-item">
 						<div id="createPlaylist-thumbnail" class="playlist-thumbnail center">
-							<img class="icons icon-size-large" src="../svg/add.svg" alt="" />
+							<img class="icons icon-size-large" src="../assets/svg/add.svg" alt="" />
 						</div>
 						<div class="playlist-title"><a id="createPlaylist-string" class="underline_link">New Playlist</a></div>
 					</div>
@@ -209,11 +214,11 @@
 		</main>
 		<div id="contextmenu">
 			<div class="account-item" id="addToPlaylist">
-				<div class="account-item-icon"><img class="icons" src="../svg/add.svg" alt="" /></div>
+				<div class="account-item-icon"><img class="icons" src="../assets/svg/add.svg" alt="" /></div>
 				<div class="item-string">Add to Playlist</div>
 			</div>
 			<div class="account-item">
-				<div class="account-item-icon"><img class="icons" src="../svg/add.svg" alt="" /></div>
+				<div class="account-item-icon"><img class="icons" src="../assets/svg/add.svg" alt="" /></div>
 				<div class="item-string">Share</div>
 			</div>
 			<div class="account-item"></div>
@@ -222,7 +227,7 @@
 		<template id="card-template-playlist">
 			<div class="playlist-item">
 				<div class="playlist-thumbnail">
-					<a class="fullspace center"><img playlist-thumbnail class="icon-size-large" src="/svg/playlist-thumbnail.svg" /></a>
+					<a class="fullspace center"><img playlist-thumbnail class="icon-size-large" src="/assets/svg/playlist-thumbnail.svg" /></a>
 				</div>
 				<div class="playlist-title" ><a class="underline_link" title></a></div>
 			</div>
@@ -230,10 +235,10 @@
 		<template id="searchHistory-Temp">
 			<div class="searchHistory-item nav-search">
 				<div class="searchHistory-item-img nav-search center">
-					<img class="nav-search" height="24px" width="24px" src="/svg/search-history-outline.svg" alt="" />
+					<img class="nav-search" height="24px" width="24px" src="/assets/svg/search-history-outline.svg" alt="" />
 				</div>
 				<div class="nav-search"></div>
-				<div class="center nav-search delete-suggestion ds" ><img class="nav-search ds" src="/svg/bin.svg" height="24px" width="24px" alt=""></div>
+				<div class="center nav-search delete-suggestion ds" ><img class="nav-search ds" src="/assets/svg/bin.svg" height="24px" width="24px" alt=""></div>
 			</div>
 		</template>
 		<template id="card-template">
@@ -242,7 +247,7 @@
 					<a link>
 						<span class="img-wrapper"
 							><div class="img-hover">
-								<img src="../svg/play-sharp.svg" class="icons" alt="play" />
+								<img src="../assets/svg/play-sharp.svg" class="icons" alt="play" />
 							</div>
 							<img thumbnail id="start-showcase" /></span
 					></a>
@@ -255,7 +260,7 @@
 				<AudioCloud-Heading>Choose Playlist</AudioCloud-Heading>
 				<div>
 					<img
-						src="../svg/close.svg"
+						src="../assets/svg/close.svg"
 						id="addToPlaylist-playlist-wrapper-close"
 						class="icons iron-icon"
 						alt="close"

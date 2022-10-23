@@ -105,6 +105,8 @@ dist
 
 
 # edited
-public/thumbnails/
-public/Media/
-database.db
+public/assets
+database/database.db
+database/codes.db
+database/user.db
+database/history.db

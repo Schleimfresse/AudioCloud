@@ -8,7 +8,7 @@ video {
 	width: 100%;
 	height: 100%;
 	left: 55px;
-	top: 0px;
+	top: 0;
 	z-index: 5;
 }
 
@@ -171,7 +171,7 @@ AudioCloud-AddedOn {
 
 #player-track-duration-slider {
 	background-image: linear-gradient(#3ea6ff, #3ea6ff);
-	background-size: 0% 100%;
+	background-size: 0 100%;
 	background-color: transparent;
 	z-index: 5;
 }
@@ -228,7 +228,7 @@ AudioCloud-Controls {
 	height: 100px;
 	width: 100vw;
 	position: fixed;
-	bottom: 0px;
+	bottom: 0;
 	z-index: 50;
 	transition: all 500ms ease-out;
 }
@@ -434,7 +434,7 @@ AudioCloud-Controles-inner > * {
 	border: none;
 	margin: 0;
 	background-image: linear-gradient(#ffffff, #ffffff);
-	background-size: 0% 100%;
+	background-size: 0 100%;
 }
 
 #volume::-webkit-slider-runnable-track {

@@ -12,7 +12,6 @@ const nav_back_arrow = document.getElementById("input-arrow-back");
 const nav_bar_input = document.getElementById("searchquery_input");
 const searchHistory_DOM = document.getElementById("searchHistory");
 const settings_content_page = document.getElementById("settings-content-wrapper");
-let searchHistory = localStorage.searchHistory ? JSON.parse(localStorage.searchHistory) : [];
 if (localStorage.AudioCloud != null) {
 	videoPlayback = JSON.parse(localStorage.getItem("AudioCloud")).playback;
 	if (!videoPlayback) {
@@ -20,34 +19,41 @@ if (localStorage.AudioCloud != null) {
 	}
 }
 
-const pushSearchHistoryInDOM = (array) => {
-	searchHistory_DOM.textContent = "";
-	array.forEach((e) => {
-		const div = document.getElementById("searchHistory-Temp").content.cloneNode(true);
-		div.children[0].onclick = function (event) {
-			if (!event.target.classList.contains("ds"))
-				window.location.href = `/search?query=${e.value}&mediatype=&type=${e.type}&mode=${e.mode}`;
-		};
-		div.children[0].children[2].onclick = function () {
-			const deleteIndex = searchHistory.findIndex((elem) => {
-				elem.value === e.value;
-			});
-			searchHistory.splice(deleteIndex, 1);
-			localStorage.searchHistory = JSON.stringify(searchHistory);
-			this.parentElement.remove();
-			if (searchHistory_DOM.textContent.trim() === "") {
-				searchHistory_DOM.remove();
-			}
-		};
-		div.children[0].children[1].textContent = e.value;
-		searchHistory_DOM.append(div);
-	});
-	if (searchHistory_DOM.textContent === "") {
+const getSearchhistory = async () => {
+	if (user !== "") {
+		const res = await fetch(`/api/searchhistory/${user}`);
+		const data = await res.json();
+		searchHistory_DOM.textContent = "";
+		console.log(data);
+		data.history.reverse().forEach((e) => {
+			const div = document.getElementById("searchHistory-Temp").content.cloneNode(true);
+			div.children[0].onclick = function (event) {
+				if (!event.target.classList.contains("ds"))
+					window.location.href = `/search?query=${e.value}&mediatype=&type=${e.type}&mode=${e.mode}`;
+			};
+			div.children[0].children[2].onclick = function () {
+				fetch("/search/history/delete", {
+					method: "post",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({ value: e.value, user: user }),
+				});
+				this.parentElement.remove();
+				if (searchHistory_DOM.textContent.trim() === "") {
+					searchHistory_DOM.remove();
+				}
+			};
+			div.children[0].children[1].textContent = e.value;
+			searchHistory_DOM.append(div);
+		});
+	}
+	if (searchHistory_DOM.textContent.trim() === "") {
 		searchHistory_DOM.remove();
 	}
 };
 
-pushSearchHistoryInDOM(searchHistory);
+getSearchhistory();
 
 function validation(inputfield, display) {
 	if (inputfield.value == "") {
@@ -82,7 +88,7 @@ const nav_searchbar_switch = (e) => {
 const switch_modal_visibility = (e, modal) => {
 	if (modal.open === true) {
 		const rect = modal.getBoundingClientRect();
-		var isInDialog =
+		const isInDialog =
 			rect.top <= e.clientY &&
 			e.clientY <= rect.top + rect.height &&
 			rect.left <= e.clientX &&
@@ -124,6 +130,18 @@ const changePageContent = (tab) => {
 		case "Privacy":
 			settings_content_page.textContent = "";
 			settings_content_page.append(document.getElementById("settings-page-privacy").content.cloneNode(true));
+			const deletesearchhistory_btn = document.getElementById("deletesearchhistory");
+			deletesearchhistory_btn.onclick = () => {
+				fetch("/search/history/deleteall", {
+					method: "post",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({ user: user }),
+				})
+					.then((res) => res.json())
+					.then((data) => displayNotification(data));
+			};
 			break;
 	}
 };
@@ -134,7 +152,7 @@ function ContextmenuLogic() {
 	contextmenu.style.left = this.pageX + "px";
 	contextmenu.style.top = this.pageY + "px";
 	const elementAttr = this.composedPath().find((e) => e.getAttribute("data-track"));
-	console.log(elementAttr)
+	console.log(elementAttr);
 	if (elementAttr) {
 		contextmenu.setAttribute("current", elementAttr.getAttribute("data-track"));
 	}

@@ -72,7 +72,6 @@ const addScrollBtnLogic = () => {
 	const tracks_previous_btn = document.getElementById("row-previous");
 	const tracks_next_btn = document.getElementById("row-next");
 	const tracks = tracks_previous_btn.parentElement.parentElement.parentElement.children[1];
-	console.log(tracks);
 	tracks_next_btn.onclick = function () {
 		tracks.scrollBy({
 			left: tracks.offsetWidth,

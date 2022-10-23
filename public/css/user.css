@@ -1,0 +1,52 @@
+#email-box{
+    color: var(--gray-font-color)
+}
+
+#user-information-header{
+    padding-top: 64px;
+}
+
+#user-information-content{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 64px;
+}
+
+.user-information-item{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 40vw;
+    padding-top: 20px;
+}
+
+.user-information-item > *:first-child {
+    width: 50%;
+    font-size: 20px;
+    box-sizing: border-box;
+}
+
+.user-information-item > *:last-child {
+    width: 50%;
+    box-sizing: border-box;
+}
+
+input {
+    margin: 0 !important;
+}
+
+#tfa {
+    padding-top: 10px;
+    color: var(--gray-font-color);
+}
+
+#savechanges-box{
+    justify-content: center;
+    padding-top: 48px;
+    opacity: 0;
+}
+
+#savechanges-btn {
+    width: 40%;
+}

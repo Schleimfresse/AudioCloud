@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title><%- data.user.username %> | AudioCloud</title>
+		<link rel="stylesheet" href="/css/global.css" />
+		<link rel="stylesheet" href="/css/user.css" />
+		<script defer>
+			const user = {tfa: <%- data.user.tfa %>, email: "<%- data.user.email %>", username: "<%- data.user.username %>", id: "<%- data.user._id %>"};
+		</script>
+		<script defer src="/js/user.js"></script>
+		<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png" />
+		<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png" />
+		<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png" />
+		<link rel="manifest" href="/favicons/site.webmanifest" />
+		<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#3ea6ff" />
+		<meta name="msapplication-TileColor" content="#da532c" />
+		<meta name="theme-color" content="#3ea6ff" />
+	</head>
+	<body>
+		<header id="page-header">
+			<div class="icon-spacing-right" id="menu">
+				<a id="menu-link" href="/">
+					<img
+						class="icons icon-spacing-right"
+						src="/assets/svg/musical-notes-outline.svg"
+						alt="music-note"
+					/>
+					<span class="bold">AudioCloud</span>
+				</a>
+			</div>
+		</header>
+		<main>
+			<div class="center" id="user-information-header">
+				<div>
+					<div>
+						<img height="64px" width="64px" src="/assets/images/profile_images/<%- data.user.img %>" alt="" />
+					</div>
+					<h1>Welcome, <%- data.user.username %></h1>
+					<div id="email-box"><%- data.user.email %></div>
+				</div>
+			</div>
+			<form id="user-information-content">
+				<div id="user-information-username" class="user-information-item">
+					<div>Username</div>
+					<input
+						autocomplete="off"
+						class="std_btn"
+						type="text"
+						name="username"
+						placeholder="Username"
+						value="<%- data.user.username %>"
+					/>
+				</div>
+				<div id="user-information-email" class="user-information-item">
+					<div>Email</div>
+					<div>
+						<input
+							autocomplete="off"
+							class="std_btn"
+							type="email"
+							name="email"
+							placeholder="Email"
+							value="<%- data.user.email %>"
+						/>
+					</div>
+				</div>
+				<div class="user-information-item" id="savechanges-box">
+					<input id="savechanges-btn" class="std_btn" type="submit" value="Save changes" />
+					<div></div>
+				</div>
+			</form>
+		</main>
+	</body>
+</html>

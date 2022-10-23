@@ -31,7 +31,7 @@ const addRecentSong = async () => {
 		};
 		console.log(div);
 		div.querySelector("[link]").href = `./player?v=${e.id}`;
-		div.querySelector("[thumbnail]").src = `/thumbnails/${e.thumbnail}`;
+		div.querySelector("[thumbnail]").src = `/assets/images/${e.thumbnail}`;
 		if (e.type === "playlist") {
 			div.querySelector(
 				"[title]"

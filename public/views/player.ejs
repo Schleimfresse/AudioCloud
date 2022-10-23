@@ -26,7 +26,7 @@
 		<header id="page-header">
 			<div class="icon-spacing-right" id="menu">
 				<a id="menu-link" href="/">
-					<img class="icons icon-spacing-right" src="/svg/musical-notes-outline.svg" alt="music-note" />
+					<img class="icons icon-spacing-right" src="/assets/svg/musical-notes-outline.svg" alt="music-note" />
 					<span class="bold">AudioCloud</span>
 				</a>
 			</div>
@@ -40,7 +40,7 @@
 					<div id="AudioCloud-nav-bar-search-innerwrapper">
 						<form id="AudioCloud-nav-bar-search" action="/search">
 							<div id="input-wrapper">
-								<img id="input-arrow-back" src="/svg/arrow-back-outline.svg" alt="" />
+								<img id="input-arrow-back" src="/assets/svg/arrow-back-outline.svg" alt="" />
 								<input
 									autocomplete="off"
 									class="std_btn no-margin noborder nav-search"
@@ -62,7 +62,7 @@
 								onclick="return validation(this.parentElement.children[0])"
 								type="submit"
 							>
-								<img class="icons nav-search" src="../svg/search-outline.svg" alt="search" />
+								<img class="icons nav-search" src="../assets/svg/search-outline.svg" alt="search" />
 							</button>
 						</form>
 						<div id="searchHistory" class="nav-search"></div>
@@ -70,44 +70,48 @@
 				</div>
 			</div>
 			<div class="center" id="account-icon-container">
-				<img id="account-icon" src="../svg/account.svg" class="icons" alt="account-icon" />
+				<img id="account-icon" src="../assets/svg/account.svg" class="icons" alt="account-icon" />
 			</div>
 			<div id="account-card" visibility="false">
 				<header id="account-card-header">
-					<img id="account-icon" src="../svg/account_filled.svg" class="icons icon-size-large" alt="" />
+					<img id="account-icon" src="../assets/svg/account_filled.svg" class="icons icon-size-large icon-spacing-right"" alt="" /><AudioCloud-Heading><div class="center"><%- data.user.username %></div></AudioCloud-Heading>
 				</header>
 				<div id="first-account-card-inner-wrapper" class="account-card-inner-wrapper">
-					<a id="settings-btn" class="account-item"
-						><div class="account-item-icon"><img class="icons" src="../svg/logout.svg" alt="" /></div>
-						<div class="item-string">Log out</div></a
+					<a href="/profile" class="account-item"
+						><div class="account-item-icon"><img class="icons" src="../assets/svg/account.svg" alt="" /></div>
+						<div class="item-string">Profile</div></a
+					>
+					<a href="/auth/<%- data.user.status.route %>" class="account-item"
+						><div class="account-item-icon"><img class="icons" src="../assets/svg/<%- data.user.status.svg %>.svg" alt="" /></div>
+						<div class="item-string"><%- data.user.status.text %></div></a
 					>
 				</div>
 				<div class="account-card-inner-wrapper">
 					<a id="settings-btn" class="account-item"
-						><div class="account-item-icon"><img class="icons" src="../svg/settings.svg" alt="" /></div>
+						><div class="account-item-icon"><img class="icons" src="../assets/svg/settings.svg" alt="" /></div>
 						<div class="item-string">Settings</div></a
 					>
 					<a href="/history" class="account-item"
 						><div class="account-item-icon">
-							<img class="icons" src="../svg/search-history-outline.svg" alt="" />
+							<img class="icons" src="../assets/svg/search-history-outline.svg" alt="" />
 						</div>
 						<div class="item-string">History</div></a
 					>
 					<a href="/upload" class="account-item"
-						><div class="account-item-icon"><img class="icons" src="../svg/cloud_upload.svg" alt="" /></div>
+						><div class="account-item-icon"><img class="icons" src="../assets/svg/cloud_upload.svg" alt="" /></div>
 						<div class="item-string">Upload</div></a
 					>
 					<a href="/edit" class="account-item"
-						><div class="account-item-icon"><img class="icons" src="../svg/pen.svg" alt="" /></div>
+						><div class="account-item-icon"><img class="icons" src="../assets/svg/pen.svg" alt="" /></div>
 						<div class="item-string">Edit</div></a
 					>
 					<a href="/delete" class="account-item"
-						><div class="account-item-icon"><img class="icons" src="../svg/bin.svg" alt="" /></div>
+						><div class="account-item-icon"><img class="icons" src="../assets/svg/bin.svg" alt="" /></div>
 						<div class="item-string">Delete</div></a
 					>
 					<a href="/impressum" class="account-item"
 						><div class="account-item-icon">
-							<img class="icons" src="../svg/open-in-new-outline.svg" alt="" />
+							<img class="icons" src="../assets/svg/open-in-new-outline.svg" alt="" />
 						</div>
 						<div class="item-string">Impressum</div></a
 					>
@@ -115,9 +119,9 @@
 			</div>
 		</header>
 		<dialog id="settings">
-			<header>
+			<header class="modal_heading">
 				<AudioCloud-Heading> Settings </AudioCloud-Heading>
-				<div><img src="../svg/close.svg" id="settings-close" class="icons iron-icon" alt="close" /></div>
+				<div><img src="../assets/svg/close.svg" id="settings-close" class="icons iron-icon" alt="close" /></div>
 			</header>
 			<div id="settings-page">
 				<div id="settings-listbox">
@@ -157,11 +161,11 @@
 			<div id="video-wrapper">
 				<div id="player-video-controles">
 					<span id="pip-btn" class="player-video-controles-item center">
-						<img src="../svg/miniplayer-sharp.svg" alt="miniplayer" />
+						<img src="../assets/svg/miniplayer-sharp.svg" alt="miniplayer" />
 					</span>
 					<span id="fullscreen-btn" class="player-video-controles-item center"
 						><img
-							src="../svg/fullscreen-sharp.svg"
+							src="../assets/svg/fullscreen-sharp.svg"
 							class="icons player-video-controles-icon icon-size-large"
 							alt="fullscreen"
 					/></span>
@@ -201,7 +205,7 @@
 							</div>
 							<div id="player-controles-basic-btn">
 								<button type="button" class="std-btn-round" id="previous_track">
-									<img class="icons" src="../svg/play-skip-back.svg" alt="skip-back" />
+									<img class="icons" src="../assets/svg/play-skip-back.svg" alt="skip-back" />
 								</button>
 								<button type="button" class="std-btn-round" id="player-play">
 									<svg viewBox="0 0 24 24">
@@ -209,19 +213,19 @@
 									</svg>
 								</button>
 								<button type="button" class="std-btn-round" id="next_track">
-									<img class="icons" src="../svg/play-skip-forward.svg" alt="skip-forward" />
+									<img class="icons" src="../assets/svg/play-skip-forward.svg" alt="skip-forward" />
 								</button>
 							</div>
 						</div>
 						<div id="volume-wrapper">
 							<div>
-								<img id="repeat-btn" class="icons padding" src="../svg/repeat.svg" alt="shuffle" />
+								<img id="repeat-btn" class="icons padding" src="../assets/svg/repeat.svg" alt="shuffle" />
 							</div>
 							<div>
 								<img
 									id="shuffle-btn"
 									class="icons padding iron-icon"
-									src="../svg/shuffle.svg"
+									src="../assets/svg/shuffle.svg"
 									alt="shuffle"
 								/>
 							</div>
@@ -229,14 +233,14 @@
 							<img
 								class="icons padding iron-icon"
 								id="volume_icon"
-								src="../svg/volume-high-outline.svg"
+								src="../assets/svg/volume-high-outline.svg"
 								alt="volume-high"
 							/>
 							<div>
 								<img
 									id="exit_fullscreen_btn"
 									class="icons"
-									src="../svg/fullscreen-exit-sharp.svg"
+									src="../assets/svg/fullscreen-exit-sharp.svg"
 									alt="exit_fullscreen"
 								/>
 							</div>
@@ -283,11 +287,11 @@
 		<template id="searchHistory-Temp">
 			<div class="searchHistory-item nav-search">
 				<div class="searchHistory-item-img nav-search center">
-					<img class="nav-search" height="24px" width="24px" src="/svg/search-history-outline.svg" alt="" />
+					<img class="nav-search" height="24px" width="24px" src="/assets/svg/search-history-outline.svg" alt="" />
 				</div>
 				<div class="nav-search"></div>
 				<div class="center nav-search delete-suggestion ds">
-					<img class="nav-search ds" src="/svg/bin.svg" height="24px" width="24px" alt="" />
+					<img class="nav-search ds" src="/assets/svg/bin.svg" height="24px" width="24px" alt="" />
 				</div>
 			</div>
 		</template>

@@ -15,7 +15,7 @@ function load() {
 		media.forEach((e) => {
 			const div = document.getElementById("card-template").content.cloneNode(true);
 			div.children[0].href = `/player?v=${e.id}`;
-			div.querySelector("[thumbnail]").src = `/thumbnails/${e.thumbnail}`;
+			div.querySelector("[thumbnail]").src = `assets/images/${e.thumbnail}`;
 			div.querySelector("[artist]").textContent = e.artist;
 			div.querySelector("[title]").textContent = e.title;
 			if (e.mime != undefined) {
@@ -31,26 +31,18 @@ function load() {
 	}
 }
 
-const addSearchInputToLocalStorage = () => {
+const addSearchInputToDb = () => {
 	const value = URLparameter.get("query");
 	const mode = URLparameter.get("mode");
-	if (searchHistory.length >= 8) {
-		searchHistory.pop();
-	}
-	let excistingItemIndex = searchHistory.findIndex((e) => {
-		return e.value == value;
+	const searchquery = { value: value, mode: mode, type: "search" };
+	fetch("/search/history", {
+		method: "post",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify({data: searchquery, user: user}),
 	});
-	if (excistingItemIndex != -1) {
-		let excistingItem = searchHistory.splice(excistingItemIndex, 1);
-		obj = excistingItem.shift();
-	} else {
-		obj = { value: value, mode: mode, type: "search" };
-	}
-	console.log("trigger 2", obj);
-	searchHistory.unshift(obj);
-	localStorage.searchHistory = JSON.stringify(searchHistory);
 };
 
+addSearchInputToDb();
 load();
-addSearchInputToLocalStorage();
-pushSearchHistoryInDOM(searchHistory);

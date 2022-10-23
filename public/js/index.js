@@ -23,7 +23,7 @@ async function load() {
 		div.children[0].oncontextmenu = (e) => {
 			ContextmenuLogic.apply(e);
 		};
-		div.querySelector("[thumbnail]").src = `/thumbnails/${e.thumbnail}`;
+		div.querySelector("[thumbnail]").src = `assets/images/${e.thumbnail}`;
 		console.log(e);
 		if (e.type === "playlist") {
 			div.querySelector("[link]").href = `./playlist?list=${e.id}`;

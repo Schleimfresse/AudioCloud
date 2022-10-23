@@ -17,7 +17,7 @@ async function load() {
 			ContextmenuLogic.apply(e);
 		};
 		div.children[0].href = `./player?v=${e.id}`;
-		div.querySelector("[thumbnail]").src = `/thumbnails/${e.thumbnail}`;
+		div.querySelector("[thumbnail]").src = `/assets/images/${e.thumbnail}`;
 		div.querySelector("[artist]").textContent = e.artist;
 		div.querySelector("[title]").textContent = e.title;
 		div.querySelector("[duration]").textContent = e.str_duration;

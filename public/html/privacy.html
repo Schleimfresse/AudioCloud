@@ -21,103 +21,17 @@
 			<div class="icon-spacing-right" id="menu">
 				<div id="menu-wrapper">
 					<a id="menu-link" href="/">
-						<img class="icons icon-spacing-right" src="/svg/musical-notes-outline.svg" alt="music-note" />
+						<img
+							class="icons icon-spacing-right"
+							src="/assets/svg/musical-notes-outline.svg"
+							alt="music-note"
+						/>
 						<span class="bold">AudioCloud</span></a
 					>
 					<span id="sub-page-title">information</span>
 				</div>
 			</div>
-			<div class="AudioCloud-nav-bar">
-				<div class="AudioCloud-nav-bar-item" onclick="window.location.href = '/'">Start</div>
-				<div class="AudioCloud-nav-bar-item" onclick="window.location.href = '/library'">library</div>
-				<div class="AudioCloud-nav-bar-item nav-search" id="nav-search-btn">Search</div>
-				<div id="AudioCloud-nav-bar-search-wrapper">
-					<div id="AudioCloud-nav-bar-search-innerwrapper">
-						<form id="AudioCloud-nav-bar-search" action="/search">
-							<div id="input-wrapper">
-								<img id="input-arrow-back" src="/svg/arrow-back-outline.svg" alt="" />
-								<input
-									autocomplete="off"
-									class="std_btn no-margin noborder nav-search"
-									spellcheck="true"
-									placeholder="Search for music ..."
-									type="search"
-									name="query"
-									id="searchquery_input"
-								/>
-							</div>
-							<input type="hidden" name="mediatype" value="" />
-							<input type="hidden" name="type" value="search" />
-							<select name="mode" class="std_btn no-margin no_padding-top-bot nav-search noborder">
-								<option value="standard">Standard</option>
-								<option value="strict">Strict</option>
-							</select>
-							<button
-								class="std_btn noborder no-margin square_button no_margin_left center nav-search"
-								onclick="return validation(this.parentElement.children[0])"
-								type="submit"
-							>
-								<img class="icons nav-search" src="../svg/search-outline.svg" alt="search" />
-							</button>
-						</form>
-						<div id="searchHistory" class="nav-search"></div>
-					</div>
-				</div>
-			</div>
-			<div class="center" id="account-icon-container">
-				<img id="account-icon" src="../svg/account.svg" class="icons" alt="account-icon" />
-			</div>
-			<div id="account-card" visibility="false">
-				<header id="account-card-header">
-					<img id="account-icon" src="../svg/account_filled.svg" class="icons icon-size-large" alt="" />
-				</header>
-				<a id="settings-btn" class="account-item"
-					><div class="account-item-icon"><img class="icons" src="../svg/settings.svg" alt="" /></div>
-					<div class="item-string">Settings</div></a
-				>
-				<a href="/upload" class="account-item"
-					><div class="account-item-icon"><img class="icons" src="../svg/cloud_upload.svg" alt="" /></div>
-					<div class="item-string">Upload</div></a
-				>
-				<a href="/edit" class="account-item"
-					><div class="account-item-icon"><img class="icons" src="../svg/pen.svg" alt="" /></div>
-					<div class="item-string">Edit</div></a
-				>
-				<a href="/delete" class="account-item"
-					><div class="account-item-icon"><img class="icons" src="../svg/bin.svg" alt="" /></div>
-					<div class="item-string">Delete</div></a
-				>
-			</div>
 		</header>
-		<dialog id="settings">
-			<header class="modal_heading">
-				<AudioCloud-Heading> Settings </AudioCloud-Heading>
-				<div><img src="../svg/close.svg" id="settings-close" class="icons iron-icon" alt="close" /></div>
-			</header>
-			<div id="settings-page">
-				<div id="settings-listbox">
-					<div class="settings-item" data-active="true">General</div>
-					<div class="settings-item">Playback</div>
-					<div class="settings-item">Privacy</div>
-				</div>
-				<div id="settings-content-wrapper">
-					<div id="settings-content-general">
-						<div class="settings-content-row">
-							<div>
-								Audio on playback only
-								<div class="item-string item-paragraph">
-									if disabled and a video track is provided, the video will play. (Needs reload)
-								</div>
-							</div>
-							<label class="switch">
-								<input type="checkbox" id="video_playback_switch" class="checkbox_input" />
-								<span class="slider"></span>
-							</label>
-						</div>
-					</div>
-				</div>
-			</div>
-		</dialog>
 		<main class="article">
 			<h1>Privacy Policy for AudioCloud</h1>
 			<hr />
@@ -133,10 +47,8 @@
 			</p>
 			<p>
 				This Privacy Policy applies only to our online activities and is valid for visitors to our website
-				with regards to the information that they shared and/or collect in AudioCloud. This policy is not
-				applicable to any information collected offline or via channels other than this website. Our Privacy
-				Policy was created with the help of the
-				<a href="https://www.privacypolicygenerator.info/">Free Privacy Policy Generator</a>.
+				with regard to the information that they shared and/or collect in AudioCloud. This policy is not
+				applicable to any information collected offline or via channels other than this website.
 			</p>
 			<h2>Consent</h2>
 			<p>By using our website, you hereby consent to our Privacy Policy and agree to its terms.</p>
@@ -270,7 +182,7 @@
 			<p>
 				AudioCloud does not knowingly collect any Personal Identifiable Information from children under the
 				age of 13. If you think that your child provided this kind of information on our website, we strongly
-				encourage you to contact us immediately and we will do our best efforts to promptly remove such
+				encourage you to contact us immediately, and we will do our best efforts to promptly remove such
 				information from our records.
 			</p>
 		</main>

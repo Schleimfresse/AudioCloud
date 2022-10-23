@@ -90,7 +90,6 @@ a {
 	cursor: pointer;
 	background-color: var(--color);
 	color: var(--standart_gray);
-	border: none;
 	transition: 500ms;
 	border: 1px solid var(--color);
 }
@@ -202,7 +201,6 @@ option {
 
 .img-wrapper {
 	height: 160px;
-	width: 160px;
 	border-radius: 5px;
 	display: flex;
 	align-items: center;
@@ -254,7 +252,7 @@ option {
 
 .box {
 	position: relative;
-	margin: 0px 16px 40px 0;
+	margin: 0 16px 40px 0;
 	width: max-content;
 }
 
@@ -378,6 +376,7 @@ dialog::backdrop {
 
 AudioCloud-Heading {
 	font-size: 20px;
+	display: flex;
 }
 
 #settings-listbox {
@@ -597,7 +596,7 @@ AudioCloud-Heading {
 .delete-suggestion {
 	padding: 0 16px 0 16px;
 	position: absolute;
-	right: 0px;
+	right: 0;
 	cursor: pointer;
 	box-sizing: border-box;
 }
@@ -626,7 +625,7 @@ input[type="search"]::-webkit-search-cancel-button {
 	-webkit-appearance: none;
 	height: 1.2em;
 	width: 1.2em;
-	background: url(/svg/close.svg) no-repeat;
+	background: url(/assets/svg/close.svg) no-repeat;
 	background-size: contain;
 	pointer-events: all;
 	cursor: pointer;
@@ -715,6 +714,7 @@ input[type="search"]::-webkit-search-cancel-button {
 	border: 1px solid var(--border);
 	padding: 20px 10px 20px 10px;
 	opacity: 0;
+	z-index: 10000;
 }
 
 #notification-banner[data-visibility] {

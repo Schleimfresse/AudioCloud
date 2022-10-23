@@ -46,8 +46,8 @@ if (localStorage.getItem("AudioCloud") != null) {
 	recent_volume.value = AudioCloud.volume * 100;
 	repeat = AudioCloud.repeat;
 	if (repeat === "no_repeat") repeat_btn.classList.add("iron-icon");
-	else if (repeat === "repeat_one") repeat_btn.src = "../svg/repeat-one.svg";
-	if (AudioCloud.volume === 0) volume_icon.src = "../svg/volume-off-outline.svg";
+	else if (repeat === "repeat_one") repeat_btn.src = "../assets/svg/repeat-one.svg";
+	if (AudioCloud.volume === 0) volume_icon.src = "../assets/svg/volume-off-outline.svg";
 	recent_volume.style.backgroundSize = JSON.parse(localStorage.getItem("AudioCloud")).volume * 100 + "% 100%";
 	if (AudioCloud.autoplay) {
 		autoplay_checkbox.setAttribute("checked", true);
@@ -119,7 +119,7 @@ function createCard(e, index) {
 		`history.pushState(null, null, '/player?${list}v=${e.id}'); load_track(${index});`
 	);
 	div.children[0].setAttribute("data-song-index", index);
-	div.querySelector("[thumbnail]").src = `/thumbnails/${e.thumbnail}`;
+	div.querySelector("[thumbnail]").src = `/assets/images/${e.thumbnail}`;
 	div.querySelector("[artist]").textContent = e.artist;
 	div.querySelector("[title]").textContent = e.title;
 	div.querySelector("[duration]").textContent = e.str_duration;
@@ -181,7 +181,7 @@ function range_slider() {
 	slider.style.backgroundSize = ((slider.value - slider.min) * 100) / (slider.max - slider.min) + "% 100%";
 
 	media.onended = () => {
-		if (autoplay == true) {
+		if (autoplay === true) {
 			if (repeat === "repeat_one") {
 				media.currentTime = 0;
 				playsong();
@@ -194,7 +194,7 @@ function range_slider() {
 					song_index = 0;
 					load_track(song_index);
 				} else {
-					play.innerHTML = '<img class="icons icon-size-large" src="../svg/play.svg" alt="play" />';
+					play.innerHTML = '<img class="icons icon-size-large" src="../assets/svg/play.svg" alt="play" />';
 				}
 			}
 		}
@@ -291,8 +291,6 @@ volume_icon.addEventListener("click", mute_sound);
 
 autoplay_checkbox.addEventListener("click", autoplay_switch);
 
-//slider.addEventListener("change", change_duration());
-
 slider.addEventListener("input", change_duration);
 
 play.addEventListener("click", justplay);
@@ -330,13 +328,13 @@ function switch_repeat() {
 	switch (repeat) {
 		case "repeat":
 			repeat = "repeat_one";
-			repeat_btn.src = "../svg/repeat-one.svg";
+			repeat_btn.src = "../assets/svg/repeat-one.svg";
 			ls.repeat = repeat;
 			localStorage.setItem("AudioCloud", JSON.stringify(ls));
 			break;
 		case "repeat_one":
 			repeat = "no_repeat";
-			repeat_btn.src = "../svg/repeat.svg";
+			repeat_btn.src = "../assets/svg/repeat.svg";
 			ls.repeat = repeat;
 			localStorage.setItem("AudioCloud", JSON.stringify(ls));
 			repeat_btn.classList.add("iron-icon");
@@ -383,11 +381,11 @@ function load_track(index) {
 	Artist.innerText = Playlist[index].artist;
 	Description.innerHTML = Playlist[index].desc;
 	media.load();
-	video.poster = `/thumbnails/${Playlist[index].thumbnail}`;
+	video.poster = `/assets/images/${Playlist[index].thumbnail}`;
 	if (videoPlayback) {
-		media.src = `/Media/${Playlist[index].name}`;
+		media.src = `/assets/media/${Playlist[index].name}`;
 	} else {
-		media.src = `/Media/${Playlist[index].name}`;
+		media.src = `/assets/media/${Playlist[index].name}`;
 	}
 	if (Playlist[index].mime.mime.includes("audio")) {
 		hideMiniplayer();
@@ -439,9 +437,9 @@ function volume_change(value) {
 	media.volume = JSON.parse(localStorage.getItem("AudioCloud")).volume;
 	recent_volume.style.backgroundSize = JSON.parse(localStorage.getItem("AudioCloud")).volume * 100 + "% 100%";
 	if (media.volume === 0) {
-		volume_icon.src = "../svg/volume-off-outline.svg";
+		volume_icon.src = "../assets/svg/volume-off-outline.svg";
 	} else {
-		volume_icon.src = "../svg/volume-high-outline.svg";
+		volume_icon.src = "../assets/svg/volume-high-outline.svg";
 	}
 }
 
@@ -449,13 +447,13 @@ function mute_sound() {
 	if (media.muted === false) {
 		media.muted = true;
 		recent_volume.value = 0;
-		volume_icon.src = "../svg/volume-mute-outline.svg";
+		volume_icon.src = "../assets/svg/volume-mute-outline.svg";
 		recent_volume.style.backgroundSize = "0% 100%";
 	} else {
 		if (media.volume === 0) {
-			volume_icon.src = "../svg/volume-off-outline.svg";
+			volume_icon.src = "../assets/svg/volume-off-outline.svg";
 		} else {
-			volume_icon.src = "../svg/volume-high-outline.svg";
+			volume_icon.src = "../assets/svg/volume-high-outline.svg";
 		}
 		media.muted = false;
 		media.volume = JSON.parse(localStorage.getItem("AudioCloud")).volume;
@@ -495,13 +493,13 @@ function shuffle_f(array) {
 	song_index = 0;
 	let currentIndex = array.length,
 		randomIndex;
-	while (currentIndex != 0) {
+	while (currentIndex !== 0) {
 		randomIndex = Math.floor(Math.random() * currentIndex);
 		currentIndex--;
 		[array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
 	}
 	next_medium_list.textContent = "";
-	index = 0;
+	let index = 0;
 	createCard(currentMedium, index);
 	document.querySelector(`[data-song-index="0"]`).setAttribute("data-current-song", true);
 	array.forEach((e) => {

@@ -71,8 +71,56 @@ PiP through media
 ----> bei Anfrage alle ausgeben
 -> UI fixen [+]
 
--> bei edit werden die searchHistory ergebnisse nicht editiert
-
 -> Impress
 
--> Backend: Image überprüfen -> wenn image fill vorhanden und man added image -> error [+] (Path "/public" missing)
+-> Backend: Image überprüfen -> wenn image fill vorhanden und man added image -> error [+](Path "/public" missing)
+
+-> Bug hunting
+
+## User Auth and user sys
+
+- UserAuth project beenden [+]
+- UserAuth code intigrieren (noch nicht einbinden) [+]
+- dann einbinden (soft) [+]
+- frontend erstellen
+  - neue file
+  - restliche Seiten menu / nav changes
+- frontend mit UserAuth verbinden
+
+- ### UserAuth project im Folder lassen und als module adden? [positive, +]
+
+root/UserAuth \
+root/src/UserAuth
+
+- src folder adden [+]
+  - mit middleware
+  - routes
+  - lib
+  - etc
+
+  - app.use("/auth", UserAuth.userRoutes.router) versperrt zugang zu anderen Routern [+] (weirder Bug, hat sich von selbst behoben nachdem ich diese Notz verfasst habe) (läd manchmal sehr lange)
+  - -> AudioCloud Router von Classen zu Objecten converten [+]
+
+-> Ts convertierung [+]
+
+.d.ts [I]
+userAuth interface -> html, css, js (siehe Z.87) [+]
+
+->  libary für Benutzer personalisieren [III]
+ - Name auf allen Seiten im Menu anzeigen (middleware) [+]
+ - Libary Profilpicture
+ - login or logout status erkennen [+]
+
+ -> on delete/edit searchHistory db updaten [II]
+
+ -> verifyToken
+ - nicht logged in auch reinlassen auf spzl. Seiten [soft] <-- überarbeiten -> causes infinite loop [middleware next() was missing] [+]
+ - nicht elogged in abblocken -> not logged in page [hard] [+]
+
+ -> Email verify
+
+ # FATAL Database seems not to work [database.loadDatabase() was not called [+]]
+
+ -> profile
+ -> login svg img
+ -> menu btns verstecken wenn nicht eingelogged

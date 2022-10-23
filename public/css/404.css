@@ -1,0 +1,87 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400&display=swap");
+* {
+  font-family: "Montserrat", sans-serif;
+  transition: 250ms;
+  overflow: hidden;
+  --standart_gray: #171717;
+  --header: #171717;
+  --todo-bg: rgba(0, 0, 0, 0.2);
+  --darker_gray: #6e6e6e;
+  --border-color: #404040;
+  --color: #fff;
+  --shadow: 0px 3px 6px 0px rgba(107, 107, 107, 40%),
+    0px 1px 3px 0px rgb(0 0 0 / 8%);
+}
+
+body,
+html {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  width: 100%;
+  background-color: var(--standart_gray);
+  color: var(--color);
+}
+#wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+#fourzerofour {
+  font-size: 20em;
+  filter: drop-shadow(30px 10px 4px rgba(0, 0, 0, 0.5));
+  cursor: pointer;
+}
+#desc {
+  font-size: 2em;
+  text-align: center;
+  max-width: 95%;
+}
+#backhome-bt {
+  border-radius: 50px;
+  padding-left: 30px;
+  padding-right: 30px;
+  font-size: 1.5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2em;
+  cursor: pointer;
+  background-color: var(--color);
+  color: var(--standart_gray);
+  transition: 500ms;
+  border: 1px solid var(--color);
+}
+
+#backhome-bt:hover {
+  color: var(--color);
+  background-color: var(--standart_gray);
+  transition: 500ms;
+}
+@keyframes gradient {
+  0% {
+    color: rgb(15, 0, 180);
+  }
+  20% {
+    color: rgb(184, 14, 178);
+  }
+  40% {
+    color: rgb(175, 14, 14);
+  }
+  60% {
+    color: rgb(182, 190, 16);
+  }
+  80% {
+    color: rgb(16, 201, 56);
+  }
+  100% {
+    color: rgb(25, 0, 180);
+  }
+}
+.gradient {
+  animation: gradient infinite 5s;
+}
