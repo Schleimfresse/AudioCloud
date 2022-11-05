@@ -22,12 +22,8 @@ signup.post = (req, res) => {
 			return;
 		}
 		lib.database.loadDatabase();
-		res.status(200).render(__dirname + "/public/views/auth.ejs", {
-			heading: `Success`,
-			desc: `You have successfully signed up as ${user.username}`,
-			type: "Home",
-			link: "",
-		});
+		signin.post(req, res)
+
 	});
 };
 

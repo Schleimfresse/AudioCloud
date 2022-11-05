@@ -6,7 +6,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Signup | AudioCloud</title>
 		<link rel="stylesheet" href="/css/global.css" />
-        <script defer src="/js/auth/signup.js"></script>
+		<link rel="stylesheet" href="/css/auth.css" />
+		<script defer src="/js/auth/signup.js"></script>
 		<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png" />
 		<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png" />
 		<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png" />
@@ -19,19 +20,29 @@
 		<header id="page-header">
 			<div class="icon-spacing-right" id="menu">
 				<a id="menu-link" href="/">
-					<img class="icons icon-spacing-right" src="/assets/svg/musical-notes-outline.svg" alt="music-note" />
+					<img
+						class="icons icon-spacing-right"
+						src="/assets/svg/musical-notes-outline.svg"
+						alt="music-note"
+					/>
 					<span class="bold">AudioCloud</span>
 				</a>
 			</div>
 		</header>
 		<main>
-			<form id="signup_form" method="post" action="/auth/signup">
-                <input class="std_btn" type="text" name="username" placeholder="Username" required>
-                <input class="std_btn" type="email" name="email" placeholder="Email" required>
-                <input class="std_btn" type="password" name="password" placeholder="Password" required>
-                <input class="std_btn" type="submit" value="Sign up">
-            </form>
-			<div>Do you already have an account? <a href="/auth/signin" class="link_std">Login here!</a></div>
+			<div class="box">
+				<form id="signup_form">
+					<input class="std_btn" type="text" id="username" placeholder="Username" required />
+					<input class="std_btn" type="email" id="email" placeholder="Email" required />
+					<input class="std_btn" type="password" id="password" placeholder="Password" required />
+					<input class="std_btn" type="submit" value="Sign up" />
+				</form>
+				<div>Do you already have an account? <a href="/auth/signin" class="link_std">Login here!</a></div>
+				<div id="response-box">
+					<h3></h3>
+					<div></div>
+				</div>
+			</div>
 		</main>
 	</body>
 </html>

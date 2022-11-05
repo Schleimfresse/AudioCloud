@@ -38,13 +38,13 @@
 		"jsonwebtoken": "^8.5.1",
 		"nedb": "^1.8.0",
 		"nodemailer": "^6.8.0",
-		"nodemon": "^2.0.19",
 		"uniqid": "^5.4.0"
 	},
 	"devDependencies": {
 		"@types/fluent-ffmpeg": "^2.1.20",
 		"@types/nedb": "^1.8.12",
 		"@types/node": "^18.11.2",
-		"@types/nodemailer": "^6.4.6"
+		"@types/nodemailer": "^6.4.6",
+		"nodemon": "^2.0.19"
 	}
 }

@@ -7,6 +7,6 @@ router.get("/", [UserAuth.middleware.authJwt.verifyToken, UserAuth.middleware.au
 
 router.post("/",[UserAuth.middleware.authJwt.verifyToken, UserAuth.middleware.authJwt.setUser], Verify.post)
 
-router.get("/activate", [UserAuth.middleware.authJwt.verifyToken, UserAuth.middleware.authJwt.setUser], Verify.activate)
+router.post("/activate", [UserAuth.middleware.authJwt.verifyToken, UserAuth.middleware.authJwt.setUser], Verify.activate)
 
 export default router;

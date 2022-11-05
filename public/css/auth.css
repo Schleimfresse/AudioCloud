@@ -44,3 +44,63 @@ input[type="number"] {
 	outline: none;
 	border: 2px solid #fff;
 }
+
+.box {
+	width: 300px;
+	padding: 30px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background: rgba(0, 0, 0, 0.4);
+	text-align: center;
+}
+.box h1 {
+	color: white;
+	text-transform: capitalize;
+	font-weight: 700;
+}
+
+.box input[type="text"],
+.box input[type="password"],
+.box input[type="email"] {
+	border: 0px;
+	background: none;
+	display: block;
+	margin: 20px auto;
+	text-align: center;
+	border: 2px solid var(--second-theme-color);
+	padding: 14px 10px;
+	width: 220px;
+	outline: none;
+	color: white;
+	border-radius: 24px;
+	transition: 0.25px;
+}
+
+.box input[type="submit"] {
+	border: 0;
+	background: none;
+	display: block;
+	margin: 20px auto;
+	text-align: center;
+	padding: 14px 10px;
+	width: 220px;
+	outline: none;
+	color: white;
+	border-radius: 24px;
+	cursor: pointer;
+}
+
+.box input[type="submit"]:hover {
+	background: var(--second-theme-color);
+}
+
+.box input[type="text"]:focus,
+.box input[type="email"]:focus,
+.box input[type="password"]:focus {
+	width: 270px;
+	color: var(--second-theme-color);
+	border-color: var(--second-theme-color);
+}
+

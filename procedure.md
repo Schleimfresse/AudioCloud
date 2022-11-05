@@ -115,7 +115,7 @@ userAuth interface -> html, css, js (siehe Z.87) [+]
 
  -> verifyToken
  - nicht logged in auch reinlassen auf spzl. Seiten [soft] <-- überarbeiten -> causes infinite loop [middleware next() was missing] [+]
- - nicht elogged in abblocken -> not logged in page [hard] [+]
+ - nicht einged in abblocken -> not logged in page [hard] [+]
 
  -> Email verify
 
@@ -124,3 +124,5 @@ userAuth interface -> html, css, js (siehe Z.87) [+]
  -> profile
  -> login svg img
  -> menu btns verstecken wenn nicht eingelogged
+
+# Project deployen -> Email server

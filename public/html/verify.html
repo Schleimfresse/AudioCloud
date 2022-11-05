@@ -4,7 +4,7 @@
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Signup | AudioCloud</title>
+		<title>Verify | AudioCloud</title>
 		<link rel="stylesheet" href="/css/global.css" />
         <link rel="stylesheet" href="/css/auth.css">
         <script defer src="/js/auth/verify.js"></script>
@@ -28,9 +28,10 @@
 		<main class="center">
 			<div>
 				<h3>Your verification code has been send!</h3>
-                <form action="/verify" method="post">
-                    <input type="number" id="std_num" placeholder="Your verify code" onkeydown="limit(this, 6);" onkeyup="limit(this, 6);" onkeyup="this.value = minmax(this.value, 0, 6)" required>
-                </form>
+                <form action="/verify/activate" method="post">
+                    <input type="number" name="code" id="std_num" placeholder="Your verify code" onkeydown="limit(this, 6);" onkeyup="limit(this, 6);" onkeyup="this.value = minmax(this.value, 0, 6)" required>
+					<input type="submit">
+				</form>
 				<a id="resend">Click here to resend</a>
             </div>
 		</main>

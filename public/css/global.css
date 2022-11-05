@@ -1,4 +1,4 @@
-/*@import url("https://fonts.googleapis.com/css2?family=Montserrat");*/
+@import url("https://fonts.googleapis.com/css2?family=Montserrat");
 * {
 	font-family: "Montserrat", sans-serif;
 	color: white;
@@ -16,6 +16,7 @@
 	--AudioCloud-nav-bar: #747474;
 	--disabled: rgba(255, 255, 255, 0.3);
 	--theme-color: #1994ff;
+	--second-theme-color: #ffc400;
 	transition: 250ms all;
 }
 

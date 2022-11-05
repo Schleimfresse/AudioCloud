@@ -2,6 +2,12 @@ import jwt from "jsonwebtoken";
 import config from "../config/auth.config.mjs";
 import lib from "../lib/lib.mjs";
 
+/**
+ * Verifies the tokens the diffrence to the `verifyTokenSoft` function is that if no token is provided the requested page will be blocked and can not be accessed
+ * @param req express request
+ * @param res express response
+ * @param next express next
+ */
 const verifyToken = (req, res, next) => {
 	let token = req.session.token;
 	if (!token) {
@@ -28,6 +34,12 @@ const verifyToken = (req, res, next) => {
 	next();
 };
 
+/**
+ * Verifies the tokens the diffrence to the `verifyToken` function is that if no token is provided you still can access the requested page
+ * @param req express request
+ * @param res express response
+ * @param next express next
+ */
 const verifyTokenSoft = (req, res, next) => {
 	console.log("SOFT");
 	let token = req.session.token;
@@ -39,17 +51,21 @@ const verifyTokenSoft = (req, res, next) => {
 	if (token) {
 		jwt.verify(token, config, (err, decoded) => {
 			if (err) {
-				return res.status(401).render(__dirname + "/public/views/auth.ejs", {
-					heading: "Unauthorized!",
-					desc: "Token could not be found",
-					type: "Home",
-					link: "",
-				});
+				req.userId = "";
+				return res
+					.status(401)
+					.render(__dirname + "/public/views/auth.ejs", {
+						heading: "Expired!",
+						desc: "Your token expired click below to login",
+						type: "Login",
+						link: "auth/signin",
+					})
+			} else {
+				req.userId = decoded.id;
+				console.log("req.userId:", req.userId);
+				next();
 			}
-			req.userId = decoded.id;
-			console.log("req.userId:", req.userId);
 		});
-		next();
 	}
 };
 
@@ -67,10 +83,10 @@ const setUser = (req, res, next) => {
 			return;
 		}
 		if (user === null) {
-			req.user = { username: "", status: {text: "Log in", svg: "login", route: "signin"} };
+			req.user = { username: "", status: { text: "Log in", svg: "login", route: "signin" } };
 		} else {
 			req.user = user;
-			req.user.status = {text: "Log out", svg: "logout", route: "signout"}
+			req.user.status = { text: "Log out", svg: "logout", route: "signout" };
 		}
 		next();
 	});
