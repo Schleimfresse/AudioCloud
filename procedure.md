@@ -126,3 +126,5 @@ userAuth interface -> html, css, js (siehe Z.87) [+]
  -> menu btns verstecken wenn nicht eingelogged
 
 # Project deployen -> Email server
+
+Datei Upload via yt-link adden -> controller -> upload.mts
