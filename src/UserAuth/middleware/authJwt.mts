@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import config from "../config/auth.config.mjs";
-import lib from "../lib/lib.mjs";
+import lib from "../Lib/lib.mjs";
 
 /**
  * Verifies the tokens the diffrence to the `verifyTokenSoft` function is that if no token is provided the requested page will be blocked and can not be accessed

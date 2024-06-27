@@ -1,12 +1,12 @@
 {
-    "compilerOptions": {     
-      "module": "ESNext",
-      "target": "ESNext",
-      "sourceMap": true,
-      "moduleResolution": "nodenext",
-      "moduleDetection": "force",
-      "types": ["node"],
-      "allowSyntheticDefaultImports": true,
-      //"outDir": "build"
-    },
+  "compilerOptions": {
+    "module": "NodeNext",
+    "target": "ESNext",
+    "sourceMap": true,
+    "moduleResolution": "nodenext",
+    "moduleDetection": "force",
+    "types": ["node"],
+    "allowSyntheticDefaultImports": true,
+     "outDir": "build" // Optional: Uncomment this if you want to specify the output directory
   }
+}

@@ -1,4 +1,4 @@
-import lib from "../lib/lib.mjs";
+import lib from "../Lib/lib.mjs";
 const checkDuplicateUsernameOrEmail = (req, res, next) => {
 	// Username
 	lib.database.findOne(

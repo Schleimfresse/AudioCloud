@@ -7,6 +7,7 @@
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"start": "nodemon server.mjs",
 		"build": "tsc --module esnext",
+		"buildclean": "rm -rf build dist && tsc --build --clean && tsc --build",
 		"clear": "tsc --build --clean"
 	},
 	"keywords": [
@@ -45,6 +46,8 @@
 		"@types/nedb": "^1.8.12",
 		"@types/node": "^18.11.2",
 		"@types/nodemailer": "^6.4.6",
-		"nodemon": "^2.0.19"
+		"nodemon": "^2.0.19",
+		"ts-node": "^10.9.2",
+		"typescript": "^5.5.2"
 	}
 }

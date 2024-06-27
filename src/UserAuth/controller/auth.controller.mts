@@ -1,5 +1,5 @@
 import config from "../config/auth.config.mjs";
-import lib from "../lib/lib.mjs";
+import lib from "../Lib/lib.mjs";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 
@@ -94,6 +94,7 @@ const signout = async (req, res) => {
 			link: "",
 		});
 	} catch (err) {
+		// @ts-ignore
 		this.next(err);
 	}
 };
